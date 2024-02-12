@@ -1,3 +1,25 @@
+# Чтобы собрать докер образ, надо ввести, находясь в папке проекта, в терминале:
+
+ docker image build -t reactapp:latest, где reactapp - название образа (может быть любым)
+
+# Далее, для запуска докер контейнера с этим докер образом следует ввести команду:
+
+docker run -p 8000:3000 --name reactcontainer reactapp:latest, где reactcontainer - название контейнера (может быть любым)
+
+# После можно будет открыть сайт в браузере по адресу:
+
+http://localhost:8000
+
+# Остановить докер контейнер можно командой:
+
+docker stop container_id, где container_id можно узнать введя команду: docker ps -a. Будут показаны все контейнеры (даже отключенные)
+
+# Удалить контейнер можно командой:
+
+docker rm container_id
+
+# Ниже - дефолтный README, созданный автоматически:
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
