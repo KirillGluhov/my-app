@@ -1,4 +1,9 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\KeyTracingAPI",
+    "\\KeyTracingAPI\\KeyTracingAPI"
+  ],
+  "SelectedNode": "\\KeyTracingAPI\\KeyTracingAPI\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
