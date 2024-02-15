@@ -1,5 +1,5 @@
 ﻿using KeyTracingAPI.Models;
-using KeyTracingAPI.Models.UserModels;
+//using KeyTracingAPI.Models.UserModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +11,36 @@ using Microsoft.AspNetCore.Authentication;
 using System.Net;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Security.Cryptography;
-using KeyTracingAPI.Services.Interfaces;
+//using KeyTracingAPI.Services.Interfaces;
 using KeyTracingAPI.Models.Exceptions;
+//using FoodDelivery2.API.USERS.Models;
+using KeyTracingAPI.JWT;
+using KeyTracingAPI.Database;
 
 namespace KeyTracingAPI.Controllers
 {
-    [Route("api/account/[action]")]
+    [ApiController]
+    [Route("apishka")]
+    public class UsersController() : ControllerBase
+    {
+
+        [HttpPost]
+        [Route("super")]
+        public string getString(string email)
+        {
+            var token = JwtHelper.GetNewToken(email, JwtConfigurations.AccessLifeTime);
+            return token;
+        }
+
+        [HttpPost]
+        [Route("loh")]
+        [Authorize(Policy = "Teacher")]
+        public string login()
+        {
+            return HttpContext.Request.Headers["Authorization"];
+        }
+    }
+    /*[Route("api/account/[action]")]
     [ApiController]
     [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(Response), Description = "InternalServerError")]
     [SwaggerResponse((int)HttpStatusCode.OK)]
@@ -124,5 +148,5 @@ namespace KeyTracingAPI.Controllers
             return Ok("Profile successfully changed");
         }
 
-    }
+    }*/
 }
