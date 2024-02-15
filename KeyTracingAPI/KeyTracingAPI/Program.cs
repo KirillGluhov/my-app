@@ -93,7 +93,8 @@ builder.Services.AddProblemDetails();
 //builder.Services.AddScoped<IUsersService, UsersService>();
 
 // Add database contexts
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 1"));
 
 var app = builder.Build();
 
