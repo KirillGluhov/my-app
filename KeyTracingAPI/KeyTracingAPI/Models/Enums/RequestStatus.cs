@@ -1,5 +1,6 @@
 ﻿namespace KeyTracingAPI.Models.Enums
-{
+{   
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum RequestStatus
     {
         Approved = 1,
