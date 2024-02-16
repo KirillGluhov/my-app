@@ -10,6 +10,7 @@ namespace KeyTracingAPI.Services.Interfaces
         Task<ActionResult<Guid>> CreateRequest(BookingKeyRequestDTO requestDto);
         Task CancelRequest(Guid requestId);
         Task<ActionResult<List<BookingKeyRequestDTO>>> GetAllRequests(GetListOfRequestsQuery query);
+        Task<ActionResult<BookingKeyRequestDTO>> GetRequest(Guid requestId);
         Task ApproveRequest(Guid requestId);
         Task DeclineRequest(Guid requestId);
     }

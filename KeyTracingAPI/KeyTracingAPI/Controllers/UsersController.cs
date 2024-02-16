@@ -21,6 +21,7 @@ using KeyTracingAPI.Models.Entities;
 using KeyTracingAPI.WideUseModels;
 using System.Reflection;
 using KeyTracingAPI.Models.DTO.User;
+using KeyTracingAPI.Models.Enums;
 
 namespace KeyTracingAPI.Controllers
 {
@@ -49,7 +50,7 @@ namespace KeyTracingAPI.Controllers
                 Email = user.Email,
                 Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(user.password)))
                 //token?
-            });
+            });//надо перенести эту логику в сервис
             return response;
         }
 
@@ -94,6 +95,24 @@ namespace KeyTracingAPI.Controllers
             await _userService.EditProfile(user);//token, login (if needed)
 
             return Ok("Profile successfully changed");
+        }
+
+        [HttpGet("/api/users/")]
+        [Authorize(Policy = "Principal")]
+        public async Task<ActionResult<List<UserDTO>>> GetUsers(GetListOfUsersQuery query)
+        {
+            var allUsers = await _userService.GetUsers(query);
+
+            return Ok(allUsers);
+        }
+
+        [HttpPost("/api/users/{userId}/assign-role/{role}")]
+        [Authorize(Policy = "Principal")]
+        public async Task<ActionResult> GetUsers(Guid userId, Role role)
+        {
+            await _userService.ChangeRole(userId, role);
+
+            return Ok("role succesfully changed");
         }
 
         /*[HttpPost]

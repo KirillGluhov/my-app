@@ -8,6 +8,7 @@ namespace KeyTracingAPI.Controllers
 {
     [ApiController]
     [Route("api/requests/[action]")]
+    [Authorize]
     public class RequestsController : ControllerBase
     {
         private readonly IRequestService _requestService;
@@ -26,6 +27,7 @@ namespace KeyTracingAPI.Controllers
             return response;
         }
 
+        [HttpPost]
         [Authorize]
         public async Task<ActionResult<Guid>> CreateRequest([FromBody] BookingKeyRequestDTO requestDto)
         {
@@ -46,11 +48,19 @@ namespace KeyTracingAPI.Controllers
 
         [HttpGet("list")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult> GetAllRequests([FromQuery] GetListOfRequestsQuery query)
+        public async Task<ActionResult<List<BookingKeyRequestDTO>>> GetAllRequests([FromQuery] GetListOfRequestsQuery query)
         {
             var allRequests = await _requestService.GetAllRequests(query);
 
             return Ok(allRequests);
+        }
+        [HttpGet("api/requests/{requestId}")]
+        [Authorize(Policy = "Principal")]
+        public async Task<ActionResult<BookingKeyRequestDTO>> GetRequest(Guid requestId)
+        {
+            var request = await _requestService.GetRequest(requestId);
+
+            return Ok(request);
         }
 
         [HttpPost("api/requests/approve/{requestId}")]
