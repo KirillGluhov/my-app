@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\KeyTracingAPI",
-    "\\KeyTracingAPI\\KeyTracingAPI"
+    "\\KeyTracingAPI\\KeyTracingAPI",
+    "\\my-app"
   ],
   "SelectedNode": "\\KeyTracingAPI\\KeyTracingAPI\\Program.cs",
   "PreviewInSolutionExplorer": false

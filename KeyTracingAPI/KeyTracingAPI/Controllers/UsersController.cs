@@ -16,41 +16,20 @@ using KeyTracingAPI.Models.Exceptions;
 //using FoodDelivery2.API.USERS.Models;
 using KeyTracingAPI.JWT;
 using KeyTracingAPI.Database;
+using KeyTracingAPI.Services.Interfaces;
+using KeyTracingAPI.Models.Entities;
+using KeyTracingAPI.WideUseModels;
+using System.Reflection;
+using KeyTracingAPI.Models.DTO.User;
 
 namespace KeyTracingAPI.Controllers
 {
     [ApiController]
-    [Route("apishka")]
-    public class UsersController() : ControllerBase
-    {
-
-        [HttpPost]
-        [Route("super")]
-        public string getString(string email)
-        {
-            var token = JwtHelper.GetNewToken(email, JwtConfigurations.AccessLifeTime);
-            return token;
-        }
-
-        [HttpPost]
-        [Route("loh")]
-        [Authorize(Policy = "Teacher")]
-        public string login()
-        {
-            return HttpContext.Request.Headers["Authorization"];
-        }
-    }
-    /*[Route("api/account/[action]")]
-    [ApiController]
-    [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(Response), Description = "InternalServerError")]
-    [SwaggerResponse((int)HttpStatusCode.OK)]
-    [SwaggerResponse((int)HttpStatusCode.BadRequest)]
-
+    [Route("api/auth/[action]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUsersService _userService;
-
-        public UsersController(IUsersService userService)
+        private readonly IUserService _userService;
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
@@ -64,15 +43,12 @@ namespace KeyTracingAPI.Controllers
             }
             var response = await _userService.Register(new User
             {
-                NameId = new Guid(),
-                dbName = user.email,
-                FullName = user.FullName,
-                email = user.email,
-                password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(user.password))),
-                Gender = Gender.Male,
-                BirthDate = user.BirthDate,
-                AddressId = user.AddressId,
-                phoneNumber = user.phoneNumber,
+                Id = new Guid(),
+                NormalizedName = user.FullName,
+                FullName = user.FullName.Normalize(),
+                Email = user.Email,
+                Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(user.password)))
+                //token?
             });
             return response;
         }
@@ -84,13 +60,11 @@ namespace KeyTracingAPI.Controllers
 
             return await _userService.Login(login);
         }
-            
-        [Authorize]
+
         [HttpPost]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        [SwaggerResponse((int)HttpStatusCode.Forbidden)]
         public async Task<ActionResult> logout()
         {
+            //token?
             var token = await HttpContext.GetTokenAsync("access_token");
             if (token == null)
             {
@@ -104,49 +78,38 @@ namespace KeyTracingAPI.Controllers
 
         [Authorize]
         [HttpGet]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        [SwaggerResponse((int)HttpStatusCode.Forbidden)]
         [Route("/api/account/profile")]
         public async Task<UserDTO> GetProfile()
         {
-            //for some reason claim name changes to this
-            var dbName = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-            if (dbName == null)
-            {
-                throw new InvalidTokenException("Token not found");
-            }
-
-            var token = await HttpContext.GetTokenAsync("access_token");
-            if (token == null)
-            {
-                throw new InvalidTokenException("Token not found");
-            }
-
-            var response = await _userService.GetProfile(dbName, token);
+            var response = await _userService.GetProfile();//token, login (if needed)
 
             return response;
         }
 
         [Authorize]
         [HttpPut]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        [SwaggerResponse((int)HttpStatusCode.Forbidden)]
         [Route("/api/account/profile")]
         public async Task<ActionResult> PutProfile([FromBody] UserEditModel user)
         {
-            var dbName = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-
-            var token = await HttpContext.GetTokenAsync("access_token");
-            if (token == null)
-            {
-                throw new InvalidTokenException("Token not found");
-            }
-
-
-            await _userService.EditProfile(user, dbName, token);
+            await _userService.EditProfile(user);//token, login (if needed)
 
             return Ok("Profile successfully changed");
         }
 
-    }*/
+        /*[HttpPost]
+        public string login(string email)
+        {
+            var token = JwtHelper.GetNewToken(email, JwtConfigurations.AccessLifeTime);
+            return token;
+        }
+
+        [HttpPost]
+        [Route("loh")]
+        [Authorize(Policy = "Teacher")]
+        public string authorize()
+        {
+            return HttpContext.Request.Headers["Authorization"];
+        }*/
+    }
+
 }

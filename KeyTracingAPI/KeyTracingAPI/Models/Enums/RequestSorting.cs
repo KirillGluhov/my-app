@@ -1,12 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace KeyTracingAPI.Models.Enums
-{   
+{
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum RequestStatus
+    public enum RequestSorting
     {
-        Approved = 1,
-        InProcess = 2,
-        Declined = 3
+        DateAsc = 1,
+        DateDesc = 2,
+        AuditoryAsc = 3,
+        AuditoryDesc = 4
     }
 }
