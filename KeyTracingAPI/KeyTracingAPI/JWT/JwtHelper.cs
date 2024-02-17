@@ -7,24 +7,24 @@ namespace KeyTracingAPI.JWT
 {
     public static class JwtHelper
     {
-        public static ClaimsIdentity GetClaimsIdentity(string login, Role userRole)
+        public static ClaimsIdentity GetClaimsIdentity(string email, Role userRole)
         {
             return new ClaimsIdentity(new[]
             {
-                new Claim("UserLogin", login),
+                new Claim(JwtRegisteredClaimNames.Email, email),
                 new Claim("UserRole", userRole.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             });
         }
 
-        public static string GetNewToken(string login, int lifeTime, Role userRole = Role.Student)
+        public static string GetNewToken(string email, int lifeTime, Role userRole = Role.Student)
         {
             var issuer = JwtConfigurations.Issuer;
             var audience = JwtConfigurations.Audience;
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = GetClaimsIdentity(login, userRole),
+                Subject = GetClaimsIdentity(email, userRole),
                 Issuer = issuer,
                 Audience = audience,
                 Expires = DateTime.UtcNow.AddMinutes(lifeTime),
