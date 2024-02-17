@@ -51,6 +51,8 @@ namespace KeyTracingAPI.Controllers
                 Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(user.password)))
                 //token?
             });//надо перенести эту логику в сервис
+
+            //в response на регистрацию необходим только токен, свои данные юзер может и так посмотреть, из профиля
             return response;
         }
 
@@ -107,7 +109,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpPost("/api/users/{userId}/assign-role/{role}")]
-        [Authorize(Policy = "Principal")]
+        [Authorize(Policy = "Admin")]
         public async Task<ActionResult> GetUsers(Guid userId, Role role)
         {
             await _userService.ChangeRole(userId, role);

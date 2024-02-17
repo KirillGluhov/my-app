@@ -22,7 +22,7 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 {
     options.SuppressMapClientErrors = true;
 });
-//builder.Services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -81,6 +81,7 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy(Role.Teacher.ToString(), p => p.RequireClaim("UserRole", Role.Teacher.ToString()));
     options.AddPolicy(Role.Principal.ToString(), p => p.RequireClaim("UserRole", Role.Principal.ToString()));
+    options.AddPolicy(Role.Admin.ToString(), p => p.RequireClaim("UserRole", Role.Admin.ToString()));
 });
 
 

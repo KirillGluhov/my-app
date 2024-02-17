@@ -2,6 +2,7 @@
 using KeyTracingAPI.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using KeyTracingAPI.WideUseModels;
+using KeyTracingAPI.Models.ManyToMany;
 
 namespace KeyTracingAPI.Models.Entities
 {
@@ -25,5 +26,6 @@ namespace KeyTracingAPI.Models.Entities
         public Role UserRole { get; set; } = Role.Student;
 
         public Token? UserToken { get; set; }
+        public ICollection<KeySlotsRepetitiveRequest> UserKeySlots { get; } = new List<KeySlotsRepetitiveRequest>();
     }
 }

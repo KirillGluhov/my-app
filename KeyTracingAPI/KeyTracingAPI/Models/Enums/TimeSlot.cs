@@ -1,5 +1,8 @@
-﻿namespace KeyTracingAPI.Models.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace KeyTracingAPI.Models.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum TimeSlot
     {
         S8E10 = 1,
