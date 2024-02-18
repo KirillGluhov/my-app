@@ -20,7 +20,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<BookingKeyRequestDTO>>> GetUserRequests()
+        public async Task<ActionResult<List<BookingKeyRequestDTOForUser>>> GetUserRequests()
         {
             var response = await _requestService.GetUserRequests();//token, login (if needed)
 
@@ -29,7 +29,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Guid>> CreateRequest([FromBody] BookingKeyRequestDTO requestDto)
+        public async Task<ActionResult<Guid>> CreateRequest([FromBody] BookingKeyRequestCreationForm requestDto)
         {
             //token, login, userid (if needed)
             var requestId = await _requestService.CreateRequest(requestDto);
@@ -48,7 +48,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpGet("list")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult<List<BookingKeyRequestDTO>>> GetAllRequests([FromQuery] GetListOfRequestsQuery query)
+        public async Task<ActionResult<List<BookingKeyRequestDTOForPrincipal>>> GetAllRequests([FromQuery] GetListOfRequestsQuery query)
         {
             var allRequests = await _requestService.GetAllRequests(query);
 
@@ -56,7 +56,7 @@ namespace KeyTracingAPI.Controllers
         }
         [HttpGet("api/requests/{requestId}")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult<BookingKeyRequestDTO>> GetRequest(Guid requestId)
+        public async Task<ActionResult<BookingKeyRequestDTOForPrincipal>> GetRequest(Guid requestId)
         {
             var request = await _requestService.GetRequest(requestId);
 

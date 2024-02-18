@@ -2,7 +2,7 @@
 {
     public class KeyCreateForm
     {
-        public Guid Building { get; set; }
+        //public Guid Building { get; set; }
         public string Auditory { get; set; }
     }
 }

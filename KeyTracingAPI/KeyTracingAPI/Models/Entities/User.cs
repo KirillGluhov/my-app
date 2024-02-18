@@ -26,6 +26,6 @@ namespace KeyTracingAPI.Models.Entities
         public Role UserRole { get; set; } = Role.Student;
 
         public Token? UserToken { get; set; }
-        public ICollection<KeySlotsRepetitiveRequest> UserKeySlots { get; } = new List<KeySlotsRepetitiveRequest>();
+        public ICollection<BookingKeyRequest> UserSlots { get; } = new List<BookingKeyRequest>();
     }
 }

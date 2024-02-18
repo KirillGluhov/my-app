@@ -9,7 +9,7 @@ namespace KeyTracingAPI.Models.ManyToMany
         public Guid KeyId { get; set; }
         public TimeSlot TimeSlot { get; set; }
 
-        public User User { get; set; } = null!;
-        public Key Key { get; set; } = null!;
+        public Guid RequestId { get; set; }
+        public BookingKeyRequest BookingKeyRequest = null!;
     }
 }

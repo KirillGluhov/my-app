@@ -11,6 +11,6 @@ namespace KeyTracingAPI.Models.Entities
         public string Auditory { get; set; }
         public bool IsInPrincipalOffice { get; set; } = true;
 
-        public ICollection<KeySlotsRepetitiveRequest> KeyKeySlots { get; } = new List<KeySlotsRepetitiveRequest>();
+        public ICollection<BookingKeyRequest> KeySlots { get; } = new List<BookingKeyRequest>();
     }
 }

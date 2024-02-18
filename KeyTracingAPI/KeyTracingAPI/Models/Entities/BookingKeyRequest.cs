@@ -1,4 +1,5 @@
 ﻿using KeyTracingAPI.Models.Enums;
+using KeyTracingAPI.Models.ManyToMany;
 using System.ComponentModel.DataAnnotations;
 
 namespace KeyTracingAPI.Models.Entities
@@ -24,5 +25,8 @@ namespace KeyTracingAPI.Models.Entities
         //появляется или удаляется запись для конкретного юзера, ключа и тайм слота, и если в этой таблице есть заявка на такую аудиторию на такое время, то никто больше не может отправлять заявки на эту аудиторию на такое время
 
         public BookedKey? BookedKeyInstance { get; set; }
+        public KeySlotsRepetitiveRequest? RepetitiveRequestInstance { get; set; }
+        public User User { get; set; } = null!;
+        public Key Key { get; set; } = null!;
     }
 }

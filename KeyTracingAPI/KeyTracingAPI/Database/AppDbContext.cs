@@ -41,19 +41,23 @@ namespace KeyTracingAPI.Database
                 .WithOne(BKI => BKI.BookingKeyRequest)
                 .HasForeignKey<BookedKey>(BKI => BKI.RequestId)
                 .IsRequired();
+            modelBuilder.Entity<BookingKeyRequest>()
+                .HasOne(BKR => BKR.RepetitiveRequestInstance)
+                .WithOne(RRI => RRI.BookingKeyRequest)
+                .HasForeignKey<KeySlotsRepetitiveRequest>(RRI => RRI.RequestId)
+                .IsRequired();
 
-
-            //ne uveren kak pravilno 
-            modelBuilder.Entity<KeySlotsRepetitiveRequest>()
-                .HasKey(KSRR => new { KSRR.UserId, KSRR.KeyId, KSRR.TimeSlot });
-            modelBuilder.Entity<KeySlotsRepetitiveRequest>()
-                .HasOne(KSRR => KSRR.User)
-                .WithMany(u => u.UserKeySlots)
-                .HasForeignKey(KSRR => KSRR.UserId);
-            modelBuilder.Entity<KeySlotsRepetitiveRequest>()
-                .HasOne(KSRR => KSRR.Key)
-                .WithMany(k => k.KeyKeySlots)
-                .HasForeignKey(KSRR => KSRR.KeyId);
+            //ne uveren kak pravilno, dolzno bit mnogie ko mnogim
+            modelBuilder.Entity<BookingKeyRequest>()
+                .HasOne(BKR => BKR.User)
+                .WithMany(u => u.UserSlots)
+                .HasForeignKey(BKR => BKR.UserId)
+                .IsRequired();
+            modelBuilder.Entity<BookingKeyRequest>()
+                .HasOne(BKR => BKR.Key)
+                .WithMany(k => k.KeySlots)
+                .HasForeignKey(BKR => BKR.KeyId)
+                .IsRequired();
         }
     }
 }

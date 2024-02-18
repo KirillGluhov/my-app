@@ -5,14 +5,11 @@ namespace KeyTracingAPI.Models.DTO.Key
 {
     public class GetListOfKeysQuery
     {
-        public List<TimeSlot> Roles { get; set; } = new List<TimeSlot>();
+        public List<TimeSlot> Roles { get; } = new List<TimeSlot>();
         public string Auditory { get; set; }
-        public bool IsItPrincipal {  get; set; } //добавлять BookedKey
+        public bool IsInPrincipal {  get; set; } //добавлять BookedKey
 
         [EnumDataType(typeof(RequestSorting))]
         public RequestSorting Sorting { get; set; }
-
-        [EnumDataType(typeof(KeyStatus))]
-        public KeyStatus Status { get; set; }
     }
 }

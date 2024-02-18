@@ -6,11 +6,11 @@ namespace KeyTracingAPI.Services.Interfaces
     public interface IRequestService
     {
         //token, login (if needed)
-        Task<ActionResult<List<BookingKeyRequestDTO>>> GetUserRequests();
-        Task<ActionResult<Guid>> CreateRequest(BookingKeyRequestDTO requestDto);
+        Task<ActionResult<List<BookingKeyRequestDTOForUser>>> GetUserRequests();
+        Task<ActionResult<Guid>> CreateRequest(BookingKeyRequestCreationForm requestDto);
         Task CancelRequest(Guid requestId);
-        Task<ActionResult<List<BookingKeyRequestDTO>>> GetAllRequests(GetListOfRequestsQuery query);
-        Task<ActionResult<BookingKeyRequestDTO>> GetRequest(Guid requestId);
+        Task<ActionResult<List<BookingKeyRequestDTOForPrincipal>>> GetAllRequests(GetListOfRequestsQuery query);
+        Task<ActionResult<BookingKeyRequestDTOForPrincipal>> GetRequest(Guid requestId);
         Task ApproveRequest(Guid requestId);
         Task DeclineRequest(Guid requestId);
     }
