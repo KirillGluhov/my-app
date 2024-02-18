@@ -97,9 +97,12 @@ builder.Services.AddScoped<IUserService, UserServices>();
 
 // Add database contexts
 builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 1"));
+    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 200220042010"));
 
 var app = builder.Build();
+/*using var serviceScope = app.Services.CreateScope();
+var DbContext = serviceScope.ServiceProvider.GetService<AppDbContext>();
+DbContext?.Database.Migrate();*/
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();

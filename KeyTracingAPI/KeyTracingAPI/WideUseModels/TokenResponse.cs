@@ -6,6 +6,5 @@ namespace KeyTracingAPI.WideUseModels
     {
         [Required(AllowEmptyStrings = false)]
         public string AccessToken { get; set; } = null!;
-        public string RefreshToken { get; set; } = null!;
     }
 }

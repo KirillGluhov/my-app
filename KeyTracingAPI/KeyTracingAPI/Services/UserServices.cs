@@ -36,7 +36,9 @@ namespace KeyTracingAPI.Services
 
         private async Task _IsTokenValid(string token)
         {
-            var alreadyExistsToken = await _context.Tokens.FirstOrDefaultAsync(x => x.AccessToken == token || x.RefreshToken == token);
+            var alreadyExistsToken = await _context.Tokens.FirstOrDefaultAsync(x => x.AccessToken == token);
+
+            Console.WriteLine(alreadyExistsToken.AccessToken);
 
             if (alreadyExistsToken == null)
             {
@@ -75,7 +77,7 @@ namespace KeyTracingAPI.Services
                 //token(почему у них друг на друга(юзер-токен) взаимная ассосиация?)
             };
 
-            if (!_IsUserInDb(user).Result)
+            if (_IsUserInDb(user).Result)
             {
                 throw new BadRequestException("user with that email is already in database");
             }
@@ -101,19 +103,40 @@ namespace KeyTracingAPI.Services
             if (user.Password != login.Password)
                 throw new BadRequestException("wrong password, pls try again");
 
-            var token = JwtHelper.GetNewToken(login.Email, 60);
+            var temp = await _context.Tokens.SingleOrDefaultAsync(h => h.UserId == user.Id);
+
+            if (temp != null)
+                return new TokenResponse { AccessToken = temp.AccessToken };
+
+            var token1 = JwtHelper.GetNewToken(login.Email, JwtConfigurations.AccessLifeTime, user.UserRole);
+            var token2 = JwtHelper.GetNewToken(login.Email, JwtConfigurations.RefreshLifeTime, user.UserRole);
+
+            await _context.Tokens.AddAsync(new Token { AccessToken = token1, RefreshToken = token2, UserId = user.Id });
+            await _context.SaveChangesAsync();
 
             TokenResponse result = new TokenResponse();
+            result.AccessToken = token1;
 
             return result;
         }
 
         public async Task Logout(string token)
         {
+            Console.WriteLine(token);
+
             await _IsTokenValid(token);
-            //все ещё не совсем понимаю как работают токены, должен ли я рефрешить их или удалять самостоятельно или кидать 401 или эво как вообще
-            //await _context.BanedTokens.AddAsync(new Token(token));
-            //await _context.SaveChangesAsync();
+            Console.WriteLine("PLACE 1");
+
+            var temp = await _context.Tokens.SingleOrDefaultAsync(h => h.AccessToken == token);
+
+            if (temp == null)
+                throw new InvalidLoginException();
+
+            Console.WriteLine("PLACE 2");
+
+
+            _context.Tokens.Remove(temp);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<UserDTO> GetProfile(string Email)

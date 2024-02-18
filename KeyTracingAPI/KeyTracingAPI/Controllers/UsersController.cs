@@ -22,6 +22,7 @@ using KeyTracingAPI.WideUseModels;
 using System.Reflection;
 using KeyTracingAPI.Models.DTO.User;
 using KeyTracingAPI.Models.Enums;
+using static System.Net.WebRequestMethods;
 
 namespace KeyTracingAPI.Controllers
 {
@@ -56,17 +57,14 @@ namespace KeyTracingAPI.Controllers
             return await _userService.Login(login);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> logout()
         {
-            //token?
-            var token = await HttpContext.GetTokenAsync("access_token");
-            if (token == null)
-            {
-                throw new InvalidTokenException("Token not found");
-            }
+            var token = HttpContext.Request.Headers["Authorization"];
+            Console.WriteLine(HttpContext.Request.Headers);
 
-            await _userService.Logout(token);
+            await _userService.Logout(token.ToString().Substring(7));
 
             return Ok("succesfully log out");
         }
@@ -76,7 +74,7 @@ namespace KeyTracingAPI.Controllers
         [Route("/api/account/profile")]
         public async Task<UserDTO> GetProfile()
         {
-            var userEmailClaim = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+            var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" )?.Value;
 
             if (userEmailClaim == null)
             {
@@ -93,7 +91,7 @@ namespace KeyTracingAPI.Controllers
         [Route("/api/account/profile")]
         public async Task<ActionResult> PutProfile([FromBody] UserEditModel user)
         {
-            var userEmailClaim = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+            var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
 
             if (userEmailClaim == null)
             {
@@ -107,7 +105,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpGet("/api/users/")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult<List<UserDTO>>> GetUsers(GetListOfUsersQuery query)
+        public async Task<ActionResult<List<UserDTO>>> GetListOfUsers([FromQuery] GetListOfUsersQuery query)
         {
             var allUsers = await _userService.GetUsers(query);
 

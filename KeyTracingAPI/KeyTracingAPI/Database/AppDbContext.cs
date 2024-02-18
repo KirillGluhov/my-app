@@ -47,6 +47,8 @@ namespace KeyTracingAPI.Database
                 .HasForeignKey<KeySlotsRepetitiveRequest>(RRI => RRI.RequestId)
                 .IsRequired();
 
+            modelBuilder.Entity<KeySlotsRepetitiveRequest>().HasKey(BK => new { BK.UserId, BK.KeyId, BK.TimeSlot });
+
             //ne uveren kak pravilno, dolzno bit mnogie ko mnogim
             modelBuilder.Entity<BookingKeyRequest>()
                 .HasOne(BKR => BKR.User)
