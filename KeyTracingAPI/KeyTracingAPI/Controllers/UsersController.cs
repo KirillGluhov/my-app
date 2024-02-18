@@ -42,15 +42,7 @@ namespace KeyTracingAPI.Controllers
             {
                 return BadRequest();
             }
-            var response = await _userService.Register(new User
-            {
-                Id = new Guid(),
-                NormalizedName = user.FullName,
-                FullName = user.FullName.Normalize(),
-                Email = user.Email,
-                Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(user.password)))
-                //token?
-            });//надо перенести эту логику в сервис
+            var response = await _userService.Register(user);
 
             //в response на регистрацию необходим только токен, свои данные юзер может и так посмотреть, из профиля
             return response;
@@ -59,7 +51,7 @@ namespace KeyTracingAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<TokenResponse>> login([FromBody] LoginCredentials login)
         {
-            login.password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(login.password)));
+            login.Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(login.Password)));
 
             return await _userService.Login(login);
         }
@@ -84,7 +76,14 @@ namespace KeyTracingAPI.Controllers
         [Route("/api/account/profile")]
         public async Task<UserDTO> GetProfile()
         {
-            var response = await _userService.GetProfile();//token, login (if needed)
+            var userEmailClaim = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+
+            if (userEmailClaim == null)
+            {
+                throw new InvalidTokenException("Token not found");
+            }
+
+            var response = await _userService.GetProfile(userEmailClaim);
 
             return response;
         }
@@ -94,7 +93,14 @@ namespace KeyTracingAPI.Controllers
         [Route("/api/account/profile")]
         public async Task<ActionResult> PutProfile([FromBody] UserEditModel user)
         {
-            await _userService.EditProfile(user);//token, login (if needed)
+            var userEmailClaim = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+
+            if (userEmailClaim == null)
+            {
+                throw new InvalidTokenException("Token not found");
+            }
+
+            await _userService.EditProfile(user, userEmailClaim);
 
             return Ok("Profile successfully changed");
         }

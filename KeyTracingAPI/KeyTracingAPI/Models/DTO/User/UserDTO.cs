@@ -16,7 +16,7 @@ namespace KeyTracingAPI.Models.DTO.User
 
         [Required]
         [PasswordValidation]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         public Role UserRole { get; set; }

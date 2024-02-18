@@ -1,7 +1,9 @@
 ﻿using KeyTracingAPI.Models.DTO.Request;
+using KeyTracingAPI.Models.Exceptions;
 using KeyTracingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace KeyTracingAPI.Controllers
@@ -22,7 +24,13 @@ namespace KeyTracingAPI.Controllers
         [Authorize]
         public async Task<ActionResult<List<BookingKeyRequestDTOForUser>>> GetUserRequests()
         {
-            var response = await _requestService.GetUserRequests();//token, login (if needed)
+            var userEmailClaim = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+
+            if (userEmailClaim == null)
+            {
+                throw new InvalidTokenException("Token not found");
+            }
+            var response = await _requestService.GetUserRequests(userEmailClaim);
 
             return response;
         }

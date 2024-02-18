@@ -13,6 +13,8 @@ using KeyTracingAPI.Exceptions;
 using KeyTracingAPI.Database;
 using KeyTracingAPI.Middleware;
 using KeyTracingAPI.Models.Enums;
+using KeyTracingAPI.Services.Interfaces;
+using KeyTracingAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,7 +93,7 @@ builder.Services.AddProblemDetails();
 
 // Add services to the container.
 //builder.Services.AddScoped<TokenValidationMiddleware>();
-//builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IUserService, UserServices>();
 
 // Add database contexts
 builder.Services.AddDbContext<AppDbContext>(options => 

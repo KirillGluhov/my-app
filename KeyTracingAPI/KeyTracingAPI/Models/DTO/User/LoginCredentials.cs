@@ -8,12 +8,10 @@ namespace KeyTracingAPI.Models.DTO.User
         [Required]
         [MinLength(1)]
         [EmailAddress]
-        public string email { get; set; }
-
-        //public string NormalizedName { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [PasswordValidation]
-        public string password { get; set; }
+        public string Password { get; set; }
     }
 }
