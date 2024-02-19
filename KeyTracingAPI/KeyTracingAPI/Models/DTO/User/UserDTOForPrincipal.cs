@@ -1,11 +1,12 @@
 ﻿using KeyTracingAPI.Models.Enums;
-using KeyTracingAPI.Validators;
 using System.ComponentModel.DataAnnotations;
 
 namespace KeyTracingAPI.Models.DTO.User
 {
-    public class UserDTO
+    public class UserDTOForPrincipal
     {
+        public Guid Id { get; set; }
+
         [Required]
         public string FullName { get; set; }
 

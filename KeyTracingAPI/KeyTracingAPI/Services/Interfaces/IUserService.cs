@@ -19,7 +19,7 @@ namespace KeyTracingAPI.Services.Interfaces
 
         Task EditProfile(UserEditModel user, string email);
 
-        Task<ActionResult<List<UserDTO>>> GetUsers(GetListOfUsersQuery query);
+        Task<ActionResult<List<UserDTOForPrincipal>>> GetUsers(GetListOfUsersQuery query);
 
         Task ChangeRole(Guid userId, Role role);
     }

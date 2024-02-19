@@ -105,7 +105,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpGet("/api/users/")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult<List<UserDTO>>> GetListOfUsers([FromQuery] GetListOfUsersQuery query)
+        public async Task<ActionResult<List<UserDTOForPrincipal>>> GetListOfUsers([FromQuery] GetListOfUsersQuery query)
         {
             var allUsers = await _userService.GetUsers(query);
 

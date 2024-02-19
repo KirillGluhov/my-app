@@ -40,7 +40,10 @@ namespace KeyTracingAPI.Exceptions
             return exception switch
             {
                 InvalidOperationException => (StatusCodes.Status400BadRequest, exception.Message ),
-                InvalidLoginException invalidLoginException => (StatusCodes.Status403Forbidden, invalidLoginException.Message), //custom exception
+                InvalidLoginException invalidLoginException => (StatusCodes.Status403Forbidden, invalidLoginException.Message),
+                InvalidTokenException invalidTokenException => (StatusCodes.Status401Unauthorized, invalidTokenException.Message),
+                BadRequestException badRequestException => (StatusCodes.Status400BadRequest, badRequestException.Message),
+                NotFoundException notFoundException => (StatusCodes.Status404NotFound, notFoundException.Message),
                 _ => (StatusCodes.Status500InternalServerError, "Some stupid error occured")
             }; 
         } 

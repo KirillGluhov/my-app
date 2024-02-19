@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -38,12 +39,20 @@ namespace KeyTracingAPI.Services
         {
             var alreadyExistsToken = await _context.Tokens.FirstOrDefaultAsync(x => x.AccessToken == token);
 
-            Console.WriteLine(alreadyExistsToken.AccessToken);
-
             if (alreadyExistsToken == null)
             {
                 throw new InvalidTokenException();
             }
+        }
+        private async Task<UserDTOForPrincipal> UserMapperForPrincipal(User user)
+        {
+            return new UserDTOForPrincipal
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Email = user.Email,
+                UserRole = user.UserRole
+            };
         }
         private async Task<UserDTO> UserMapper(User user)
         {
@@ -51,16 +60,15 @@ namespace KeyTracingAPI.Services
             {
                 FullName = user.FullName,
                 Email = user.Email,
-                Password = user.Password,
                 UserRole = user.UserRole
             };
         }
-        private async Task<List<UserDTO>> UserListMapper(List<User> user)
+        private async Task<List<UserDTOForPrincipal>> UserListMapper(List<User> user)
         {
-            List<UserDTO> usersDTO = new List<UserDTO>();
+            List<UserDTOForPrincipal> usersDTO = new List<UserDTOForPrincipal>();
             for (int i = 0; i < user.Count; i++)
             {
-                usersDTO.Add(UserMapper(user[i]).Result);
+                usersDTO.Add(UserMapperForPrincipal(user[i]).Result);
             }
             return usersDTO;
         }
@@ -106,7 +114,11 @@ namespace KeyTracingAPI.Services
             var temp = await _context.Tokens.SingleOrDefaultAsync(h => h.UserId == user.Id);
 
             if (temp != null)
-                return new TokenResponse { AccessToken = temp.AccessToken };
+            {
+                _context.Tokens.Remove(temp);
+                await _context.SaveChangesAsync();
+            }
+               
 
             var token1 = JwtHelper.GetNewToken(login.Email, JwtConfigurations.AccessLifeTime, user.UserRole);
             var token2 = JwtHelper.GetNewToken(login.Email, JwtConfigurations.RefreshLifeTime, user.UserRole);
@@ -122,18 +134,12 @@ namespace KeyTracingAPI.Services
 
         public async Task Logout(string token)
         {
-            Console.WriteLine(token);
-
             await _IsTokenValid(token);
-            Console.WriteLine("PLACE 1");
 
             var temp = await _context.Tokens.SingleOrDefaultAsync(h => h.AccessToken == token);
 
             if (temp == null)
                 throw new InvalidLoginException();
-
-            Console.WriteLine("PLACE 2");
-
 
             _context.Tokens.Remove(temp);
             await _context.SaveChangesAsync();
@@ -162,7 +168,7 @@ namespace KeyTracingAPI.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ActionResult<List<UserDTO>>> GetUsers(GetListOfUsersQuery query)
+        public async Task<ActionResult<List<UserDTOForPrincipal>>> GetUsers(GetListOfUsersQuery query)
         {
             var totalUsersCount = await _context.Users.CountAsync();
 
@@ -173,9 +179,10 @@ namespace KeyTracingAPI.Services
 
             if (query.hasRequests)
                 userQuery = userQuery.Where(d => d.UserSlots != null);
+            //моделька в бд не обладает этим полем
 
             if (query.Name != null)
-                userQuery = userQuery.Where(model => EF.Functions.ILike(model.FullName, "%" + query.Name + "%"));
+                userQuery = userQuery.Where(model => EF.Functions.ILike(model.NormalizedName, "%" + query.Name + "%"));
             
             var usersList = await userQuery.ToListAsync();
 
@@ -190,8 +197,15 @@ namespace KeyTracingAPI.Services
                 throw new BadRequestException("user with that guid doesnt exist");
 
             user.UserRole = role;
-
             await _context.SaveChangesAsync();
+
+            var temp = await _context.Tokens.SingleOrDefaultAsync(h => h.UserId == user.Id);
+
+            if (temp != null)
+            {
+                _context.Tokens.Remove(temp);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
