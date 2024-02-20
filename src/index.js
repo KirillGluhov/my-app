@@ -1,24 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {Header} from "./components/Header";
-import { Main } from "./components/Main"
-import "../src/styles/root.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/root.css'
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import Requests from './components/Requests';
+import Header from './components/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <>
-      <Header styleOfElement="plain" proportion="9/3" mainColor="#D9D9D9" secondColor="#7B7B7B"/>
-      <Main mainColor='#D9D9D9' secondColor="#7B7B7B" top="5" bot="3"/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<div>/</div>} />
+        <Route path="registration" element={<div>Registration</div>} />
+        <Route path="login" element={<div>Login</div>} />
+        <Route path="requests" element={<Requests/>} />
+        <Route path="profile" element={<div>Profile</div>} />
+        <Route path="users" element={<div>Users</div>} />
+        <Route path="keys" element={<div>Keys</div>} />
+        <Route path="keys/create" element={<div>Create key</div>} />
+        <Route path="*" element={<div>Такой страницы нет</div>} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
-/* styleOfElement - строка со значением plain, outlined, soft, solid. Стиль из MUI JoyUI для элементов
-proportion - два целых числа, разделённых чертой деления и сумма из двух чисел = 12. Соотношение размера между профиль и остальными кнопками с логотипом по ширине
-mainColor - задний цвет
-secondColor - цвет остальных элементов
-
-top - отступ внешний сверху
-bot - отступ между карточками
+/* 
+Header. Поле type = "authorized" | "unauthorized"
 */

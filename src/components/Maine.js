@@ -4,7 +4,7 @@ import {Yes} from "./Yes"
 import {No} from "./No"
 import { LogoSearch } from "./LogoSearch";
 
-export class Main extends React.Component
+export class Maine extends React.Component
 {
     render()
     {

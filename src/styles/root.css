@@ -3,3 +3,67 @@ html, body
     margin: 0;
     padding: 0;
 }
+
+.darkblue
+{
+    background-color: #346398;
+}
+
+.darkblue.inner
+{
+    color:#346398;
+}
+
+.stickWhite
+{
+    border: solid !important;
+    border-color: white !important;
+    border-width: 0px 0px 0px 1px !important;
+}
+
+.endAndStart
+{
+    justify-content: space-between;
+}
+
+.white
+{
+    color: white;
+}
+
+.stylesForBrand
+{
+    margin: 8px;
+}
+
+.bigText
+{
+    font-size: 18px;
+}
+
+.navbar-brand.dontChangeColor
+{
+    margin-right: 0px;
+}
+
+.stylesForBrand:hover, .dontChangeColor:hover
+{
+    color: white;
+}
+
+.navbar-toggler-icon
+{
+    color: white;
+    background-image: url("../images/burger-menu-svgrepo-com.svg");
+}
+
+.navbar
+{
+    min-width: 253px;
+    --bs-navbar-toggler-border-color: none;
+}
+
+.end
+{
+    justify-content: end;
+}
