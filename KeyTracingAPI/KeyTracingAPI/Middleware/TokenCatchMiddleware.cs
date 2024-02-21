@@ -2,6 +2,11 @@
 using System.Diagnostics;
 using System;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
+using KeyTracingAPI.Database;
+using Microsoft.EntityFrameworkCore;
+using KeyTracingAPI.Models.Enums;
+using KeyTracingAPI.Models.Exceptions;
 
 namespace KeyTracingAPI.Middleware
 {
@@ -15,22 +20,24 @@ namespace KeyTracingAPI.Middleware
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext httpContext, AppDbContext dbContext)
         {
+            string? headerToken = httpContext.Request.Headers.Authorization;
+
             await _next(httpContext);
 
-            if(httpContext.Response.StatusCode == StatusCodes.Status401Unauthorized)
+            if (httpContext.Response.StatusCode == StatusCodes.Status401Unauthorized)
             {
-                _logger.LogInformation(httpContext.Request.Headers["Authorization"]);
+                string details = headerToken != null ? "Invalid Token" : "Not Authenticated";
 
-                //tut lovit tokeni, esli 401 po idee nado udaliat iz bd evo
+                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
 
                 httpContext.Response.ContentType = "application/json";
-                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
 
                 var problemDetails = new
                 {
-                    title = "slozno"
+                    title = "Authorization Issue",
+                    details = details
                 };
 
                 var json = JsonSerializer.Serialize(problemDetails);

@@ -11,10 +11,10 @@ using Microsoft.OpenApi.Models;
 using KeyTracingAPI.JWT;
 using KeyTracingAPI.Exceptions;
 using KeyTracingAPI.Database;
-using KeyTracingAPI.Middleware;
 using KeyTracingAPI.Models.Enums;
 using KeyTracingAPI.Services.Interfaces;
 using KeyTracingAPI.Services;
+using KeyTracingAPI.Middleware.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +35,8 @@ builder.Services.AddSwaggerGen(options =>
         Description = "Authorize",
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Scheme = "Bearer"
+        Scheme = "Bearer",
+        Type = SecuritySchemeType.Http
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
@@ -47,7 +48,7 @@ builder.Services.AddSwaggerGen(options =>
                     Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
                 },
-                Scheme = "oauth2",
+                Scheme = "Bearer",
                 Name = "Bearer",
                 In = ParameterLocation.Header
             },
@@ -97,7 +98,7 @@ builder.Services.AddScoped<IUserService, UserServices>();
 
 // Add database contexts
 builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 200220042010"));
+    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 1"));
 
 var app = builder.Build();
 /*using var serviceScope = app.Services.CreateScope();
@@ -112,9 +113,11 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseTokenCatcher();
-
 app.UseAuthentication();
+
+app.UseRoleChecker();
+
+app.UseTokenCatcher();
 
 app.UseAuthorization();
 

@@ -1,4 +1,4 @@
-﻿namespace KeyTracingAPI.Middleware
+﻿namespace KeyTracingAPI.Middleware.Extensions
 {
     public static class TokenCatchMiddlewareExtension
     {
