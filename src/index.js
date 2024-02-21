@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/root.css'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Requests from './components/Requests';
-import Header from './components/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,5 +25,5 @@ root.render(
 );
 
 /* 
-Header. Поле type = "authorized" | "unauthorized"
+Header. Поле type = "authorized" | "unauthorized", поле page = "keys" | "users" | "requests" | "profile" | "registration" | "login" | "main"
 */

@@ -26,6 +26,12 @@ html, body
     justify-content: space-between;
 }
 
+.p-12
+{
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
 .white
 {
     color: white;
@@ -66,4 +72,53 @@ html, body
 .end
 {
     justify-content: end;
+}
+
+.red
+{
+    background-color: red;
+}
+
+.search
+{
+    background-image: url("../images/searchicon.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.radiusnone
+{
+    border-radius: 0px !important;
+}
+
+.p-19
+{
+    padding-right: 32px;
+}
+
+.whiteback
+{
+    color: white;
+}
+
+.from::before
+{
+    content: "От:";
+    margin-right: 5px;
+}
+
+.to::before
+{
+    content: "До:";
+    margin-right: 5px;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.min-270
+{
+    min-width: 270px;
 }
