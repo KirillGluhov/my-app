@@ -5,7 +5,7 @@ namespace KeyTracingAPI.Models.DTO.Key
 {
     public class GetListOfKeysQuery
     {
-        public List<TimeSlot> Roles { get; } = new List<TimeSlot>();
+        public List<TimeSlot> Slots { get; } = new List<TimeSlot>();
         public string Auditory { get; set; }
         public bool IsInPrincipal {  get; set; } //добавлять BookedKey
 

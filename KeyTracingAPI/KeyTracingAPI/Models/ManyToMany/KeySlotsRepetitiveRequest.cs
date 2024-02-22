@@ -8,8 +8,5 @@ namespace KeyTracingAPI.Models.ManyToMany
         public Guid UserId { get; set; }
         public Guid KeyId { get; set; }
         public TimeSlot TimeSlot { get; set; }
-
-        public Guid RequestId { get; set; }
-        public BookingKeyRequest BookingKeyRequest = null!;
     }
 }

@@ -15,12 +15,12 @@ namespace KeyTracingAPI.Database
         public DbSet<Token> Tokens { get; set; }
         public DbSet<BookingKeyRequest> BookingKeyRequest { get; set; }
         public DbSet<BookedKey> BookedKeys { get; set; }
+        public DbSet<Key> Keys { get; set; }
+        public DbSet<KeySlotsRepetitiveRequest> keySlotsRepetitiveRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*разделить по сущностям*/
             modelBuilder.Entity<Key>()
-                //.HasKey(k => new { k.Id, k.Building}); ?
                 .HasKey(k => k.Id);
 
             modelBuilder.Entity<User>()
@@ -40,11 +40,6 @@ namespace KeyTracingAPI.Database
                 .HasOne(BKR => BKR.BookedKeyInstance)
                 .WithOne(BKI => BKI.BookingKeyRequest)
                 .HasForeignKey<BookedKey>(BKI => BKI.RequestId)
-                .IsRequired();
-            modelBuilder.Entity<BookingKeyRequest>()
-                .HasOne(BKR => BKR.RepetitiveRequestInstance)
-                .WithOne(RRI => RRI.BookingKeyRequest)
-                .HasForeignKey<KeySlotsRepetitiveRequest>(RRI => RRI.RequestId)
                 .IsRequired();
 
             modelBuilder.Entity<KeySlotsRepetitiveRequest>().HasKey(BK => new { BK.UserId, BK.KeyId, BK.TimeSlot });
