@@ -21,7 +21,7 @@ namespace KeyTracingAPI.Services
         }
         private async Task<BookingKeyRequestDTOForUser> _bkrMapperUser(BookingKeyRequest bkr)
         {
-            var key = await _context.Keys.FirstOrDefaultAsync(k => k.Id == bkr.KeyId);
+            var key = await _context.Key.FirstOrDefaultAsync(k => k.Id == bkr.KeyId);
             return new BookingKeyRequestDTOForUser
             {
                 Key = new KeyDTO
@@ -43,7 +43,7 @@ namespace KeyTracingAPI.Services
         }
         private async Task<BookingKeyRequestDTOForPrincipal> _bkrMapperPrincipal (BookingKeyRequest bkr)
         {
-            var key = await _context.Keys.FirstOrDefaultAsync(k => k.Id == bkr.KeyId);
+            var key = await _context.Key.FirstOrDefaultAsync(k => k.Id == bkr.KeyId);
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == bkr.UserId);
             return new BookingKeyRequestDTOForPrincipal
             {
@@ -102,12 +102,29 @@ namespace KeyTracingAPI.Services
             return result;
         }
 
-        public async Task<ActionResult<Guid>> CreateRequest(BookingKeyRequestCreationForm requestDto)
+        public async Task<ActionResult<Guid>> CreateRequest(BookingKeyRequestCreationForm requestDto, string email)
         {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+                throw new InvalidLoginException();
+
+            var key = await _context.Key.SingleOrDefaultAsync(k => k.Id == requestDto.KeyId);
+            if (key == null)
+                throw new NotFoundException("key with that guid doesnt exist");
+
+            var approved_request = await _context.BookingKeyRequest.FirstOrDefaultAsync(bkr => bkr.TimeSlot == requestDto.TimeSlot && bkr.DateToBeBooked == requestDto.DateToBeBooked && bkr.RequestStatus == RequestStatus.Approved && bkr.KeyId == requestDto.KeyId);
+            if (approved_request != null)
+                throw new BadRequestException("this key is occupied at this time");
+
+            var user_request = await _context.BookingKeyRequest.FirstOrDefaultAsync(bkr => bkr.TimeSlot == requestDto.TimeSlot && bkr.DateToBeBooked == requestDto.DateToBeBooked && bkr.UserId == user.Id && bkr.KeyId == requestDto.KeyId);
+            if (user_request != null)
+                throw new BadRequestException("you actually have request at this time");
+
             var request = new BookingKeyRequest
             {
                 Id = new Guid(),
-                UserId = requestDto.UserId,
+                UserId = user.Id,
                 KeyId = requestDto.KeyId,
                 DateToBeBooked = requestDto.DateToBeBooked,
                 BookingDateTime = requestDto.BookingDateTime,
@@ -187,6 +204,12 @@ namespace KeyTracingAPI.Services
 
             if (bkr == null)
                 throw new NotFoundException("Cant find booking key request with that guid");
+
+            var bkrList = await _context.BookingKeyRequest.Where(b => b.TimeSlot == bkr.TimeSlot && b.DateToBeBooked == bkr.DateToBeBooked && b.KeyId == bkr.KeyId).ToListAsync();
+            foreach(BookingKeyRequest declinedBkr in bkrList)
+            {
+                declinedBkr.RequestStatus = RequestStatus.Declined;
+            }
             bkr.RequestStatus = RequestStatus.Approved;
             await _context.SaveChangesAsync();
         }

@@ -95,10 +95,11 @@ builder.Services.AddProblemDetails();
 // Add services to the container.
 //builder.Services.AddScoped<TokenValidationMiddleware>();
 builder.Services.AddScoped<IUserService, UserServices>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 // Add database contexts
 builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 1"));
+    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 200220042010"));
 
 var app = builder.Build();
 /*using var serviceScope = app.Services.CreateScope();
