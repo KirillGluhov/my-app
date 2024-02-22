@@ -44,7 +44,6 @@ namespace KeyTracingAPI.Database
 
             modelBuilder.Entity<KeySlotsRepetitiveRequest>().HasKey(BK => new { BK.UserId, BK.KeyId, BK.TimeSlot });
 
-            //ne uveren kak pravilno, dolzno bit mnogie ko mnogim
             modelBuilder.Entity<BookingKeyRequest>()
                 .HasOne(BKR => BKR.User)
                 .WithMany(u => u.UserSlots)

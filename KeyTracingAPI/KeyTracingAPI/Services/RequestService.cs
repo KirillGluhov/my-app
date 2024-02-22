@@ -5,6 +5,7 @@ using KeyTracingAPI.Models.DTO.User;
 using KeyTracingAPI.Models.Entities;
 using KeyTracingAPI.Models.Enums;
 using KeyTracingAPI.Models.Exceptions;
+using KeyTracingAPI.Models.ManyToMany;
 using KeyTracingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -129,8 +130,17 @@ namespace KeyTracingAPI.Services
                 DateToBeBooked = requestDto.DateToBeBooked,
                 BookingDateTime = requestDto.BookingDateTime,
                 TimeSlot = requestDto.TimeSlot,
-                Description = requestDto.Description
+                Description = requestDto.Description,
+                IsRepetitive = requestDto.IsRepetetive
             };
+            if (requestDto.IsRepetetive)
+            {
+                var bkrRepetitive = await _context.KeySlotsRepetitiveRequest.SingleOrDefaultAsync(req => req.TimeSlot == requestDto.TimeSlot && req.UserId == user.Id && req.KeyId == requestDto.KeyId);
+                if (bkrRepetitive != null)
+                {
+                    request.RequestStatus = RequestStatus.Approved;//если при этом уже существует апрувнатая заявка, то до этой точки не дойдет и препод не сможет занять ауд
+                }
+            }
 
             await _context.BookingKeyRequest.AddAsync(request);
             await _context.SaveChangesAsync();
@@ -145,6 +155,14 @@ namespace KeyTracingAPI.Services
                 throw new NotFoundException("cant find request with that id");
 
             _context.BookingKeyRequest.Remove(request);
+            if (request.RequestStatus == RequestStatus.Approved)
+            {
+                var bkrList = await _context.BookingKeyRequest.Where(b => b.TimeSlot == request.TimeSlot && b.DateToBeBooked == request.DateToBeBooked && b.KeyId == request.KeyId).ToListAsync();
+                foreach (BookingKeyRequest declinedBkr in bkrList)
+                {
+                    declinedBkr.RequestStatus = RequestStatus.InProcess;
+                }
+            }
             await _context.SaveChangesAsync();
         }
 
@@ -165,6 +183,9 @@ namespace KeyTracingAPI.Services
             if (query.IsKeyRecieved)
                 bkrQuery = bkrQuery.Where(d => d.IsKeyRecieved);
 
+            if (query.IsRepetitive)
+                bkrQuery = bkrQuery.Where(d => d.IsRepetitive);
+
             if (query.Roles != null)
                 bkrQuery = bkrQuery.Where(d => query.Roles.Contains((Role)d.User.UserRole));
 
@@ -172,7 +193,7 @@ namespace KeyTracingAPI.Services
                 bkrQuery = bkrQuery.Where(d => query.TimeSlot.Contains((TimeSlot)d.TimeSlot));
 
             if (query.Status != null)
-                bkrQuery = bkrQuery.Where(d => query.Status == d.RequestStatus);
+                bkrQuery = bkrQuery.Where(d => query.Status.Contains((RequestStatus)d.RequestStatus));
 
             bkrQuery = query.Sorting switch
             {
@@ -211,6 +232,13 @@ namespace KeyTracingAPI.Services
                 declinedBkr.RequestStatus = RequestStatus.Declined;
             }
             bkr.RequestStatus = RequestStatus.Approved;
+            if (bkr.IsRepetitive)
+                await _context.KeySlotsRepetitiveRequest.AddAsync(new KeySlotsRepetitiveRequest
+                {
+                    UserId = bkr.UserId,
+                    KeyId = bkr.KeyId,
+                    TimeSlot = bkr.TimeSlot
+                });
             await _context.SaveChangesAsync();
         }
 

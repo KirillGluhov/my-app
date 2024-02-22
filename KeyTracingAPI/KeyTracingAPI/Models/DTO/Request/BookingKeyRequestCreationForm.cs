@@ -11,5 +11,6 @@ namespace KeyTracingAPI.Models.DTO.Request
         public TimeSlot TimeSlot { get; set; }
         [Required]
         public string? Description { get; set; }
+        public bool IsRepetetive {  get; set; }
     }
 }
