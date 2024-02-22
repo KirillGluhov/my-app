@@ -9,7 +9,6 @@ namespace KeyTracingAPI.Models.Entities
         public Guid Id { get; set; }
         public string Auditory { get; set; }
         public bool IsInPrincipalOffice { get; set; } = true;
-
         public ICollection<BookingKeyRequest> KeySlots { get; } = new List<BookingKeyRequest>();
     }
 }

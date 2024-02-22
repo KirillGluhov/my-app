@@ -179,7 +179,7 @@ namespace KeyTracingAPI.Services
 
             if (query.hasRequests)
                 userQuery = userQuery.Where(d => d.UserSlots != null);
-            //моделька в бд не обладает этим полем
+            //моделька в бд не обладает этим полем, не забыть поменять
 
             if (query.Name != null)
                 userQuery = userQuery.Where(model => EF.Functions.ILike(model.NormalizedName, "%" + query.Name + "%"));
