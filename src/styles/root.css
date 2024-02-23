@@ -6,12 +6,12 @@ html, body
 
 .darkblue
 {
-    background-color: #346398;
+    background-color: #001529;
 }
 
 .darkblue.inner
 {
-    color:#346398;
+    color:#001529;
 }
 
 .stickWhite
@@ -74,26 +74,16 @@ html, body
     justify-content: end;
 }
 
-.red
-{
-    background-color: red;
-}
-
 .search
 {
-    background-image: url("../images/searchicon.svg");
-    background-repeat: no-repeat;
-    background-position: right;
+    background: url("../images/searchicon.svg") 8px no-repeat;
+    padding-left: 25px;
+    background-color: white;
 }
 
 .radiusnone
 {
     border-radius: 0px !important;
-}
-
-.p-19
-{
-    padding-right: 32px;
 }
 
 .whiteback
@@ -138,7 +128,7 @@ input.from
 .border-darkblue
 {
     border-style: solid;
-    border-color: #346398;
+    border-color: #001529;
     border-width: 0px 1px 1px 1px;
     margin: 0px;
 }
@@ -146,4 +136,58 @@ input.from
 .stretch
 {
     width: 100%;
+}
+
+a.disabled
+{
+    color: #67A8F3 !important;
+}
+
+.border-radius-small
+{
+    border-radius: 10px 10px 0px 0px;
+}
+
+.white.bigText:hover
+{
+    color: #67A8F3;
+}
+
+.form-select
+{
+    --bs-form-select-bg-img: url('../images/select-switch.svg');
+    background-size: auto !important;
+}
+
+.darkAndLight
+{
+    background-color: #001529;
+    color: white;
+}
+
+.verySmallRadius
+{
+    border-radius: 2px;
+}
+
+.timeAndDate
+{
+    background-color: #2D4B67;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 20% / 50%;
+    background-image: url("../images/time-image.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.timeAndDate:hover
+{
+    background-color: #67A8F3;
+}
+
+.dropdown-toggle::after
+{
+    content: none;
 }
