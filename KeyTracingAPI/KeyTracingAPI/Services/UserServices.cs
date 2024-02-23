@@ -82,7 +82,6 @@ namespace KeyTracingAPI.Services
                 FullName = userDto.FullName.Normalize(),
                 Email = userDto.Email,
                 Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(userDto.password)))
-                //token(почему у них друг на друга(юзер-токен) взаимная ассосиация?)
             };
 
             if (_IsUserInDb(user).Result)
@@ -178,8 +177,7 @@ namespace KeyTracingAPI.Services
             var userQuery = _context.Users.Where(d => query.Roles.Contains((Role)d.UserRole));
 
             if (query.hasRequests)
-                userQuery = userQuery.Where(d => d.UserSlots != null);
-            //моделька в бд не обладает этим полем
+                userQuery = userQuery.Where(u => u.UserSlots.Any());
 
             if (query.Name != null)
                 userQuery = userQuery.Where(model => EF.Functions.ILike(model.NormalizedName, "%" + query.Name + "%"));

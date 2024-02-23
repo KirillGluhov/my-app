@@ -24,12 +24,11 @@ namespace KeyTracingAPI.Controllers
         [Authorize]
         public async Task<ActionResult<List<BookingKeyRequestDTOForUser>>> GetUserRequests()
         {
-            var userEmailClaim = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+            var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
 
             if (userEmailClaim == null)
-            {
                 throw new InvalidTokenException("Token not found");
-            }
+
             var response = await _requestService.GetUserRequests(userEmailClaim);
 
             return response;
@@ -39,8 +38,12 @@ namespace KeyTracingAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Guid>> CreateRequest([FromBody] BookingKeyRequestCreationForm requestDto)
         {
-            //token, login, userid (if needed)
-            var requestId = await _requestService.CreateRequest(requestDto);
+            var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+
+            if (userEmailClaim == null)
+                throw new InvalidTokenException("Token not found");
+
+            var requestId = await _requestService.CreateRequest(requestDto, userEmailClaim);
 
             return requestId;
         }

@@ -45,7 +45,6 @@ namespace KeyTracingAPI.Controllers
             }
             var response = await _userService.Register(user);
 
-            //в response на регистрацию необходим только токен, свои данные юзер может и так посмотреть, из профиля
             return response;
         }
 
@@ -62,8 +61,6 @@ namespace KeyTracingAPI.Controllers
         public async Task<ActionResult> logout()
         {
             var token = HttpContext.Request.Headers["Authorization"];
-            Console.WriteLine(HttpContext.Request.Headers);
-
             await _userService.Logout(token.ToString().Substring(7));
 
             return Ok("succesfully log out");
@@ -77,9 +74,7 @@ namespace KeyTracingAPI.Controllers
             var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" )?.Value;
 
             if (userEmailClaim == null)
-            {
                 throw new InvalidTokenException("Token not found");
-            }
 
             var response = await _userService.GetProfile(userEmailClaim);
 
