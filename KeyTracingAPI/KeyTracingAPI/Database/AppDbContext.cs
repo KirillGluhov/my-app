@@ -15,7 +15,7 @@ namespace KeyTracingAPI.Database
         public DbSet<Token> Tokens { get; set; }
         public DbSet<BookingKeyRequest> BookingKeyRequest { get; set; }
         public DbSet<BookedKey> BookedKeys { get; set; }
-        public DbSet<Key> Keys { get; set; }
+        public DbSet<Key> Key { get; set; }
         public DbSet<KeySlotsRepetitiveRequest> keySlotsRepetitiveRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

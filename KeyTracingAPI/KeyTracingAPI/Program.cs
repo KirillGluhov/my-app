@@ -95,6 +95,7 @@ builder.Services.AddProblemDetails();
 // Add services to the container.
 //builder.Services.AddScoped<TokenValidationMiddleware>();
 builder.Services.AddScoped<IUserService, UserServices>();
+builder.Services.AddScoped<IKeyService, KeyService>();
 
 // Add database contexts
 builder.Services.AddDbContext<AppDbContext>(options => 

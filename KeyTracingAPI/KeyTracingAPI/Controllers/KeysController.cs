@@ -1,6 +1,9 @@
 ﻿using KeyTracingAPI.Models.DTO.Key;
 using KeyTracingAPI.Models.DTO.Request;
+using KeyTracingAPI.Models.Entities;
+using KeyTracingAPI.Models.Enums;
 using KeyTracingAPI.Services.Interfaces;
+using KeyTracingAPI.WideUseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,42 +21,75 @@ namespace KeyTracingAPI.Controllers
             _keyService = keyService;
         }
 
-        [HttpGet("list")]
-        public async Task<ActionResult<List<KeyDTO>>> GetAllKeys([FromQuery] GetListOfKeysQuery query)
+        [HttpGet]
+        public async Task<List<KeyDTO>> GetAllFreeKeys([FromQuery] GetListOfKeysQuery query)
         {
-            var allRequests = await _keyService.GetAllRequests(query);
+            var allFreeKeys = await _keyService.GetAllFreeKeys(query);
 
-            return Ok(allRequests);
+            return allFreeKeys;
         }
 
-        [HttpPost("/api/keys/{keyId}/release")]
-        public async Task<ActionResult> ReleaseKey(Guid keyId)
+        [HttpGet]
+        public async Task<List<KeyDTO>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice)
         {
-            await _keyService.ReleaseKey(keyId);
+            var allKeys = await _keyService.GetAllKeys(keySorting, isInPrincipalOffice);
 
-            return Ok("Key succesfully released");
+            return allKeys;
+        } 
+
+        [HttpGet]
+        public async Task<List<BookedKeyDTO>> GetConcreteKeyBookingInfo([FromQuery] GetConcreteKeyQuery query)
+        {
+            var result = await _keyService.GetConcreteKeyBookingInfo(query);
+
+            return result;
+        }
+ 
+        [HttpPost("/api/keys/{keyId}/ChangeKeyStatus")]
+        [Authorize(Policy = "Principal")]
+        public async Task<Response> ChangeKeyStatus(Guid keyId)
+        {
+            var result =  await _keyService.ChangeKeyStatus(keyId);
+
+            return result;
         }
 
-        [HttpPost("/api/keys/{keyId}/confirm")]
-        public async Task<ActionResult> ConfirmKey(Guid keyId)
+        [HttpPost("/api/keys/{requestId}/confirm")]
+        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
+        public async Task<Response> ConfirmKey(Guid requestId)
         {
-            await _keyService.ConfirmKey(keyId);
+            var result = await _keyService.ConfirmKey(requestId);
 
-            return Ok("Key taking succesfully confirmed");
+            return result;
         }
+
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] KeyCreateForm key)
+        [Authorize(Policy = "Principal")]
+        public async Task<Response> Create([FromBody] KeyCreateForm key)
         {
-            await _keyService.CreateKey(key);
+            var result = await _keyService.CreateKey(key);
 
-            return Ok("Key succesfully created");
+            return result;
         }
-        [HttpDelete("/api/keys/delete/{keyId}")]
-        public async Task<ActionResult> DeleteKey(Guid keyId)
-        {
-            await _keyService.DeleteKey(keyId);
 
-            return Ok("Key succesfully deleted");
+        [HttpDelete("/api/keys/delete/{keyId}")]
+        [Authorize(Policy = "Principal")]
+        public async Task<Response> DeleteKey(Guid keyId, bool forceDelete = false)
+        {
+            var result = await _keyService.DeleteKey(keyId, forceDelete);
+
+            return result;
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
+        public async Task<Response> ReturnKeyToPrincipal(Guid requestId)
+        {
+            var result = await _keyService.ReturnKeyToPrincipal(requestId);
+
+            return result;
         }
     }
 }
