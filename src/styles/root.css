@@ -103,14 +103,26 @@ html, body
 
 .from::before
 {
-    content: "От:";
-    margin-right: 5px;
+    display: flex;
+    content: "От: ";
 }
 
 .to::before
 {
-    content: "До:";
-    margin-right: 5px;
+    display: flex;
+    content: "До: ";
+}
+
+input.to
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+input.from
+{
+    display: flex;
+    justify-content: space-between;
 }
 
 .center
@@ -120,5 +132,18 @@ html, body
 
 .min-270
 {
-    min-width: 270px;
+    min-width: 300px;
+}
+
+.border-darkblue
+{
+    border-style: solid;
+    border-color: #346398;
+    border-width: 0px 1px 1px 1px;
+    margin: 0px;
+}
+
+.stretch
+{
+    width: 100%;
 }
