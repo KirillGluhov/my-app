@@ -28,9 +28,7 @@ namespace KeyTracingAPI.Services
                 Key = new KeyDTO
                 {
                     Auditory = key.Auditory,
-                    BookingDate = bkr.DateToBeBooked,
-                    IsInPrincipalOffice = key.IsInPrincipalOffice,
-                    TimeSlot = bkr.TimeSlot
+                    IsInPrincipalOffice = key.IsInPrincipalOffice
                 },
                 BookingDate = bkr.DateToBeBooked,
                 TimeSlot = bkr.TimeSlot,
@@ -51,9 +49,7 @@ namespace KeyTracingAPI.Services
                 Key = new KeyDTO
                 {
                     Auditory = key.Auditory,
-                    BookingDate = bkr.DateToBeBooked,
-                    IsInPrincipalOffice = key.IsInPrincipalOffice,
-                    TimeSlot = bkr.TimeSlot
+                    IsInPrincipalOffice = key.IsInPrincipalOffice
                 },
                 User = new UserDTO
                 {
@@ -135,7 +131,7 @@ namespace KeyTracingAPI.Services
             };
             if (requestDto.IsRepetetive)
             {
-                var bkrRepetitive = await _context.KeySlotsRepetitiveRequest.SingleOrDefaultAsync(req => req.TimeSlot == requestDto.TimeSlot && req.UserId == user.Id && req.KeyId == requestDto.KeyId);
+                var bkrRepetitive = await _context.keySlotsRepetitiveRequests.SingleOrDefaultAsync(req => req.TimeSlot == requestDto.TimeSlot && req.UserId == user.Id && req.KeyId == requestDto.KeyId);
                 if (bkrRepetitive != null)
                 {
                     request.RequestStatus = RequestStatus.Approved;//если при этом уже существует апрувнатая заявка, то до этой точки не дойдет и препод не сможет занять ауд
@@ -233,7 +229,7 @@ namespace KeyTracingAPI.Services
             }
             bkr.RequestStatus = RequestStatus.Approved;
             if (bkr.IsRepetitive)
-                await _context.KeySlotsRepetitiveRequest.AddAsync(new KeySlotsRepetitiveRequest
+                await _context.keySlotsRepetitiveRequests.AddAsync(new KeySlotsRepetitiveRequest
                 {
                     UserId = bkr.UserId,
                     KeyId = bkr.KeyId,
