@@ -58,7 +58,7 @@ namespace KeyTracingAPI.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> logout()
+        public async Task<ActionResult<Response>> logout()
         {
             var token = HttpContext.Request.Headers["Authorization"];
             await _userService.Logout(token.ToString().Substring(7));
@@ -84,7 +84,7 @@ namespace KeyTracingAPI.Controllers
         [Authorize]
         [HttpPut]
         [Route("/api/account/profile")]
-        public async Task<ActionResult> PutProfile([FromBody] UserEditModel user)
+        public async Task<ActionResult<Response>> PutProfile([FromBody] UserEditModel user)
         {
             var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
 
@@ -109,9 +109,16 @@ namespace KeyTracingAPI.Controllers
 
         [HttpPost("/api/users/{userId}/assign-role/{role}")]
         [Authorize(Policy = "Admin")]
-        public async Task<ActionResult> GetUsers(Guid userId, Role role)
+        public async Task<ActionResult<Response>> GetUsers(Guid userId, Role role)
         {
-            await _userService.ChangeRole(userId, role);
+            var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+
+            if (userEmailClaim == null)
+            {
+                throw new InvalidTokenException("Token not found");
+            }
+
+            await _userService.ChangeRole(userId, role, userEmailClaim);
 
             return Ok("role succesfully changed");
         }

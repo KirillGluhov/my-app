@@ -1,6 +1,7 @@
 ﻿using KeyTracingAPI.Models.DTO.Request;
 using KeyTracingAPI.Models.Exceptions;
 using KeyTracingAPI.Services.Interfaces;
+using KeyTracingAPI.WideUseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -52,7 +53,12 @@ namespace KeyTracingAPI.Controllers
         [Authorize]
         public async Task<ActionResult> CancelRequest(Guid requestId)
         {
-            await _requestService.CancelRequest(requestId);
+            var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+
+            if (userEmailClaim == null)
+                throw new InvalidTokenException("Token not found");
+
+            await _requestService.CancelRequest(requestId, userEmailClaim);
 
             return Ok("Request succesfully returned");
         }
@@ -76,7 +82,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpPost("api/requests/approve/{requestId}")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult> ApproveRequest(Guid requestId)
+        public async Task<ActionResult<Response>> ApproveRequest(Guid requestId)
         {
             await _requestService.ApproveRequest(requestId);
 
@@ -85,7 +91,7 @@ namespace KeyTracingAPI.Controllers
 
         [HttpPost("api/requests/decline/{requestId}")]
         [Authorize(Policy = "Principal")]
-        public async Task<ActionResult> DeclineRequest(Guid requestId)
+        public async Task<ActionResult<Response>> DeclineRequest(Guid requestId)
         {
             await _requestService.DeclineRequest(requestId);
 
