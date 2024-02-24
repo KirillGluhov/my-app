@@ -1,4 +1,5 @@
 ﻿using KeyTracingAPI.Models.DTO.Request;
+using KeyTracingAPI.WideUseModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KeyTracingAPI.Services.Interfaces
@@ -7,10 +8,10 @@ namespace KeyTracingAPI.Services.Interfaces
     {
         Task<ActionResult<List<BookingKeyRequestDTOForUser>>> GetUserRequests(string email);
         Task<ActionResult<Guid>> CreateRequest(BookingKeyRequestCreationForm requestDto, string email);
-        Task CancelRequest(Guid requestId);
+        Task<ActionResult<Response>> CancelRequest(Guid requestId, string email);
         Task<ActionResult<List<BookingKeyRequestDTOForPrincipal>>> GetAllRequests(GetListOfRequestsQuery query);
         Task<ActionResult<BookingKeyRequestDTOForPrincipal>> GetRequest(Guid requestId);
-        Task ApproveRequest(Guid requestId);
-        Task DeclineRequest(Guid requestId);
+        Task<ActionResult<Response>> ApproveRequest(Guid requestId);
+        Task<ActionResult<Response>> DeclineRequest(Guid requestId);
     }
 }

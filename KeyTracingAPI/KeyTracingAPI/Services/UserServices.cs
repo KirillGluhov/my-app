@@ -9,6 +9,7 @@ using KeyTracingAPI.WideUseModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
@@ -131,7 +132,7 @@ namespace KeyTracingAPI.Services
             return result;
         }
 
-        public async Task Logout(string token)
+        public async Task<ActionResult<Response>> Logout(string token)
         {
             await _IsTokenValid(token);
 
@@ -142,6 +143,10 @@ namespace KeyTracingAPI.Services
 
             _context.Tokens.Remove(temp);
             await _context.SaveChangesAsync();
+            return new Response
+            {
+                Message = $"Succesfully logout"
+            };
         }
 
         public async Task<UserDTO> GetProfile(string Email)
@@ -154,7 +159,7 @@ namespace KeyTracingAPI.Services
             return await UserMapper(temp);
         }
 
-        public async Task EditProfile(UserEditModel user, string Email)
+        public async Task<ActionResult<Response>> EditProfile(UserEditModel user, string Email)
         {
             var temp = await _context.Users.SingleOrDefaultAsync(h => h.Email == Email);
 
@@ -162,9 +167,14 @@ namespace KeyTracingAPI.Services
                 throw new InvalidLoginException();
 
             temp.FullName = user.FullName;
+            temp.NormalizedName = user.FullName.Normalize();
             temp.Password = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(user.password)));
 
             await _context.SaveChangesAsync();
+            return new Response
+            {
+                Message = $"Profile succesfully edited"
+            };
         }
 
         public async Task<ActionResult<List<UserDTOForPrincipal>>> GetUsers(GetListOfUsersQuery query)
@@ -187,12 +197,18 @@ namespace KeyTracingAPI.Services
             return await UserListMapper(usersList);
         }
 
-        public async Task ChangeRole(Guid userId, Role role)
+        public async Task<ActionResult<Response>> ChangeRole(Guid userId, Role role, string email)
         {
             var user = await _context.Users.SingleOrDefaultAsync(h => h.Id == userId);
+            var admin = await _context.Users.SingleOrDefaultAsync(h => h.Email == email);
 
             if (user == null)
-                throw new BadRequestException("user with that guid doesnt exist");
+                throw new NotFoundException("user with that guid doesnt exist");
+            if (admin == null)
+                throw new NotFoundException("user with that email doesnt exist");
+
+            if (admin.UserRole == Role.Principal && (role == Role.Principal || role == Role.Admin))
+                throw new BadRequestException("you cant change users role to that one");
 
             user.UserRole = role;
             await _context.SaveChangesAsync();
@@ -204,6 +220,10 @@ namespace KeyTracingAPI.Services
                 _context.Tokens.Remove(temp);
                 await _context.SaveChangesAsync();
             }
+            return new Response
+            {
+                Message = $"Role succesfully changed"
+            };
         }
     }
 }

@@ -7,8 +7,10 @@ using KeyTracingAPI.Models.Enums;
 using KeyTracingAPI.Models.Exceptions;
 using KeyTracingAPI.Models.ManyToMany;
 using KeyTracingAPI.Services.Interfaces;
+using KeyTracingAPI.WideUseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace KeyTracingAPI.Services
 {
@@ -144,11 +146,17 @@ namespace KeyTracingAPI.Services
             return request.Id;
         }
 
-        public async Task CancelRequest(Guid requestId)
+        public async Task<ActionResult<Response>> CancelRequest(Guid requestId, string email)
         {
             var request = await _context.BookingKeyRequest.SingleOrDefaultAsync(req => req.Id == requestId);
             if (request == null)
                 throw new NotFoundException("cant find request with that id");
+
+            var user = await _context.Users.SingleOrDefaultAsync(h => h.Email == email);
+            if (user == null)
+                throw new NotFoundException("user with that email doesnt exist");
+            if (user.Id != request.UserId)
+                throw new BadRequestException("you cant cancel others requests");
 
             _context.BookingKeyRequest.Remove(request);
             if (request.RequestStatus == RequestStatus.Approved)
@@ -160,6 +168,11 @@ namespace KeyTracingAPI.Services
                 }
             }
             await _context.SaveChangesAsync();
+
+            return new Response
+            {
+                Message = $"request succesfully canceled"
+            };
         }
 
         public async Task<ActionResult<List<BookingKeyRequestDTOForPrincipal>>> GetAllRequests(GetListOfRequestsQuery query)
@@ -215,7 +228,7 @@ namespace KeyTracingAPI.Services
             return await _bkrMapperPrincipal(bkr);
         }
 
-        public async Task ApproveRequest(Guid requestId)
+        public async Task<ActionResult<Response>> ApproveRequest(Guid requestId)
         {
             var bkr = await _context.BookingKeyRequest.SingleOrDefaultAsync(h => h.Id == requestId);
 
@@ -235,17 +248,51 @@ namespace KeyTracingAPI.Services
                     KeyId = bkr.KeyId,
                     TimeSlot = bkr.TimeSlot
                 });
+            var key = await _context.Key.SingleOrDefaultAsync(k => k.Id == bkr.KeyId);
+
+            if (key == null)
+                throw new NotFoundException("Cant find key that used in that request");
+
+            await _context.BookedKeys.AddAsync(new BookedKey
+            {
+                UserId = bkr.UserId,
+                KeyId = key.Id,
+                DateToBeBooked = bkr.DateToBeBooked,
+                TimeSlot = bkr.TimeSlot,
+                RequestId = bkr.Id,
+                BookingKeyRequest = bkr
+            });
             await _context.SaveChangesAsync();
+
+            return new Response
+            {
+                Message = $"request succesfully approved"
+            };
         }
 
-        public async Task DeclineRequest(Guid requestId)
+        public async Task<ActionResult<Response>> DeclineRequest(Guid requestId)
         {
             var bkr = await _context.BookingKeyRequest.SingleOrDefaultAsync(h => h.Id == requestId);
 
             if (bkr == null)
                 throw new NotFoundException("Cant find booking key request with that guid");
+
+            if (bkr.RequestStatus == RequestStatus.Approved)
+            {
+                var bkrList = await _context.BookingKeyRequest.Where(b => b.TimeSlot == bkr.TimeSlot && b.DateToBeBooked == bkr.DateToBeBooked && b.KeyId == bkr.KeyId).ToListAsync();
+                foreach (BookingKeyRequest declinedBkr in bkrList)
+                {
+                    declinedBkr.RequestStatus = RequestStatus.InProcess;
+                }
+            }
             bkr.RequestStatus = RequestStatus.Declined;
+
             await _context.SaveChangesAsync();
+
+            return new Response
+            {
+                Message = $"request succesfully declined"
+            };
         }
     }
 }

@@ -13,14 +13,14 @@ namespace KeyTracingAPI.Services.Interfaces
 
         Task<ActionResult<TokenResponse>> Login(LoginCredentials login);
 
-        Task Logout(string token);
+        Task<ActionResult<Response>> Logout(string token);
 
         Task<UserDTO> GetProfile(string email);
 
-        Task EditProfile(UserEditModel user, string email);
+        Task<ActionResult<Response>> EditProfile(UserEditModel user, string email);
 
         Task<ActionResult<List<UserDTOForPrincipal>>> GetUsers(GetListOfUsersQuery query);
 
-        Task ChangeRole(Guid userId, Role role);
+        Task<ActionResult<Response>> ChangeRole(Guid userId, Role role, string email);
     }
 }

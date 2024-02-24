@@ -8,5 +8,6 @@ namespace KeyTracingAPI.Models.DTO.Key
         //public Guid Building { get; set; }
         public string Auditory { get; set; }
         public bool IsInPrincipalOffice { get; set; } = true;
+        public Guid id{ get; set; }
     }
 }
