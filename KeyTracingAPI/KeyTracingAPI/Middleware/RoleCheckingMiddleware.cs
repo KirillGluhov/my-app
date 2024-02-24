@@ -1,5 +1,6 @@
 ﻿using KeyTracingAPI.Database;
 using KeyTracingAPI.Models.Enums;
+using KeyTracingAPI.WideUseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -41,6 +42,11 @@ namespace KeyTracingAPI.Middleware
                 var json = JsonSerializer.Serialize(problemDetails);
                 await httpContext.Response.WriteAsync(json);
                 return;
+            }
+            if(userFromDB != null)
+            {
+                UserChecker.UserEmail = userFromDB.Email;
+                UserChecker.UserId = userFromDB.Id;
             }
 
             await _next(httpContext);

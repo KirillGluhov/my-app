@@ -82,9 +82,19 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization(options =>
 {
+    options.AddPolicy(Role.Student.ToString(), p => p.RequireClaim("UserRole", Role.Student.ToString()));
     options.AddPolicy(Role.Teacher.ToString(), p => p.RequireClaim("UserRole", Role.Teacher.ToString()));
     options.AddPolicy(Role.Principal.ToString(), p => p.RequireClaim("UserRole", Role.Principal.ToString()));
     options.AddPolicy(Role.Admin.ToString(), p => p.RequireClaim("UserRole", Role.Admin.ToString()));
+    options.AddPolicy("TeacherOrStudent", p =>
+    {
+        p.RequireAssertion(context =>
+        {
+            return context.User.HasClaim(claim => (claim.Type == "UserRole" && claim.Value == Role.Student.ToString())
+            || (claim.Type == "UserRole" && claim.Value == Role.Teacher.ToString())
+            );
+        });
+    });
 });
 
 
@@ -100,7 +110,7 @@ builder.Services.AddScoped<IRequestService, RequestService>();
 
 // Add database contexts
 builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 200220042010"));
+    options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 1"));
 
 var app = builder.Build();
 /*using var serviceScope = app.Services.CreateScope();

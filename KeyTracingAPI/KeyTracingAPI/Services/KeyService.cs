@@ -26,17 +26,27 @@ namespace KeyTracingAPI.Services
         {
             var requestFromDB = await checkRequestExistance(requestId);
 
+            if (requestFromDB!.UserId != UserChecker.UserId)
+                throw new InvalidLoginException("You cant access this request");
+            if (requestFromDB!.RequestStatus == RequestStatus.InProcess || requestFromDB.RequestStatus == RequestStatus.Declined)
+                throw new BadRequestException("Your request is not approved yet, you cant confirm that you recieved key");
             if (requestFromDB!.DateToBeBooked > DateOnly.FromDateTime(DateTime.Today))
-                throw new BadRequestException("You cant recieve key yet");
-            if (requestFromDB.IsKeyRecieved == true)
-                throw new BadRequestException($"You already recieved the key with id {requestFromDB.KeyId}");
+                throw new BadRequestException("You cant recieve key yet, ask principal when the booking day comes");
 
-            var tryPreviousRequest = _dbContext.BookedKeys.Where(bookedKed => bookedKed.UserId != requestFromDB.UserId && bookedKed.KeyId ==
-                requestFromDB.KeyId && bookedKed.DateToBeBooked == requestFromDB.DateToBeBooked && bookedKed.TimeSlot < requestFromDB.TimeSlot).FirstOrDefaultAsync();
+            var keyFromDB = await _dbContext.Key.FirstOrDefaultAsync(key => key.Id == requestFromDB.KeyId);
+            if (keyFromDB!.IsInPrincipalOffice)
+                throw new BadRequestException("Principal not confirmed yet that given key to you");
+
+            if (requestFromDB.IsKeyRecieved == true)
+                throw new BadRequestException($"You already recieved the key with id {requestFromDB.KeyId}, you cant decline it");
+
+            var tryPreviousRequest = await _dbContext.BookingKeyRequest.Where(bookedKey => bookedKey.UserId != requestFromDB.UserId
+            && bookedKey.DateToBeBooked == requestFromDB.DateToBeBooked && bookedKey.TimeSlot < requestFromDB.TimeSlot
+            && bookedKey.RequestStatus == RequestStatus.Approved && bookedKey.IsKeyRecieved == false)
+            .FirstOrDefaultAsync(bookedKey => bookedKey.KeyId == requestFromDB.KeyId);
 
             if (tryPreviousRequest != null)
                 throw new BadRequestException("There are user before you with confirmed request, you cant recieve key yet");
-
 
             requestFromDB.IsKeyRecieved = true;
             await _dbContext.SaveChangesAsync();
@@ -48,7 +58,7 @@ namespace KeyTracingAPI.Services
 
         public async Task<Response> CreateKey(KeyCreateForm key)
         {
-            var keyFromDB = checkKeyExistance(key.Auditory, true);
+            var keyFromDB = await checkKeyExistance(key.Auditory, true);
 
             Key newKey = new Key
             {
@@ -68,13 +78,15 @@ namespace KeyTracingAPI.Services
         {
             var keyFromDB = await checkKeyExistance(keyId);
 
-            var requestUser = await _dbContext.BookingKeyRequest
+            /*var requestUser = await _dbContext.BookingKeyRequest
                 .Where(request => request.IsKeyReturned == false && request.IsKeyRecieved == true)
-                .OrderBy(request => request.DateToBeBooked)
+                .OrderByDescending(request => request.DateToBeBooked)
                 .FirstOrDefaultAsync(request => request.KeyId == keyId);
-
             if (requestUser != null && keyFromDB.IsInPrincipalOffice == false)
-                throw new BadRequestException($"Key with id {keyId} can't be deleted, the key is in use of user with id {requestUser!.UserId}");
+                throw new BadRequestException($"Key with id {keyId} can't be deleted, the key is in use of user with id {requestUser!.UserId}");*/
+
+            if (!keyFromDB.IsInPrincipalOffice)
+                throw new BadRequestException($"Key with id {keyId} is not in principal's office, it cant be deleted");
 
             var bookingOfKey = await _dbContext.BookedKeys
                 .Where(bookedKey => bookedKey.DateToBeBooked >= DateOnly.FromDateTime(DateTime.Today))
@@ -91,12 +103,11 @@ namespace KeyTracingAPI.Services
             };
         }
 
-        public async Task<List<KeyDTO>> GetAllFreeKeys(GetListOfKeysQuery query)
+        public async Task<List<object>> GetAllFreeKeys(GetListOfKeysQuery query)
         {
             var filteredKeys = await returnFilteredKeys(query.Sorting);
 
-
-            List<KeyDTO> validKeys = new List<KeyDTO>();
+            List<object> validKeys = new List<object>();
 
             foreach(var key in filteredKeys)
             {
@@ -114,82 +125,89 @@ namespace KeyTracingAPI.Services
                 //Console.WriteLine($"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB --- {keyBookings.Count - (query.TimeSlots.Count * ((query.Period.Value.DayNumber - query.Period.Key.DayNumber) + 1))}");
 
                 if (keyBookings.Count < (query.TimeSlots.Count * ((query.Period.Value.DayNumber - query.Period.Key.DayNumber) + 1)))
-                    validKeys.Add(new KeyDTO
+                    validKeys.Add(new 
                     {
-                        Auditory = key.Auditory,
-                        IsInPrincipalOffice = key.IsInPrincipalOffice
+                        key.Id,
+                        key.Auditory,
+                        key.IsInPrincipalOffice
                     });
             }
 
             return validKeys;
         }
 
-        public async Task<List<KeyDTO>> GetAllKeys(KeySorting sorting, bool? isInPrincipalOffice)
+        public async Task<List<object>> GetAllKeys(KeySorting sorting, bool? isInPrincipalOffice)
         {
             var filteredKeys = await returnFilteredKeys(sorting);
 
-            List<KeyDTO> allKeys = new List<KeyDTO>();
+            List<object> allKeys = new List<object>();
 
             foreach(var filteredKey in filteredKeys)
             {
                 if (isInPrincipalOffice != null && (filteredKey.IsInPrincipalOffice != isInPrincipalOffice))
                     continue;
 
-                allKeys.Add(new KeyDTO
+                allKeys.Add(new
                 {
-                    Auditory = filteredKey.Auditory,
-                    IsInPrincipalOffice = filteredKey.IsInPrincipalOffice
+                    filteredKey.Id,
+                    filteredKey.Auditory,
+                    filteredKey.IsInPrincipalOffice
                 });
             }
 
             return allKeys;
         }
 
-        public async Task<List<BookedKeyDTO>> GetConcreteKeyBookingInfo(GetConcreteKeyQuery query)
+        public async Task<object> GetConcreteKeyBookingInfo(GetConcreteKeyQuery query)
         {
             var keyFromDB = await checkKeyExistance(query.Auditory, false);
 
             var bookingInfoFromDB = await _dbContext.BookedKeys.Where(key => key.KeyId == keyFromDB.Id && (key.DateToBeBooked >= query.Period.Key && key.DateToBeBooked <= query.Period.Value))
                 .OrderBy(key => key.DateToBeBooked)
                 .ThenBy(key => key.TimeSlot)
-                .Select(bookedKey => new {bookedKey.UserId, bookedKey.KeyId, bookedKey.DateToBeBooked, bookedKey.TimeSlot})
+                .Select(bookedKey => new {bookedKey.UserId,
+                    bookedKey.DateToBeBooked,
+                    bookedKey.TimeSlot})
                 .ToListAsync();
 
-            List<BookedKeyDTO> bookedKeyDTOs = new List<BookedKeyDTO>();
+            List<object> bookedKeyDTOs = new List<object>();
 
             foreach(var bookingInfo in bookingInfoFromDB)
             {
-                bookedKeyDTOs.Add(new BookedKeyDTO
+                bookedKeyDTOs.Add(new
                 {
-                    UserId = bookingInfo.UserId,
-                    KeyId = bookingInfo.KeyId,
-                    DateToBeBooked = bookingInfo.DateToBeBooked,
-                    TimeSlot = bookingInfo.TimeSlot
+                    bookingInfo.UserId,
+                    bookingInfo.DateToBeBooked,
+                    bookingInfo.TimeSlot
                 });
             }
 
-            return bookedKeyDTOs;
+            return new { 
+                keyId = keyFromDB.Id,
+                DatesWhenKeyBooked = bookedKeyDTOs
+            };
         }
 
-        public async Task<Response> ChangeKeyStatus(Guid keyId)
+        public async Task<Response> ChangeKeyStatus(Guid keyId, bool isInPrincipalOffice)
         {
             var keyFromDB = await checkKeyExistance(keyId);
 
             var requestUser = await _dbContext.BookingKeyRequest
                .Where(request => request.IsKeyRecieved == true)
-               .OrderBy(request => request.DateToBeBooked)
+               .OrderByDescending(request => request.DateToBeBooked)
+               .ThenByDescending(request => request.TimeSlot)
                .FirstOrDefaultAsync(request => request.KeyId == keyId);
 
-            if (requestUser != null && requestUser!.IsKeyReturned == false)
-                throw new BadRequestException($"Key's status with id {keyId} can't be changed, the key is in use of user with id {requestUser!.UserId}");
+            if (requestUser != null && requestUser.IsKeyReturned == false && isInPrincipalOffice)
+                throw new BadRequestException($"Key with id {keyId} can't be returned to principal, the key is in use of user with id {requestUser!.UserId}");
 
-            keyFromDB.IsInPrincipalOffice = !keyFromDB.IsInPrincipalOffice;
+            keyFromDB.IsInPrincipalOffice = isInPrincipalOffice;
 
             _dbContext.Key.Update(keyFromDB);
             await _dbContext.SaveChangesAsync();
             return new Response
             {
-                Message = $"Key status with id {keyId} succesfully changed"
+                Message = $"Key with id {keyId} succesfully " + $"{(isInPrincipalOffice ? "returned" : "issued")}"
             };
         }
 
@@ -197,12 +215,19 @@ namespace KeyTracingAPI.Services
         {
             var requestFromDB = await checkRequestExistance(requestId);
 
-            var lastRequestForKey = await _dbContext.BookedKeys
-                .Where(bookedKey => bookedKey.DateToBeBooked == requestFromDB!.DateToBeBooked && bookedKey.TimeSlot > requestFromDB.TimeSlot)
-                .FirstOrDefaultAsync();
+            if (requestFromDB!.RequestStatus == RequestStatus.InProcess || requestFromDB.RequestStatus == RequestStatus.Declined)
+                throw new BadRequestException("Your request is not approved yet, you cant confirm that you returned key");
 
-            if (lastRequestForKey != null && lastRequestForKey.UserId != requestFromDB!.UserId)
-                throw new BadRequestException("There are already a user who booked the key from your request");
+            var nextRequestForKey = await _dbContext.BookedKeys
+                .Where(bookedKey => bookedKey.DateToBeBooked == requestFromDB!.DateToBeBooked)
+                .OrderByDescending(bookedKey => bookedKey.TimeSlot)
+                .FirstOrDefaultAsync(key => key.KeyId == requestFromDB!.KeyId);
+
+            if (nextRequestForKey != null && nextRequestForKey.UserId != requestFromDB!.UserId)
+                throw new BadRequestException("There are already a user who booked the same key as in your request for a later timeslot");
+
+            if (!requestFromDB.IsKeyRecieved)
+                throw new BadRequestException("You didnt confirm that you recieved key yet");
 
             requestFromDB!.IsKeyReturned = true;
             _dbContext.BookingKeyRequest.Update(requestFromDB);
@@ -223,7 +248,7 @@ namespace KeyTracingAPI.Services
             var requestFromDB = await _dbContext.BookingKeyRequest.FirstOrDefaultAsync(request => request.Id == requestId);
 
             if (requestFromDB == null)
-                throw new BadRequestException($"Request with id {requestId} does not exists");
+                throw new NotFoundException($"Request with id {requestId} does not exists");
 
             return requestFromDB;
         }
@@ -232,7 +257,7 @@ namespace KeyTracingAPI.Services
             var keyFromDB = await _dbContext.Key.FirstOrDefaultAsync(key => key.Id == keyId);
 
             if (keyFromDB == null)
-                throw new BadRequestException($"key with id {keyId} does not exist");
+                throw new NotFoundException($"key with id {keyId} does not exist");
 
             return keyFromDB;
         }
@@ -240,8 +265,13 @@ namespace KeyTracingAPI.Services
         {
             var keyFromDB = await _dbContext.Key.FirstOrDefaultAsync(key => key.Auditory == auditory);
 
+            if (forCreation && keyFromDB != null)
+                throw new BadRequestException($"key for auditory {auditory} already exists");
+            else if (forCreation && keyFromDB == null)
+                return null;
+
             if (keyFromDB == null)
-                throw new BadRequestException($"key for auditory {auditory} " + $"{(forCreation ? "already exists" : "does not exist")}");
+                throw new NotFoundException($"key for auditory {auditory} does not exist");
 
             return keyFromDB;
         }

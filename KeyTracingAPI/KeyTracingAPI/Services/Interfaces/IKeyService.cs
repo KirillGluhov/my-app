@@ -9,11 +9,11 @@ namespace KeyTracingAPI.Services.Interfaces
 {
     public interface IKeyService
     {
-        Task<List<KeyDTO>> GetAllFreeKeys(GetListOfKeysQuery query);
-        Task<List<KeyDTO>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice);
-        Task<List<BookedKeyDTO>> GetConcreteKeyBookingInfo(GetConcreteKeyQuery query);
+        Task<List<object>> GetAllFreeKeys(GetListOfKeysQuery query);
+        Task<List<object>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice);
+        Task<object> GetConcreteKeyBookingInfo(GetConcreteKeyQuery query);
         Task<Response> ConfirmKey(Guid keyId);
-        Task<Response> ChangeKeyStatus(Guid keyId);//объединить в одну(?)
+        Task<Response> ChangeKeyStatus(Guid keyId, bool isInPrincipalOffice);//объединить в одну(?)
         Task<Response> CreateKey(KeyCreateForm key);
         Task<Response> DeleteKey(Guid KeyId, bool forceDelete = false);
         Task<Response> ReturnKeyToPrincipal(Guid requestId);

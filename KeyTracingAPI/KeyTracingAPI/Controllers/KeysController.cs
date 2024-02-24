@@ -22,7 +22,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<KeyDTO>> GetAllFreeKeys([FromQuery] GetListOfKeysQuery query)
+        public async Task<List<object>> GetAllFreeKeys([FromQuery] GetListOfKeysQuery query)
         {
             var allFreeKeys = await _keyService.GetAllFreeKeys(query);
 
@@ -30,7 +30,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<KeyDTO>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice)
+        public async Task<List<object>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice)
         {
             var allKeys = await _keyService.GetAllKeys(keySorting, isInPrincipalOffice);
 
@@ -38,7 +38,7 @@ namespace KeyTracingAPI.Controllers
         } 
 
         [HttpGet]
-        public async Task<List<BookedKeyDTO>> GetConcreteKeyBookingInfo([FromQuery] GetConcreteKeyQuery query)
+        public async Task<object> GetConcreteKeyBookingInfo([FromQuery] GetConcreteKeyQuery query)
         {
             var result = await _keyService.GetConcreteKeyBookingInfo(query);
 
@@ -47,16 +47,15 @@ namespace KeyTracingAPI.Controllers
  
         [HttpPost("/api/keys/{keyId}/ChangeKeyStatus")]
         [Authorize(Policy = "Principal")]
-        public async Task<Response> ChangeKeyStatus(Guid keyId)
+        public async Task<Response> ChangeKeyStatus(Guid keyId, bool isInPrincipalOffice)
         {
-            var result =  await _keyService.ChangeKeyStatus(keyId);
+            var result =  await _keyService.ChangeKeyStatus(keyId, isInPrincipalOffice);
 
             return result;
         }
 
         [HttpPost("/api/keys/{requestId}/confirm")]
-        [Authorize(Policy = "Teacher")]
-        [Authorize(Policy = "Student")]
+        [Authorize(Policy = "TeacherOrStudent")]
         public async Task<Response> ConfirmKey(Guid requestId)
         {
             var result = await _keyService.ConfirmKey(requestId);
@@ -83,8 +82,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "Teacher")]
-        [Authorize(Policy = "Student")]
+        [Authorize(Policy = "TeacherOrStudent")]
         public async Task<Response> ReturnKeyToPrincipal(Guid requestId)
         {
             var result = await _keyService.ReturnKeyToPrincipal(requestId);
