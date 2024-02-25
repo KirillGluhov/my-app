@@ -186,3 +186,24 @@ a.disabled
 {
     min-width: 520px;
 }
+
+.rounded-text
+{
+    border-radius: 20% / 100%;
+}
+
+.p-6
+{
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.border-radius-small-all
+{
+    border-radius: 10px 10px 10px 10px;
+}
+
+.light-color
+{
+    background-color: #67A8F3;
+}

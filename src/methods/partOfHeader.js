@@ -18,25 +18,11 @@ function smallCase (page, disabled, withstick)
 {
     if (disabled)
     {
-        if (withstick)
-        {
-            return <Nav.Link href={page.Eng.toString().toLowerCase()} className={Styles.WITHSTICK} disabled>{page.Rus.toUpperCase()}</Nav.Link>;
-        }
-        else
-        {
-            return <Nav.Link href={page.Eng.toString().toLowerCase()} className={Styles.WITHOUTSTICK} disabled>{page.Rus.toUpperCase()}</Nav.Link>;
-        }
+        return <Nav.Link href={page.Eng.toString().toLowerCase()} className={withstick ? Styles.WITHSTICK : Styles.WITHOUTSTICK} disabled>{page.Rus.toUpperCase()}</Nav.Link>;
     }
     else
     {
-        if (withstick)
-        {
-            return <Nav.Link href={page.Eng.toString().toLowerCase()} className={Styles.WITHSTICK}>{page.Rus.toUpperCase()}</Nav.Link>;
-        }
-        else
-        {
-            return <Nav.Link href={page.Eng.toString().toLowerCase()} className={Styles.WITHOUTSTICK}>{page.Rus.toUpperCase()}</Nav.Link>;
-        }
+        return <Nav.Link href={page.Eng.toString().toLowerCase()} className={withstick ? Styles.WITHSTICK : Styles.WITHOUTSTICK}>{page.Rus.toUpperCase()}</Nav.Link>;
     }
 }
 

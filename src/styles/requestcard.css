@@ -1,0 +1,39 @@
+.awaits
+{
+    background-color: #5facff;
+}
+
+.approved
+{
+    background-color: #88FF5F;
+}
+
+.cancelled
+{
+    background-color: #FF855F;
+}
+
+.inProcess
+{
+    background-color: #FFE55F;
+}
+
+.border-red
+{
+    --bs-btn-border-color: #FF855F;
+}
+
+.border-green
+{
+    --bs-btn-border-color: #88FF5F;
+}
+
+.border-thick
+{
+    --bs-btn-border-width: 5px;
+}
+
+.dotted
+{
+    border-style: dashed;
+}

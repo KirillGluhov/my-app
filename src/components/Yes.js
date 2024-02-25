@@ -6,7 +6,7 @@ export class Yes extends React.Component
     {
         return (
             <svg width="29" height="22" viewBox="0 0 29 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 12.5L10 19.5L26.5 3" stroke="#2BF133" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 12.5L10 19.5L26.5 3" stroke="#88FF5F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         );
     }

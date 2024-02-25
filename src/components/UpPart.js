@@ -36,7 +36,7 @@ function UpPart(props)
     return (
         <Stack className='darkblue border-radius-small min-weight-520'>
             <Row className='mt-3 mx-2'>
-                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3'>
+                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3 p-6'>
                     <Form.Select className='radiusnone darkAndLight' id='audience' value={values.audience} onChange={handleChange}>
                         <option value="audience" className='radiusnone'>Аудитория</option>
                         <option value="100" className='radiusnone'>100</option>
@@ -45,7 +45,7 @@ function UpPart(props)
                         <option value="080" className='radiusnone'>080</option>
                     </Form.Select>
                 </Col>
-                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3'>
+                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3 p-6'>
                     <Dropdown>
                         <Dropdown.Toggle className='time-and-date'>
                             Время
@@ -62,7 +62,7 @@ function UpPart(props)
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3'>
+                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3 p-6'>
                     <Dropdown>
                         <Dropdown.Toggle className='time-and-date'>
                             Дата
@@ -80,14 +80,14 @@ function UpPart(props)
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col xxl={2} xl={3} lg={3} md={4} sm={6} xs={6} className='mb-3'>
+                <Col xxl={2} xl={3} lg={3} md={4} sm={6} xs={6} className='mb-3 p-6'>
                     <Form.Select className='radiusnone darkAndLight' value={values.role} onChange={handleChange} id='role'>
                         <option value="role" className='radiusnone'>Роль</option>
                         <option value="Student" className='radiusnone'>Студент</option>
                         <option value="Teacher" className='radiusnone'>Преподаватель</option>
                     </Form.Select>
                 </Col>
-                <Col xxl={2} xl={6} lg={6} md={4} sm={6} xs={6} className='mb-3'>
+                <Col xxl={2} xl={6} lg={6} md={4} sm={6} xs={6} className='mb-3 p-6'>
                     <Form.Select className='radiusnone darkAndLight' id='status' value={values.status} onChange={handleChange}>
                         <option value="status" className='radiusnone'>Статус</option>
                         <option value="awaits" className='radiusnone'>Ожидает</option>
@@ -96,7 +96,7 @@ function UpPart(props)
                         <option value="inProcess" className='radiusnone'>В процессе</option>
                     </Form.Select>
                 </Col>
-                <Col xxl={2} xl={6} lg={6} md={4} sm={12} xs={12} className='mb-3'>
+                <Col xxl={2} xl={6} lg={6} md={4} sm={12} xs={12} className='mb-3 p-6'>
                     <Form.Control placeholder="Найти" className='search verySmallRadius' value={values.search} onChange={handleChange} id='search'/>
                 </Col>
             </Row>
