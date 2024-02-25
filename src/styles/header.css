@@ -1,0 +1,28 @@
+
+.stylesForBrand
+{
+    margin: 16px;
+}
+
+.navbar-brand.dontChangeColor
+{
+    margin-right: 0px;
+}
+
+.stylesForBrand:hover, .dontChangeColor:hover
+{
+    color: white;
+}
+
+.navbar-toggler-icon
+{
+    color: white;
+    background-image: url("../images/burger-menu-svgrepo-com.svg");
+}
+
+.navbar
+{
+    min-width: 253px;
+    height: 64px;
+    --bs-navbar-toggler-border-color: none;
+}

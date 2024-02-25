@@ -1,11 +1,13 @@
 import { Container, Form, Row, Col, Stack, Button, Dropdown, DropdownButton } from 'react-bootstrap';
+import timeImage from '../images/time-image.svg';
+import calendarIcon from '../images/calendar-icon.svg';
 
 function UpPart(props)
 {
     return (
         <Stack className='darkblue border-radius-small'>
-            <Row className='mt-3 mx-3'>
-                <Col xs={2} className='mb-3'>
+            <Row className='mt-3 mx-2'>
+                {/*<Col xs={2} className='mb-3'>
                     <Form.Select className='radiusnone darkAndLight' id='building'>
                         <option value="any" className='radiusnone'>Корпус</option>
                         <option value="1" className='radiusnone'>1</option>
@@ -13,7 +15,7 @@ function UpPart(props)
                         <option value="3" className='radiusnone'>3</option>
                         <option value="Botanical garden" className='radiusnone'>Ботанический сад</option>
                     </Form.Select>
-                </Col>
+                </Col>*/}
                 <Col xs={2} className='mb-3'>
                     <Form.Select className='radiusnone darkAndLight' id='audience'>
                         <option value="any" className='radiusnone'>Аудитория</option>
@@ -23,10 +25,11 @@ function UpPart(props)
                         <option value="080" className='radiusnone'>080</option>
                     </Form.Select>
                 </Col>
-                <Col xs={1} className='mb-3'>
+                <Col xs={2} className='mb-3'>
                     <Dropdown>
-                        <Dropdown.Toggle className='timeAndDate'>
+                        <Dropdown.Toggle className='time-and-date'>
                             Время
+                            <img src={timeImage}/>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey='1'>8:45 - 10:20</Dropdown.Item>
@@ -39,10 +42,11 @@ function UpPart(props)
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col xs={1} className='mb-3'>
+                <Col xs={2} className='mb-3'>
                     <Dropdown>
-                        <Dropdown.Toggle className='timeAndDate'>
+                        <Dropdown.Toggle className='time-and-date'>
                             Дата
+                            <img src={calendarIcon}/>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey='1'><Form.Control type="date" className='radiusnone from' id='from'/></Dropdown.Item>
@@ -56,14 +60,14 @@ function UpPart(props)
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col xs={2} className='mb-3'>
+                <Col xs={1} className='mb-3'>
                     <Form.Select className='radiusnone darkAndLight'>
                         <option value="any" className='radiusnone'>Роль</option>
                         <option value="Student" className='radiusnone'>Студент</option>
                         <option value="Teacher" className='radiusnone'>Преподаватель</option>
                     </Form.Select>
                 </Col>
-                <Col xs={2} className='mb-3'>
+                <Col xs={1} className='mb-3'>
                     <Form.Select className='radiusnone darkAndLight' id='status'>
                         <option value="any" className='radiusnone'>Статус</option>
                         <option value="awaits" className='radiusnone'>Ожидает</option>
@@ -72,7 +76,7 @@ function UpPart(props)
                         <option value="inProcess" className='radiusnone'>В процессе</option>
                     </Form.Select>
                 </Col>
-                <Col xs={2} className='mb-3'>
+                <Col xs={3} className='mb-3'>
                     <Form.Control placeholder="Найти" className='search verySmallRadius'/>
                 </Col>
             </Row>

@@ -2,6 +2,8 @@ html, body
 {
     margin: 0;
     padding: 0;
+    font-family: 'Inter', sans-serif; 
+    font-weight: bold;
 }
 
 .darkblue
@@ -37,36 +39,9 @@ html, body
     color: white;
 }
 
-.stylesForBrand
-{
-    margin: 8px;
-}
-
 .bigText
 {
-    font-size: 18px;
-}
-
-.navbar-brand.dontChangeColor
-{
-    margin-right: 0px;
-}
-
-.stylesForBrand:hover, .dontChangeColor:hover
-{
-    color: white;
-}
-
-.navbar-toggler-icon
-{
-    color: white;
-    background-image: url("../images/burger-menu-svgrepo-com.svg");
-}
-
-.navbar
-{
-    min-width: 253px;
-    --bs-navbar-toggler-border-color: none;
+    font-size: 14px;
 }
 
 .end
@@ -155,6 +130,8 @@ a.disabled
 
 .form-select
 {
+    text-align: center;
+    border: none;
     --bs-form-select-bg-img: url('../images/select-switch.svg');
     background-size: auto !important;
 }
@@ -170,19 +147,27 @@ a.disabled
     border-radius: 2px;
 }
 
-.timeAndDate
+.time-and-date
 {
     background-color: #2D4B67;
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 20% / 50%;
-    background-image: url("../images/time-image.svg");
-    background-repeat: no-repeat;
-    background-position: right;
+    border-radius: 20% / 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    font-family: 'Inter';
+    font-weight: bold;
 }
 
-.timeAndDate:hover
+.time-and-date .text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.time-and-date:hover
 {
     background-color: #67A8F3;
 }

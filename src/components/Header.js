@@ -4,6 +4,7 @@ import useResize from '../hooks/use-resize';
 import React from 'react';
 import {PageName} from "../const/const-pagesnames";
 import partOfHeader from "../methods/partOfHeader";
+import '.././styles/header.css'
 
 function Header(props)
 {
@@ -17,49 +18,38 @@ function Header(props)
     let login = partOfHeader(PageName.LOGIN, props.page, isScreenSm, isScreenMd);
 
     let brand = (
-    <Navbar.Brand className='white dontChangeColor'>
-        <LogoApp/><span className='stylesForBrand'>TSU.INLOCK</span>
-    </Navbar.Brand>
+        <Navbar.Brand className='white dontChangeColor'>
+            <LogoApp/><span className='stylesForBrand'>TSU.INLOCK</span>
+        </Navbar.Brand>
     );
 
-    if (props.type === "authorized")
-    {
-        return (
-            <Navbar expand="md" className='darkblue' >
-                <Container>
-                    {brand}
-                    <Navbar.Toggle className='darkblue inner'/>
-                    <Navbar.Collapse className='endAndStart'>
-                        <Nav>
-                            {keys}
-                            {users}
-                            {requests}
-                        </Nav>
-                        <Nav>
-                            {profile}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        );
-    }
-    else if (props.type === "unauthorized")
-    {
-        return (
-            <Navbar expand="md" className='darkblue' >
-                <Container>
-                    {brand}
-                    <Navbar.Toggle className='darkblue inner'/>
-                    <Navbar.Collapse className='end'>
-                        <Nav>
-                            {registration}
-                            {login}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        );
-    }
+    return (
+        <Navbar expand="md" className='darkblue'>
+          <Container>
+            {brand}
+            <Navbar.Toggle className='darkblue inner' />
+            <Navbar.Collapse className={props.type === 'authorized' ? 'endAndStart' : 'end'}>
+              <Nav>
+                {props.type === 'authorized' && (
+                  <>
+                    {keys}
+                    {users}
+                    {requests}
+                  </>
+                )}
+              </Nav>
+              <Nav>
+                {props.type === 'authorized' ? profile : (registration && login && (
+                  <>
+                    {registration}
+                    {login}
+                  </>
+                ))}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+    );
 }
 
 export default Header;
