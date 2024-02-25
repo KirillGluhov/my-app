@@ -32,13 +32,13 @@ function UpPart(props)
                             <img src={timeImage}/>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey='1'>8:45 - 10:20</Dropdown.Item>
-                            <Dropdown.Item eventKey='2'>10:35 - 12:10</Dropdown.Item>
-                            <Dropdown.Item eventKey='3'>12:25 - 14:00</Dropdown.Item>
-                            <Dropdown.Item eventKey='4'>14:45 - 16:20</Dropdown.Item>
-                            <Dropdown.Item eventKey='5'>16:35 - 18:10</Dropdown.Item>
-                            <Dropdown.Item eventKey='4'>18:25 - 20:00</Dropdown.Item>
-                            <Dropdown.Item eventKey='5'>20:15 - 21:50</Dropdown.Item>
+                            <Dropdown.Item eventKey='1'><Button>8:45 - 10:20</Button></Dropdown.Item>
+                            <Dropdown.Item eventKey='2'><Button>10:35 - 12:10</Button></Dropdown.Item>
+                            <Dropdown.Item eventKey='3'><Button>12:25 - 14:00</Button></Dropdown.Item>
+                            <Dropdown.Item eventKey='4'><Button>14:45 - 16:20</Button></Dropdown.Item>
+                            <Dropdown.Item eventKey='5'><Button>16:35 - 18:10</Button></Dropdown.Item>
+                            <Dropdown.Item eventKey='4'><Button>18:25 - 20:00</Button></Dropdown.Item>
+                            <Dropdown.Item eventKey='5'><Button>20:15 - 21:50</Button></Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
@@ -49,14 +49,14 @@ function UpPart(props)
                             <img src={calendarIcon}/>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey='1'><Form.Control type="date" className='radiusnone from' id='from'/></Dropdown.Item>
-                            <Dropdown.Item eventKey='2'><Form.Control type="date" className='radiusnone to' id='to'/></Dropdown.Item>
-                            <Dropdown.Item eventKey='3'>
+                            <Form>
+                                <Form.Control type="date" className='radiusnone from' id='from'/>
+                                <Form.Control type="date" className='radiusnone to' id='to'/>
                                 <Form.Select className='radiusnone'>
                                     <option value="Desc" className='radiusnone'>По убыванию</option>
                                     <option value="Asc" className='radiusnone'>По возрастанию</option>
                                 </Form.Select>
-                            </Dropdown.Item>
+                            </Form>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
