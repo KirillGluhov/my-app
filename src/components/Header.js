@@ -4,7 +4,7 @@ import useResize from '../hooks/use-resize';
 import React from 'react';
 import {PageName} from "../const/const-pagesnames";
 import partOfHeader from "../methods/partOfHeader";
-import '.././styles/header.css'
+import '.././styles/header.css';
 
 function Header(props)
 {

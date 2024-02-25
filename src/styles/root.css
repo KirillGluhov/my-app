@@ -1,3 +1,9 @@
+@font-face 
+{
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Bold.ttf');
+}
+
 html, body
 {
     margin: 0;
@@ -158,7 +164,6 @@ a.disabled
     align-items: center;
     justify-content: space-between;
     padding-left: 15px;
-    font-family: 'Inter';
     font-weight: bold;
 }
 
@@ -175,4 +180,9 @@ a.disabled
 .dropdown-toggle::after
 {
     content: none;
+}
+
+.min-weight-520
+{
+    min-width: 520px;
 }
