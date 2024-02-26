@@ -39,10 +39,8 @@ function UpPart(props)
                 <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3 p-6'>
                     <Form.Select className='radiusnone darkAndLight' id='audience' value={values.audience} onChange={handleChange}>
                         <option value="audience" className='radiusnone'>Аудитория</option>
-                        <option value="100" className='radiusnone'>100</option>
-                        <option value="200" className='radiusnone'>200</option>
-                        <option value="300" className='radiusnone'>300</option>
-                        <option value="080" className='radiusnone'>080</option>
+                        <option value="Asc" className='radiusnone'>По возрастанию</option>
+                        <option value="Desc" className='radiusnone'>По убыванию</option>
                     </Form.Select>
                 </Col>
                 <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='mb-3 p-6'>
@@ -85,6 +83,8 @@ function UpPart(props)
                         <option value="role" className='radiusnone'>Роль</option>
                         <option value="Student" className='radiusnone'>Студент</option>
                         <option value="Teacher" className='radiusnone'>Преподаватель</option>
+                        <option value="Principal" className='radiusnone'>Деканат</option>
+                        <option value="Admin" className='radiusnone'>Администратор</option>
                     </Form.Select>
                 </Col>
                 <Col xxl={2} xl={6} lg={6} md={4} sm={6} xs={6} className='mb-3 p-6'>

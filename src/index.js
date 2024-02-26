@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/root.css'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Requests from './components/Requests';
+import Profile from './components/Profile';
+import Keys from './components/Keys';
+import Users from './components/Users';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +17,9 @@ root.render(
         <Route path="registration" element={<div>Registration</div>} />
         <Route path="login" element={<div>Login</div>} />
         <Route path="requests" element={<Requests/>} />
-        <Route path="profile" element={<div>Profile</div>} />
-        <Route path="users" element={<div>Users</div>} />
-        <Route path="keys" element={<div>Keys</div>} />
+        <Route path="profile" element={<Profile/>} />
+        <Route path="users" element={<Users/>} />
+        <Route path="keys" element={<Keys/>} />
         <Route path="keys/create" element={<div>Create key</div>} />
         <Route path="*" element={<div>Такой страницы нет</div>} />
       </Routes>
@@ -26,4 +29,5 @@ root.render(
 
 /* 
 Header. Поле type = "authorized" | "unauthorized", поле page = "keys" | "users" | "requests" | "profile" | "registration" | "login" | "main"
+RequestCard. Поле status = "approved" | "awaits" | "cancelled" | "inProcess"
 */
