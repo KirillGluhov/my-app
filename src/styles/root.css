@@ -198,6 +198,7 @@ a.disabled
     padding-right: 6px;
 }
 
+/*Можно заменять на "rounded-n" внутри className*/
 .border-radius-small-all
 {
     border-radius: 10px 10px 10px 10px;

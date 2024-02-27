@@ -12,7 +12,7 @@ function Requests(props)
             <Header type="authorized" page={PageName.REQUESTS}/>
             <Container className='mt-5 min-270'>
                 <UpPart/>
-                <RequestCard status={Status.AWAITS}/>
+                {/*<RequestCard status={Status.AWAITS}/> в Swagger у нас нет AWAITS*/}
                 <RequestCard status={Status.APPROVED}/>
                 <RequestCard status={Status.CANCELLED}/>
                 <RequestCard status={Status.INPROCESS}/>
