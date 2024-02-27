@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">KeyBooking</string>
+    <string name="app_name_up">KEYBOOKING</string>
+
+    <string name="registration">Регистрация</string>
+    <string name="login">Вход</string>
 </resources>
