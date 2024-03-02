@@ -13,7 +13,7 @@ function UsersFilter(props) {
     });
 
     return (
-        <Stack className='darkblue border-radius-small'  style={{/*width: '60%' */}}>
+        <Stack className='darkblue border-radius-small'>
             <Row className='mt-2 mx-1 mb-2'>
                 <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={4} className='p-6'>
                     <Form.Select className='radiusnone darkAndLight' value={values.role} onChange={handleChange} id='role'>
