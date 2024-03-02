@@ -6,6 +6,7 @@ import UserCard from './UserCard';
 import { useEffect, useState } from 'react';
 import { get } from '../../methods/apiUtils';
 import useInput from '../../hooks/use-input';
+import { token } from '../../const/const-toket-temporarily';
 
 //ВАЖНО! Если в searchName: '' (16 строчка) вставить значение, то страница загрузится с правильными данными
 //Видимо алгоритм работает нормально, но в реальном времени карточки не обновляются
@@ -84,8 +85,6 @@ const AsyncComponent = () => {
   const [values, handleChange] = useInput({ role: '', email: '', searchName: '' });
 
   useEffect(() => {
-    const token = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZyb250X3ByaW5jaXBhbEBleGFtcGxlLmNvbSIsIlVzZXJSb2xlIjoiUHJpbmNpcGFsIiwianRpIjoiM2JiZjIxNjItZTcwYy00MWE1LTkyMzgtOGQzM2Q3ODE4Y2U3IiwibmJmIjoxNzA5Mzg1NjAxLCJleHAiOjE3MDkzODkyMDEsImlhdCI6MTcwOTM4NTYwMSwiaXNzIjoiSXNzdWVyIiwiYXVkIjoiQXVkaWVuY2UifQ.fM7P2eUGn11daItMS6FfMP-AU13yGwcONFEc_MiF7W_cajh_A5kgCp5BlXvWKnn-INnyHDtCt127EVFmPmR3fw';
-
     const fetchData = async () => {
       try {
         // Добавляем параметр Name к запросу
@@ -94,6 +93,7 @@ const AsyncComponent = () => {
           token
         );
         setUsers(result);
+        setFilteredUsers(users?.value);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -102,10 +102,10 @@ const AsyncComponent = () => {
     fetchData();
   }, [values.searchName]); // Вызываем useEffect при изменении значения поиска
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Обновляем отфильтрованных пользователей при изменении данных с сервера
     setFilteredUsers(users?.value);
-  }, [users]);
+  }, [users]);*/
 
   return (
     <>
@@ -117,6 +117,7 @@ const AsyncComponent = () => {
             filteredUsers.map((user) => (
               <UserCard
                 key={user.id}
+                id={user.id}
                 role={user.userRole}
                 email={user.email}
                 name={user.fullName}
