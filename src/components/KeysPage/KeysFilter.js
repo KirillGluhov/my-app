@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack, Row, Col, Form, Dropdown } from 'react-bootstrap';
 import useInput from '../../hooks/use-input.js';
+import { token } from '../../const/const-token-temporarily';
+import { post } from '../../methods/apiUtils.js';
 
 function KeysFilter(props) {
     const [values, handleChange] = useInput({
-        role: "",
-        email: "",
-        searchName: ""
+        audience: "",
+        inPrincipal: ""
     });
+
+    /*const handleAddKey = async () => {
+        try {
+            const newKey = await post('/keys/Create', token, { auditory: values.audience });
+            // Здесь можно выполнить какие-то действия после успешного создания ключа, например, обновление списка ключей
+            console.log('New key created:', newKey);
+        } catch (error) {
+            console.error('Error creating new key:', error);
+        }
+    };*/
 
     return (
         <Stack className='darkblue border-radius-small mx-auto' style={{ width: "50%" }}>
@@ -38,7 +49,10 @@ function KeysFilter(props) {
                 </Col>
                 <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='p-6'>
                     <Dropdown>
-                        <Dropdown.Toggle className='time-and-date custom-button-shadow add-circle-button mx-auto' style={{ borderRadius: "100%" }}>
+                        <Dropdown.Toggle
+                            className='time-and-date custom-button-shadow add-circle-button mx-auto'
+                            style={{ borderRadius: "100%" }}
+                            onClick={props.handleAddKey}>
                             +
                         </Dropdown.Toggle>
                         <Dropdown.Menu>

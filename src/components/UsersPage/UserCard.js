@@ -2,7 +2,7 @@ import { Form, Row, Col, Stack, Button } from 'react-bootstrap';
 import "../../styles/requestcard.css";
 import { useState } from 'react';
 import { post } from '../../methods/apiUtils';
-import { token } from '../../const/const-toket-temporarily';
+import { token } from '../../const/const-token-temporarily';
 
 //Добавить:
 // - Чтобы авторизованный пользователь не видел себя в списке (хотя не уверен, может и не надо)

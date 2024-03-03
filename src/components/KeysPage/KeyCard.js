@@ -1,24 +1,20 @@
 import { Form, Row, Col, Stack, Button } from 'react-bootstrap';
 import "../../styles/requestcard.css";
+import { No } from '../No';
+import { Box } from '@mui/joy';
+import { del } from '../../methods/apiUtils';
+import { token } from '../../const/const-token-temporarily';
 
 function KeyCard({keyData}) {
-    /*const [selectedRole, setSelectedRole] = useState(role);
-
-    async function handleChangeRole(e) {
-        const newRole = e.target.value;
-    
+    const handleNoButtonClick = async () => {
         try {
-            //ТАК РАБОТАЕТ
-            setSelectedRole(newRole);
-            await post(`/users/${id}/assign-role/${newRole}`, token);
-
-            //А ЕСЛИ КОМАНДА ТУТ - ТО НЕТ
-            //setSelectedRole(newRole);
+            await del(`/keys/delete/${keyData.id}`, token); // Отправляем DELETE запрос с id ключа в качестве параметра
+            // Добавьте здесь логику, которая должна выполняться после успешного удаления ключа
         } catch (error) {
-            console.error('Error updating user role:', error);
-            console.error('Response from server:', error.message);
+            console.error('Error deleting key:', error);
+            // Добавьте здесь обработку ошибки
         }
-    };*/
+    };
 
     return (
         <Stack className='border-darkblue mx-auto' style={{ width: '50%', padding: '0px' }}>
@@ -31,6 +27,11 @@ function KeyCard({keyData}) {
                 </Col>
                 <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={3} className='mb-3 p-6'>
                     <Form.Control placeholder="Вернуть" className='radiusnone center' plaintext readOnly />
+                </Col>
+                <Col xxl={2} xl={2} lg={2} md={2} sm={2} xs={2} className='mb-3 p-0'>
+                    <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#F97D7D", borderColor: "#823333"}} onClick={handleNoButtonClick}><No/></Button>
+                    </Box>
                 </Col>
             </Row>
         </Stack>

@@ -6,7 +6,7 @@ import UserCard from './UserCard';
 import { useEffect, useState } from 'react';
 import { get } from '../../methods/apiUtils';
 import useInput from '../../hooks/use-input';
-import { token } from '../../const/const-toket-temporarily';
+import { token } from '../../const/const-token-temporarily';
 
 //ВАЖНО! Если в searchName: '' (16 строчка) вставить значение, то страница загрузится с правильными данными
 //Видимо алгоритм работает нормально, но в реальном времени карточки не обновляются
