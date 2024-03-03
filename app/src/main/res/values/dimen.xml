@@ -3,8 +3,10 @@
     <dimen name="indent_standard">16dp</dimen>
 
     <dimen name="text_padding">12dp</dimen>
+    <dimen name="input_margin">8dp</dimen>
 
     <dimen name="margin_huge">65dp</dimen>
+    <dimen name="margin_some_more_big">30dp</dimen>
     <dimen name="margin_big">25dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="margin_button">20dp</dimen>
@@ -12,6 +14,14 @@
     <dimen name="title">30sp</dimen>
     <dimen name="big_button_text">29sp</dimen>
     <dimen name="button_text">24sp</dimen>
+    <dimen name="base_text">20sp</dimen>
+    <dimen name="input_text">15sp</dimen>
 
     <dimen name="base_button_radius">15dp</dimen>
+    <dimen name="base_field_radius">15dp</dimen>
+    <dimen name="square_radius">5dp</dimen>
+
+    <dimen name="shadow_distance">15dp</dimen>
+
+    <dimen name="mini_square_size">60dp</dimen>
 </resources>

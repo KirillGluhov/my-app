@@ -7,7 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="error">#FFACAC</color>
+    <color name="base_shadow">#80000000</color>
     <color name="mainLightBlue">#FF43BCFF</color>
     <color name="mainDarkBlue">#FF036FEC</color>
+    <color name="alphaMiddleBlue">#731888F3</color>
+    <color name="alphaWhite">#73FFFFFF</color>
     <color name="textDarkBlue">#FF346398</color>
 </resources>
