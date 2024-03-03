@@ -5,7 +5,7 @@ import './styles/root.css'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Requests from './components/Requests';
 import Profile from './components/Profile';
-import Keys from './components/Keys';
+import Keys from './components/KeysPage/Keys';
 import Users from './components/UsersPage/Users';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
