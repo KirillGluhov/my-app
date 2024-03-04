@@ -66,6 +66,10 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
 
      */
 
+    fun test() : String {
+        return "OK!"
+    }
+
     fun saveToken(accessToken: String) {
         viewModelScope.launch {
             tokenRepository.saveUserToken(accessToken)

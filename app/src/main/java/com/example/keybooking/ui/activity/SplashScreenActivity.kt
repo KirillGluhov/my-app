@@ -18,7 +18,12 @@ class SplashScreenActivity: AbstractActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val currentUser =  viewModel.getCurrentUser()
+        println("test VM " + viewModel.test())
+
+
+
+        //val currentUser =  viewModel.getCurrentUser()
+        /*
         if (currentUser != null) {
             //println(viewModel.getToken())
             //viewModel.profileData()
@@ -56,5 +61,7 @@ class SplashScreenActivity: AbstractActivity() {
                 finish()
             }
         })
+
+         */
     }
 }

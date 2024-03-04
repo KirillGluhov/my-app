@@ -46,17 +46,15 @@ class AuthRepository(private val apiService: ApiService) : Repository {
                         var errors = ""
                         val errorBody = response.errorBody()?.string()
                         //println(errorBody)
-                        val jsonObject = JSONObject(errorBody)
-                        val errorsObject = jsonObject.getJSONObject("errors")
-                        val keys = errorsObject.keys()
-                        while (keys.hasNext()) {
-                            val errorName = keys.next()
-                            val errorMessage = errorsObject.
-                                        getJSONObject(errorName).
-                                        getJSONArray("errors").
-                                        getJSONObject(0).
-                                        getString("errorMessage")
-                            errors += "$errorMessage "
+                        val jsonObject = errorBody?.let { JSONObject(it) }
+                        val errorsObject = jsonObject?.getJSONObject("errors")
+                        val keys = errorsObject?.keys()
+                        if (keys != null) {
+                            while (keys.hasNext()) {
+                                val errorName = keys.next()
+                                val errorMessage = errorsObject.getJSONObject(errorName).getJSONArray("errors").getJSONObject(0).getString("errorMessage")
+                                errors += "$errorMessage "
+                            }
                         }
                         //val error = Gson().fromJson(errorBody, Result.Error::class.java)
                         continuation.resume(Result.Error(errors))

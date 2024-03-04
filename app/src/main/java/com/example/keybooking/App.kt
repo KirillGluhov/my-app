@@ -53,10 +53,14 @@ class App : Application() {
             single { provideRetrofit(get()) }
         }
 
+        println("module created")
+
         startKoin() {
             androidContext(this@App)
             modules(mainModule)
         }
+
+        println("koin start")
     }
 
     private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
