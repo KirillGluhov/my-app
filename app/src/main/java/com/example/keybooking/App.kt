@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
 
-    private val BASE_URL = "https://win.jij.li/api"
+    private val BASE_URL = "https://win.jij.li/"
 
     lateinit var appDatabase: AppDatabase
     override fun onCreate() {
