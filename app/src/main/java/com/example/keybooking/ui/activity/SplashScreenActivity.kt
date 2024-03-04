@@ -1,12 +1,11 @@
 package com.example.keybooking.ui.activity
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.example.keybooking.databinding.ActivitySplashScreenBinding
-import com.example.moviecatalog2023.service.viewModel.ProfileVM
+import com.example.keybooking.viewModel.ProfileVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")

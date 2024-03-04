@@ -19,6 +19,7 @@ class AuthRepository(private val apiService: ApiService) : Repository {
         return suspendCoroutine { continuation ->
             call.enqueue(object : Callback<Token> {
                 override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                    println(response)
                     if (response.isSuccessful) {
                         continuation.resume(Result.Success(response.body()!!))
                     } else {

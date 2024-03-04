@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/input_login"
+                    android:text="@string/input_email"
                     android:layout_marginBottom="@dimen/input_margin"
                     style="@style/Text.casual"/>
                 <LinearLayout
@@ -59,16 +59,16 @@
                         android:elevation="@dimen/shadow_distance"
                         android:outlineSpotShadowColor="@color/base_shadow">
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="41dp"
-                            android:src="@drawable/login" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/email"/>
                     </LinearLayout>
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayoutLogin"
+                        android:id="@+id/textInputLayoutEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editTextLogin"
+                            android:id="@+id/editTextEmail"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/form_field"

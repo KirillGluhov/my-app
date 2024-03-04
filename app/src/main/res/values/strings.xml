@@ -8,6 +8,7 @@
 
     <string name="input_login">Логин</string>
     <string name="input_password">Пароль</string>
+    <string name="input_email">Почта</string>
 
     <string name="login_button">Войти</string>
 

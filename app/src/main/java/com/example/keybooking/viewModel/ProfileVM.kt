@@ -1,4 +1,4 @@
-package com.example.moviecatalog2023.service.viewModel
+package com.example.keybooking.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

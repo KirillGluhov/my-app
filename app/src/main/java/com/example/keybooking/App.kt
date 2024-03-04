@@ -8,7 +8,7 @@ import com.example.keybooking.data.TokenInterceptor
 import com.example.keybooking.data.repository.TokenRepository
 import com.example.keybooking.data.room.AppDatabase
 import com.example.keybooking.viewModel.Login
-import com.example.moviecatalog2023.service.viewModel.ProfileVM
+import com.example.keybooking.viewModel.ProfileVM
 import com.example.keybooking.viewModel.Register
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
 
-    private val BASE_URL = "https://react-midterm.kreosoft.space/"
+    private val BASE_URL = "https://win.jij.li/api"
 
     lateinit var appDatabase: AppDatabase
     override fun onCreate() {
@@ -53,14 +53,10 @@ class App : Application() {
             single { provideRetrofit(get()) }
         }
 
-        println("module created")
-
         startKoin() {
             androidContext(this@App)
             modules(mainModule)
         }
-
-        println("koin start")
     }
 
     private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {

@@ -9,7 +9,7 @@ import com.example.keybooking.R
 import com.example.keybooking.databinding.ActivityLoginBinding
 import com.example.keybooking.data.dto.LoginCredentials
 import com.example.keybooking.viewModel.Login
-import com.example.moviecatalog2023.service.viewModel.ProfileVM
+import com.example.keybooking.viewModel.ProfileVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity: AbstractActivity() {
@@ -23,8 +23,8 @@ class LoginActivity: AbstractActivity() {
 
         checkFieldsAndEnableButton()
 
-        binding.editTextLogin.addTextChangedListener {
-            binding.editTextLogin.checkEmpty(binding.error)
+        binding.editTextEmail.addTextChangedListener {
+            binding.editTextEmail.checkEmpty(binding.error)
             checkFieldsAndEnableButton()
         }
 
@@ -36,7 +36,7 @@ class LoginActivity: AbstractActivity() {
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
                 //binding.error.visibility = View.VISIBLE
-                //binding.error.text = "NOT ERROR " + viewModel.getTokenToActivity()
+                binding.error.text = "NOT ERROR " + viewModelProfile.getToken()
                 //viewModelProfile.profileData()
             }
         })
@@ -57,7 +57,7 @@ class LoginActivity: AbstractActivity() {
                 else {
                     binding.error.text = responseData.toString()
                 }
-                binding.editTextLogin.background = getDrawable(R.drawable.error_field)
+                binding.editTextEmail.background = getDrawable(R.drawable.error_field)
                 binding.editTextPassword.background = getDrawable(R.drawable.error_field)
             }
         })
@@ -68,10 +68,10 @@ class LoginActivity: AbstractActivity() {
         }
         binding.loginButton.setOnClickListener {
             binding.error.visibility = View.GONE
-            binding.editTextLogin.background = getDrawable(R.drawable.form_field)
+            binding.editTextEmail.background = getDrawable(R.drawable.form_field)
             binding.editTextPassword.background = getDrawable(R.drawable.form_field)
             val requestDto = LoginCredentials(
-                binding.editTextLogin.text.toString(),
+                binding.editTextEmail.text.toString(),
                 binding.editTextPassword.text.toString())
             viewModel.login(requestDto)
         }
@@ -81,7 +81,7 @@ class LoginActivity: AbstractActivity() {
         binding.error.visibility = View.GONE
         binding.error.text = ""
         binding.loginButton.setEnable(listOf(
-            binding.editTextLogin,
+            binding.editTextEmail,
             binding.editTextPassword
         ).all { it.text!!.isNotBlank()})
     }
