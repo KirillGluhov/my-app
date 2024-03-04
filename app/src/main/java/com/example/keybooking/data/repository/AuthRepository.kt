@@ -23,9 +23,27 @@ class AuthRepository(private val apiService: ApiService) : Repository {
                     if (response.isSuccessful) {
                         continuation.resume(Result.Success(response.body()!!))
                     } else {
-                        val errorBody = response.errorBody()?.string()
-                        val error = Gson().fromJson(errorBody, Result.Error::class.java)
-                        continuation.resume(error)
+                        when (response.code()) {
+                            400 -> {
+                                var errors = ""
+                                val errorBody = response.errorBody()?.string()
+                                if (errorBody != null) {
+                                    val jsonObject = JSONObject(errorBody)
+                                    val errorsObject = jsonObject.getJSONObject("errors")
+                                    val keys = errorsObject.keys()
+                                    while (keys.hasNext()) {
+                                        val errorName = keys.next()
+                                        println(errorName)
+                                        val errorMessage = errorsObject.getJSONArray(errorName).getString(0)
+                                        errors += "$errorMessage "
+                                    }
+                                }
+                                println(errors)
+                                continuation.resume(Result.Error(errors))
+                            }
+                            403 -> continuation.resume(Result.Error("Login failed"))
+                            else -> continuation.resume(Result.Error(response.errorBody()!!.string()))
+                        }
                     }
                 }
 

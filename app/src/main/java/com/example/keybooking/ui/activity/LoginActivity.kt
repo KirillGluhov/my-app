@@ -50,6 +50,7 @@ class LoginActivity: AbstractActivity() {
 
         viewModel.errorLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
+                println(responseData)
                 binding.error.visibility = View.VISIBLE
                 if (responseData.toString() == "Login failed") {
                     binding.error.text = resources.getString(R.string.login_error)

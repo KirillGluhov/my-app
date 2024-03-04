@@ -119,7 +119,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:inputType="textPassword"
-                            android:textSize="@dimen/base_text"
+                            android:textSize="@dimen/input_text"
                             app:passwordToggleEnabled="false"
                             android:background="@drawable/form_field"
                             android:textColor="@color/textDarkBlue" />

@@ -25,10 +25,14 @@ class Login(private val repository: AuthRepository, private val tokenRepository:
         viewModelScope.launch {
             when (val result = repository.postLogin(requestDto)) {
                 is Result.Success -> {
+                    println(result)
                     _responseDataLiveData.postValue(result.data)
                     saveToken(result.data!!.token)
                 }
-                is Result.Error -> _errorLiveData.postValue(result.message)
+                is Result.Error -> {
+                    println(result)
+                    _errorLiveData.postValue(result.message)
+                }
                 is Result.Unauthorized -> {}
             }
         }
