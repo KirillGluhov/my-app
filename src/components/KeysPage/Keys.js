@@ -32,7 +32,7 @@ function Keys(props) {
             // Отправляем запрос на сервер для создания нового ключа
             //const newKey = await post('/api/keys/Create', token, { auditory: "" }); // Здесь должна быть ваша аудитория
             // Обновляем список ключей, добавляя новый ключ в начало
-            setKeys(prevKeys => [newKey, ...prevKeys]);
+            //setKeys(prevKeys => [newKey, ...prevKeys]);
         } catch (error) {
             console.error('Error creating new key:', error);
         }

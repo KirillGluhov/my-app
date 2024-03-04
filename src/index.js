@@ -7,6 +7,7 @@ import Requests from './components/Requests';
 import Profile from './components/Profile';
 import Keys from './components/KeysPage/Keys';
 import Users from './components/UsersPage/Users';
+import Login from './components/LoginPage/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<div>/</div>} />
         <Route path="registration" element={<div>Registration</div>} />
-        <Route path="login" element={<div>Login</div>} />
+        <Route path="login" element={<Login/>} />
         <Route path="requests" element={<Requests/>} />
         <Route path="profile" element={<Profile/>} />
         <Route path="users" element={<Users/>} />
