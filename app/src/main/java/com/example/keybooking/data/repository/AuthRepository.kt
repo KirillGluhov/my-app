@@ -1,10 +1,10 @@
 package com.example.keybooking.data.repository
 
 import com.example.keybooking.ApiService
-import com.example.moviecatalog2023.data.dto.LoginCredentials
-import com.example.moviecatalog2023.data.model.Token
-import com.example.moviecatalog2023.data.Result
-import com.example.moviecatalog2023.data.dto.UserRegister
+import com.example.keybooking.data.dto.LoginCredentials
+import com.example.keybooking.data.model.Token
+import com.example.keybooking.data.Result
+import com.example.keybooking.data.dto.UserRegister
 import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.Call

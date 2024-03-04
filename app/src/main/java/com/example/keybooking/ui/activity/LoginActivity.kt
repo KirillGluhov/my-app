@@ -1,6 +1,5 @@
 package com.example.keybooking.ui.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,9 +7,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import com.example.keybooking.R
 import com.example.keybooking.databinding.ActivityLoginBinding
-import com.example.moviecatalog2023.data.dto.LoginCredentials
-import com.example.moviecatalog2023.service.viewModel.Login
+import com.example.keybooking.data.dto.LoginCredentials
+import com.example.keybooking.viewModel.Login
 import com.example.moviecatalog2023.service.viewModel.ProfileVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity: AbstractActivity() {
     private lateinit var binding: ActivityLoginBinding

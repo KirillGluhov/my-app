@@ -1,18 +1,18 @@
-package com.example.moviecatalog2023.service.viewModel
+package com.example.keybooking.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviecatalog2023.data.Result
-import com.example.moviecatalog2023.data.dto.UserRegister
-import com.example.moviecatalog2023.data.model.RegistrationData
-import com.example.moviecatalog2023.data.model.Token
-import com.example.moviecatalog2023.data.repository.AuthRepository
-import com.example.moviecatalog2023.data.repository.TokenRepository
+import com.example.keybooking.data.repository.AuthRepository
+import com.example.keybooking.data.Result
+import com.example.keybooking.data.dto.UserRegister
+import com.example.keybooking.data.model.RegistrationData
+import com.example.keybooking.data.model.Token
+import com.example.keybooking.data.repository.TokenRepository
 import kotlinx.coroutines.launch
 
-class Register(private val repository: AuthRepository,private val tokenRepository: TokenRepository) : ViewModel() {
+class Register(private val repository: AuthRepository, private val tokenRepository: TokenRepository) : ViewModel() {
     val _responseDataLiveData = MutableLiveData<Token?>()
     val responseDataLiveData: LiveData<Token?>
         get() = _responseDataLiveData

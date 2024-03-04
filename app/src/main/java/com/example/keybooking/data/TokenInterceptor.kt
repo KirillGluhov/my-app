@@ -1,6 +1,6 @@
-package com.example.moviecatalog2023.data
+package com.example.keybooking.data
 
-import com.example.moviecatalog2023.data.repository.TokenRepository
+import com.example.keybooking.data.repository.TokenRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -1,3 +1,3 @@
-package com.example.moviecatalog2023.data.dto
+package com.example.keybooking.data.dto
 interface DTO {
 }

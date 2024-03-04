@@ -1,8 +1,8 @@
 package com.example.keybooking
 
-import com.example.moviecatalog2023.data.dto.LoginCredentials
-import com.example.moviecatalog2023.data.dto.UserRegister
-import com.example.moviecatalog2023.data.model.Token
+import com.example.keybooking.data.dto.LoginCredentials
+import com.example.keybooking.data.dto.UserRegister
+import com.example.keybooking.data.model.Token
 import retrofit2.Call
 import retrofit2.http.Body
 

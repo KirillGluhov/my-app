@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.example.keybooking.databinding.ActivitySplashScreenBinding
 import com.example.moviecatalog2023.service.viewModel.ProfileVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity: AbstractActivity() {

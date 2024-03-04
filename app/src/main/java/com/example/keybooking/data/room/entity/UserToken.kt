@@ -1,4 +1,4 @@
-package com.example.moviecatalog2023.data.room.entity
+package com.example.keybooking.data.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -6,11 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keybooking.data.repository.UserRepository
 import com.example.keybooking.data.room.entity.User
-import com.example.moviecatalog2023.data.Result
-import com.example.moviecatalog2023.data.dto.EditProfile
-import com.example.moviecatalog2023.data.model.Profile
-import com.example.moviecatalog2023.data.model.toEntity
-import com.example.moviecatalog2023.data.repository.TokenRepository
+import com.example.keybooking.data.model.Profile
+import com.example.keybooking.data.repository.TokenRepository
 import kotlinx.coroutines.launch
 
 class ProfileVM(private val repository: UserRepository, private val tokenRepository: TokenRepository) : ViewModel() {

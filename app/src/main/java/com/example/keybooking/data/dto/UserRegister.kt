@@ -1,4 +1,6 @@
-package com.example.moviecatalog2023.data.dto
+package com.example.keybooking.data.dto
+
+import com.example.keybooking.data.dto.DTO
 
 data class UserRegister(val userName: String,
                         val name: String,

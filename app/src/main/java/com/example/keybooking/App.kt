@@ -1,14 +1,15 @@
-package com.example.moviecatalog2023
+package com.example.keybooking
 
 import android.app.Application
 import androidx.room.Room
-import com.example.keybooking.ApiService
-import com.example.moviecatalog2023.data.TokenInterceptor
-import com.example.moviecatalog2023.data.repository.TokenRepository
-import com.example.moviecatalog2023.data.room.AppDatabase
-import com.example.moviecatalog2023.service.viewModel.Login
+import com.example.keybooking.data.repository.AuthRepository
+import com.example.keybooking.data.repository.UserRepository
+import com.example.keybooking.data.TokenInterceptor
+import com.example.keybooking.data.repository.TokenRepository
+import com.example.keybooking.data.room.AppDatabase
+import com.example.keybooking.viewModel.Login
 import com.example.moviecatalog2023.service.viewModel.ProfileVM
-import com.example.moviecatalog2023.service.viewModel.Register
+import com.example.keybooking.viewModel.Register
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -35,10 +36,13 @@ class App : Application() {
 
         val mainModule = module {
             single { appDatabase.userTokenDao() }
+            single { appDatabase.userDao() }
 
             factory { provideForecastApi(get()) }
 
             single { TokenRepository(get()) }
+            single { AuthRepository(get()) }
+            single { UserRepository(get(), get()) }
 
             viewModel { Login(get(), get()) }
             viewModel { Register(get(), get()) }

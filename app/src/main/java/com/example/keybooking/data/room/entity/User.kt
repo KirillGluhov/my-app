@@ -3,8 +3,7 @@ package com.example.keybooking.data.room.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.moviecatalog2023.data.model.Profile
-import com.example.moviecatalog2023.data.room.entity.AbsEntity
+import com.example.keybooking.data.model.Profile
 
 @Entity(tableName = "user")
 data class User(

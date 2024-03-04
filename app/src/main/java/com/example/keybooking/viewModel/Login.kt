@@ -1,14 +1,14 @@
-package com.example.moviecatalog2023.service.viewModel
+package com.example.keybooking.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keybooking.data.repository.AuthRepository
-import com.example.moviecatalog2023.data.dto.LoginCredentials
-import com.example.moviecatalog2023.data.Result
-import com.example.moviecatalog2023.data.model.Token
-import com.example.moviecatalog2023.data.repository.TokenRepository
+import com.example.keybooking.data.dto.LoginCredentials
+import com.example.keybooking.data.Result
+import com.example.keybooking.data.model.Token
+import com.example.keybooking.data.repository.TokenRepository
 import kotlinx.coroutines.launch
 
 class Login(private val repository: AuthRepository, private val tokenRepository: TokenRepository) : ViewModel() {
@@ -33,17 +33,6 @@ class Login(private val repository: AuthRepository, private val tokenRepository:
             }
         }
     }
-
-    /*
-    fun getTokenToActivity() : String? {
-        return getToken()
-    }
-
-    fun getToken(): String? {
-        return tokenRepository.getUserToken()
-    }
-
-     */
 
     private fun saveToken(accessToken: String) {
         viewModelScope.launch {

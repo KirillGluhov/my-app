@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.moviecatalog2023.data.room.entity.User
+import com.example.keybooking.data.room.entity.User
 
 @Dao
 interface UserDao {

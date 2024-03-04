@@ -1,4 +1,4 @@
-package com.example.moviecatalog2023.data
+package com.example.keybooking.data
 
 sealed class Result<out T> {
     data class Success<out T>(val data: T? = null) : Result<T>()

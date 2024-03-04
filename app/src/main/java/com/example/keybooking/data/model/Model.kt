@@ -1,3 +1,3 @@
-package com.example.moviecatalog2023.data.model
+package com.example.keybooking.data.model
 
 interface Model{}
