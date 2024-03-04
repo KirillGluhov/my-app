@@ -8,13 +8,13 @@ import Profile from './components/Profile';
 import Keys from './components/KeysPage/Keys';
 import Users from './components/UsersPage/Users';
 import Login from './components/LoginPage/Login';
+import { Navigate } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<div>/</div>} />
         <Route path="registration" element={<div>Registration</div>} />
         <Route path="login" element={<Login/>} />
         <Route path="requests" element={<Requests/>} />
@@ -22,7 +22,7 @@ root.render(
         <Route path="users" element={<Users/>} />
         <Route path="keys" element={<Keys/>} />
         <Route path="keys/create" element={<div>Create key</div>} />
-        <Route path="*" element={<div>Такой страницы нет</div>} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

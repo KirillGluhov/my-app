@@ -16,6 +16,7 @@ function Header(props)
     let profile = partOfHeader(PageName.PROFILE, props.page, isScreenSm, isScreenMd);
     let registration = partOfHeader(PageName.REGISTRATION, props.page, isScreenSm, isScreenMd);
     let login = partOfHeader(PageName.LOGIN, props.page, isScreenSm, isScreenMd);
+    let exit = partOfHeader(PageName.EXIT, props.page, isScreenSm, isScreenMd);
 
     let brand = (
         <Navbar.Brand className='white dontChangeColor'>
@@ -23,33 +24,45 @@ function Header(props)
         </Navbar.Brand>
     );
 
-    return (
-        <Navbar expand="md" className='darkblue'>
-          <Container>
-            {brand}
-            <Navbar.Toggle className='darkblue inner' />
-            <Navbar.Collapse className={props.type === 'authorized' ? 'endAndStart' : 'end'}>
-              <Nav>
-                {props.type === 'authorized' && (
-                  <>
-                    {keys}
-                    {users}
-                    {requests}
-                  </>
-                )}
-              </Nav>
-              <Nav>
-                {props.type === 'authorized' ? profile : (registration && login && (
-                  <>
-                    {registration}
-                    {login}
-                  </>
-                ))}
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-    );
+    if (props.type === "authorized")
+    {
+        return (
+            <Navbar expand="sm" className='darkblue' >
+                <Container>
+                    {brand}
+                    <Navbar.Toggle className='darkblue inner'/>
+                    <Navbar.Collapse className='endAndStart'>
+                        <Nav>
+                            {keys}
+                            {users}
+                            {requests}
+                        </Nav>
+                        <Nav>
+                            {profile}
+                            {exit}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        );
+    }
+    else if (props.type === "unauthorized")
+    {
+        return (
+            <Navbar expand="sm" className='darkblue' >
+                <Container>
+                    {brand}
+                    <Navbar.Toggle className='darkblue inner'/>
+                    <Navbar.Collapse className='end'>
+                        <Nav>
+                            {registration}
+                            {login}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        );
+    }
 }
 
 export default Header;

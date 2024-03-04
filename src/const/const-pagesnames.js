@@ -4,5 +4,6 @@ export const PageName = {
     REQUESTS: {Eng: "requests", Rus: "Заявки"},
     PROFILE: {Eng: "profile", Rus: "Профиль"},
     REGISTRATION: {Eng: "registration", Rus: "Регистрация"},
-    LOGIN: {Eng: "login", Rus: "Вход"}
+    LOGIN: {Eng: "login", Rus: "Вход"},
+    EXIT: {Eng: "exit", Rus: "Выход"}
 };
