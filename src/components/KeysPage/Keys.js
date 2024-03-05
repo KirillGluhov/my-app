@@ -27,7 +27,18 @@ function Keys(props) {
         fetchData();
     }, [keys]);
 
-    const handleAddKey = async () => {
+    const handleDeleteKey = async (keyId) => {
+        try {
+            // Отправляем запрос на сервер для удаления ключа по его уникальному идентификатору
+            await delete(`/keys/DeleteKey/${keyId}`, token);
+            // Обновляем список ключей, удаляя ключ с заданным идентификатором
+            setKeys(prevKeys => prevKeys.filter(key => key.id !== keyId));
+        } catch (error) {
+            console.error('Error deleting key:', error);
+        }
+    };
+
+    /*const handleAddKey = async () => {
         try {
             // Отправляем запрос на сервер для создания нового ключа
             //const newKey = await post('/api/keys/Create', token, { auditory: "" }); // Здесь должна быть ваша аудитория
@@ -36,13 +47,13 @@ function Keys(props) {
         } catch (error) {
             console.error('Error creating new key:', error);
         }
-    };
+    };*/
 
     return (
         <>
             <Header type="authorized" page={PageName.KEYS} />
             <Container className='mt-5'>
-                <KeysFilter handleAddKey={handleAddKey}/>
+                <KeysFilter/>
                 {keys ? (
                     keys.map((key) => (
                         <KeyCard
