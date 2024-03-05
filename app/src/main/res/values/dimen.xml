@@ -10,11 +10,15 @@
     <dimen name="margin_big">25dp</dimen>
     <dimen name="margin_small">15dp</dimen>
     <dimen name="margin_tiny">10dp</dimen>
+    <dimen name="margin_more_tiny">5dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="margin_button">20dp</dimen>
 
     <dimen name="title">30sp</dimen>
     <dimen name="huge_button_text">48sp</dimen>
+    <dimen name="time_text">35sp</dimen>
+    <dimen name="date_text">22sp</dimen>
+    <dimen name="aud_text">25sp</dimen>
     <dimen name="big_button_text">29sp</dimen>
     <dimen name="button_text">24sp</dimen>
     <dimen name="base_text">20sp</dimen>

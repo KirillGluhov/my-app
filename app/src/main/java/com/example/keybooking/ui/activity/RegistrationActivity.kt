@@ -71,9 +71,9 @@ class RegistrationActivity : AbstractActivity(){
         }
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
-                binding.error.text = "NOT ERROR $responseData"
-                //val intent = Intent(this, StartActivity::class.java)
-                //startActivity(intent)
+                //binding.error.text = "NOT ERROR $responseData"
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         })
 

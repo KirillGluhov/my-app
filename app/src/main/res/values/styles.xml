@@ -12,6 +12,21 @@
         <item name="android:textSize">@dimen/base_text</item>
         <item name="android:fontFamily">@font/inter</item>
     </style>
+    <style name="Text.Request.time" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/time_text</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
+    <style name="Text.Request.date" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/mainDarkBlue</item>
+        <item name="android:textSize">@dimen/date_text</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
+    <style name="Text.Request.info" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/mainDarkBlue</item>
+        <item name="android:textSize">@dimen/aud_text</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
     <style name="Button.Primary" parent="Widget.AppCompat.Button.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -50,5 +65,12 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/huge_button_text</item>
         <item name="android:fontFamily">@font/inter_black</item>
+    </style>
+    <style name="Button.Profile" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:drawableStart">@drawable/login</item>
+        <item name="android:minWidth">@dimen/text_padding</item>
     </style>
 </resources>

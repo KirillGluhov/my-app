@@ -43,8 +43,8 @@ class LoginActivity: AbstractActivity() {
 
         viewModelProfile.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
-                //val intent = Intent(this, MainScreenActivity::class.java)
-                //startActivity(intent)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         })
 
