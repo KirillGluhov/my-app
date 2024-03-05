@@ -30,11 +30,12 @@ class Register(private val repository: AuthRepository, private val tokenReposito
     }
 
     fun register(requestDto: UserRegister) {
+        println(requestDto)
         viewModelScope.launch {
             when (val result = repository.postRegister(requestDto)) {
                 is Result.Success -> {
                     _responseDataLiveData.postValue(result.data)
-                    saveToken(result.data!!.token)
+                    saveToken(result.data!!.accessToken)
                 }
                 is Result.Error -> _errorLiveData.postValue(result.message)
                 is Result.Unauthorized -> {}

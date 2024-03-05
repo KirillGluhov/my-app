@@ -67,6 +67,12 @@ class LoginActivity: AbstractActivity() {
             val intent = Intent(this, StartActivity::class.java)
             startActivity(intent)
         }
+
+        binding.regButton.setOnClickListener {
+            val intent = Intent(this, RegistrationActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.loginButton.setOnClickListener {
             binding.error.visibility = View.GONE
             binding.editTextEmail.background = getDrawable(R.drawable.form_field)

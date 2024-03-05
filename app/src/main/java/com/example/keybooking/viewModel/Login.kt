@@ -27,7 +27,7 @@ class Login(private val repository: AuthRepository, private val tokenRepository:
                 is Result.Success -> {
                     println(result)
                     _responseDataLiveData.postValue(result.data)
-                    saveToken(result.data!!.token)
+                    saveToken(result.data!!.accessToken)
                 }
                 is Result.Error -> {
                     println(result)

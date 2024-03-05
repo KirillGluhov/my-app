@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Text.Title"
                 android:text="@string/big_registration"
-                android:layout_marginBottom="@dimen/margin_some_more_big"/>
+                android:layout_marginBottom="@dimen/margin_tiny"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,13 +222,12 @@
                 android:id="@+id/regButton"
                 android:text="@string/reg_button"
                 style="@style/Button.Primary"
-                android:layout_marginBottom="@dimen/margin_some_more_big"/>
+                android:layout_marginBottom="@dimen/margin_tiny"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:text="@string/login_button"
-                style="@style/Button.Secondary"
-                android:layout_marginBottom="@dimen/margin_some_more_big"/>
+                style="@style/Button.Secondary"/>
             <TextView
                 android:id="@+id/error"
                 android:layout_width="wrap_content"

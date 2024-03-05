@@ -59,24 +59,37 @@ class AuthRepository(private val apiService: ApiService) : Repository {
         return suspendCoroutine { continuation ->
             call.enqueue(object : Callback<Token> {
                 override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                    println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    println(response)
                     if (response.isSuccessful) {
                         continuation.resume(Result.Success(response.body()!!))
                     } else {
-                        var errors = ""
-                        val errorBody = response.errorBody()?.string()
-                        //println(errorBody)
-                        val jsonObject = errorBody?.let { JSONObject(it) }
-                        val errorsObject = jsonObject?.getJSONObject("errors")
-                        val keys = errorsObject?.keys()
-                        if (keys != null) {
-                            while (keys.hasNext()) {
-                                val errorName = keys.next()
-                                val errorMessage = errorsObject.getJSONObject(errorName).getJSONArray("errors").getJSONObject(0).getString("errorMessage")
-                                errors += "$errorMessage "
+                        when (response.code()) {
+                            400 -> {
+                                var errors = ""
+                                val errorBody = response.errorBody()?.string()
+                                if (errorBody != null) {
+                                    val jsonObject = JSONObject(errorBody)
+                                    try {
+                                        val errorsObject = jsonObject.getJSONObject("errors")
+                                        val keys = errorsObject.keys()
+                                        while (keys.hasNext()) {
+                                            val errorName = keys.next()
+                                            println(errorName)
+                                            val errorMessage = errorsObject.getJSONArray(errorName).getString(0)
+                                            errors += "$errorMessage "
+                                            println(errors)
+                                            continuation.resume(Result.Error(errors))
+                                        }
+                                    }
+                                    catch (e : Exception) {
+                                        continuation.resume(Result.Error(jsonObject.getString("title")))
+                                    }
+                                }
                             }
+                            403 -> continuation.resume(Result.Error("Login failed"))
+                            else -> continuation.resume(Result.Error(response.errorBody()!!.string()))
                         }
-                        //val error = Gson().fromJson(errorBody, Result.Error::class.java)
-                        continuation.resume(Result.Error(errors))
                     }
                 }
 

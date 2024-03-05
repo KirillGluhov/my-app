@@ -12,8 +12,8 @@ class StartActivity : AbstractActivity() {
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.regButton.setOnClickListener {
-            //val intent = Intent(this, RegistrationActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, RegistrationActivity::class.java)
+            startActivity(intent)
         }
         binding.loginButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
