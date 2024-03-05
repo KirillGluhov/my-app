@@ -40,4 +40,15 @@
         <item name="android:paddingHorizontal">@dimen/indent_standard</item>
         <item name="android:minWidth">@dimen/text_padding</item>
     </style>
+    <style name="Button.Plus" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/round_btn</item>
+        <item name="android:paddingHorizontal">@dimen/indent_standard</item>
+        <item name="android:minHeight">@dimen/text_padding</item>
+        <item name="android:text">+</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/huge_button_text</item>
+        <item name="android:fontFamily">@font/inter_black</item>
+    </style>
 </resources>

@@ -14,12 +14,14 @@
     <dimen name="margin_button">20dp</dimen>
 
     <dimen name="title">30sp</dimen>
+    <dimen name="huge_button_text">48sp</dimen>
     <dimen name="big_button_text">29sp</dimen>
     <dimen name="button_text">24sp</dimen>
     <dimen name="base_text">20sp</dimen>
     <dimen name="input_text">15sp</dimen>
 
     <dimen name="base_button_radius">15dp</dimen>
+    <dimen name="round_button_radius">50dp</dimen>
     <dimen name="base_field_radius">15dp</dimen>
     <dimen name="square_radius">5dp</dimen>
 

@@ -17,4 +17,6 @@
 
     <string name="login_error">Неверный логин или пароль.</string>
     <string name="password_eq_error">Пароли не совпадают.</string>
+
+    <string name="your_requests">Ваши заявки</string>
 </resources>
