@@ -8,7 +8,6 @@ import Profile from './components/Profile';
 import Keys from './components/KeysPage/Keys';
 import Users from './components/UsersPage/Users';
 import Login from './components/LoginPage/Login';
-import { Navigate } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
