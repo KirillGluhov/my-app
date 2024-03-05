@@ -5,7 +5,6 @@ import { Col, Container, Row, Form, Stack } from 'react-bootstrap';
 import UsersFilter from './UsersFilter';
 import UserCard from './UserCard';
 import { useEffect, useState } from 'react';
-import { get } from '../../methods/apiUtils';
 import useInput from '../../hooks/use-input';
 import "../../styles/users.css";
 

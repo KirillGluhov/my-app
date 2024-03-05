@@ -12,10 +12,6 @@ function Requests(props)
             <Header type="authorized" page={PageName.REQUESTS}/>
             <Container className='mt-5 min-270'>
                 <UpPart/>
-<<<<<<< Updated upstream
-                <RequestCard status={Status.AWAITS}/>
-=======
->>>>>>> Stashed changes
                 <RequestCard status={Status.APPROVED}/>
                 <RequestCard status={Status.CANCELLED}/>
                 <RequestCard status={Status.INPROCESS}/>

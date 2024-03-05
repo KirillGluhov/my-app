@@ -15,6 +15,7 @@ function Header(props)
     let requests = partOfHeader(PageName.REQUESTS, props.page, isScreenSm, isScreenMd);
     let profile = partOfHeader(PageName.PROFILE, props.page, isScreenSm, isScreenMd);
     let login = partOfHeader(PageName.LOGIN, props.page, isScreenSm, isScreenMd);
+    let exit = partOfHeader(PageName.EXIT, props.page, isScreenSm, isScreenMd);
 
     let brand = (
         <Navbar.Brand className='white dontChangeColor'>
@@ -22,35 +23,6 @@ function Header(props)
         </Navbar.Brand>
     );
 
-<<<<<<< Updated upstream
-    return (
-        <Navbar expand="md" className='darkblue'>
-          <Container>
-            {brand}
-            <Navbar.Toggle className='darkblue inner' />
-            <Navbar.Collapse className={props.type === 'authorized' ? 'endAndStart' : 'end'}>
-              <Nav>
-                {props.type === 'authorized' && (
-                  <>
-                    {keys}
-                    {users}
-                    {requests}
-                  </>
-                )}
-              </Nav>
-              <Nav>
-                {props.type === 'authorized' ? profile : (registration && login && (
-                  <>
-                    {registration}
-                    {login}
-                  </>
-                ))}
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-    );
-=======
     if (props.type === "authorized")
     {
         return (
@@ -89,7 +61,6 @@ function Header(props)
             </Navbar>
         );
     }
->>>>>>> Stashed changes
 }
 
 export default Header;

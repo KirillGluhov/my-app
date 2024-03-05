@@ -1,7 +1,6 @@
 import { Form, Row, Col, Stack, Button } from 'react-bootstrap';
 import "../../styles/requestcard.css";
 import { useState } from 'react';
-import { post } from '../../methods/apiUtils';
 import { jwtDecode } from "jwt-decode";
 import { No } from '../No';
 import { Yes } from '../Yes';
