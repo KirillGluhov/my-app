@@ -22,8 +22,6 @@
 
 .navbar
 {
-    min-width: 253px;
     --bs-navbar-toggler-border-color: none;
     padding: 0px;
-    min-width: 300px;
 }
