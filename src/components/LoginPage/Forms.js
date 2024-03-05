@@ -1,10 +1,10 @@
 import { Col, Row, Stack, Form, Container, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import useInput from "../../hooks/use-input";
-import confirmAndSend from "../../functions/confirmAndSend";
 import useValidation from "../../hooks/use-validation";
 import "../../styles/forms.css";
 import axios, * as others from 'axios';
 import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 function Forms(props) 
 {
@@ -24,7 +24,15 @@ function Forms(props)
         axios.post('https://win.jij.li/api/auth/login', values)
         .then(response => {
             localStorage.setItem("token", response.data.accessToken);
-            window.location.assign("http://localhost:3000/requests");
+
+            if (jwtDecode(localStorage.getItem("token")).UserRole == "Principal" || jwtDecode(localStorage.getItem("token")).UserRole == "Admin")
+            {
+                window.location.assign("http://localhost:3000/requests");
+            }
+            else
+            {
+                setErrors(true);
+            }
         })
         .catch(error => {
             console.error('Error:', error);

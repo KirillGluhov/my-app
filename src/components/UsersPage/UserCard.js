@@ -6,9 +6,31 @@ import { No } from '../No';
 import { Yes } from '../Yes';
 import { Box } from '@mui/joy';
 import "../../styles/users.css";
+import useInput from '../../hooks/use-input';
+import axios, * as others from 'axios';
 
 function UserCard(user) {
     let token = localStorage.getItem("token");
+
+    const [selectedValues, handleChange] = useInput({
+        changeRole: ""
+      });
+
+    const handleRole = () => {
+        console.log(selectedValues.changeRole);
+        
+        console.log(`https://win.jij.li/api/users/${user.id}/assign-role/${selectedValues.changeRole}`);
+    
+        axios.post(`https://win.jij.li/api/users/${user.id}/assign-role/${selectedValues.changeRole}`, {data: ''
+        }, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
+        .then(response => {
+            console.log(response);
+            user.handleParentChange();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+      };
     
     return (
         <Stack className='border-darkblue min-270' style={{ padding: '0px' }} id={user.id}>
@@ -17,7 +39,7 @@ function UserCard(user) {
                     {
                         jwtDecode(localStorage.getItem("token")).UserRole == "Admin" ? 
                         (
-                            <Form.Control as='select' value={user.role}>
+                            <Form.Control as='select' defaultValue={user.role} id='changeRole' onChange={handleChange} onBlur={handleRole}>
                             <option value='Student'>Student</option>
                             <option value='Teacher'>Teacher</option>
                             <option value='Principal'>Principal</option>
@@ -26,9 +48,10 @@ function UserCard(user) {
                         ) 
                         : 
                         (
-                            <Form.Control as='select' value={user.role}>
+                            <Form.Control as='select' defaultValue={user.role} id='changeRole' onChange={handleChange} onBlur={handleRole}>
                             <option value='Student'>Student</option>
                             <option value='Teacher'>Teacher</option>
+                            {user.role === 'Principal' ? <option value='Principal'>Principal</option> : null}
                             </Form.Control>
                         )
                     }

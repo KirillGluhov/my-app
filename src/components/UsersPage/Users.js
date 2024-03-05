@@ -2,11 +2,11 @@ import axios, * as others from 'axios';
 import Header from '../Header';
 import { PageName } from "../../const/const-pagesnames";
 import { Col, Container, Row, Form, Stack } from 'react-bootstrap';
-import UsersFilter from './UsersFilter';
 import UserCard from './UserCard';
 import { useEffect, useState } from 'react';
 import useInput from '../../hooks/use-input';
 import "../../styles/users.css";
+import { jwtDecode } from "jwt-decode";
 
 const Users = () => {
 
@@ -19,9 +19,10 @@ const Users = () => {
 
   const handleRoleBlur = () => {
     console.log(filterValues.role);
+    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
     let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
     let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? "Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin" : `Roles=${filterValues.role}`;
+    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
     console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
 
     axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
@@ -36,9 +37,10 @@ const Users = () => {
 
   const handleRequestsBlur = () => {
     console.log(filterValues.requests);
+    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
     let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
     let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? "Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin" : `Roles=${filterValues.role}`;
+    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
     console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
 
     axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
@@ -53,9 +55,10 @@ const Users = () => {
 
   const handleSearchNameBlur = () => {
     console.log(filterValues.searchName);
+    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
     let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
     let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? "Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin" : `Roles=${filterValues.role}`;
+    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
     console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
 
     axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
@@ -69,7 +72,26 @@ const Users = () => {
   };
 
   const fetchData = () => {
-    axios.get(`https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
+    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal" : `https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
+    axios.get(url, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
+    .then(response => {
+        handleCard(response.data.value);
+        console.log(cardsData);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+  }
+
+  function fetchingAgain()
+  {
+    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
+    let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
+    let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
+    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
+    console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
+
+    axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
     .then(response => {
         handleCard(response.data.value);
         console.log(cardsData);
@@ -95,7 +117,7 @@ const Users = () => {
                         <option value="Student" className='radiusnone'>Студент</option>
                         <option value="Teacher" className='radiusnone'>Преподаватель</option>
                         <option value="Principal" className='radiusnone'>Деканат</option>
-                        <option value="Admin" className='radiusnone'>Администратор</option>
+                        {jwtDecode(localStorage.getItem("token")).UserRole == "Principal" ? null : <option value="Admin" className='radiusnone'>Администратор</option>}
                     </Form.Select>
                 </Col>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
@@ -111,7 +133,7 @@ const Users = () => {
             </Row>
         </Stack>
         {cardsData.map(card => (
-              <UserCard name={card.fullName} email={card.email} id={card.id} role={card.userRole} key={card.id}/>
+              <UserCard name={card.fullName} email={card.email} id={card.id} role={card.userRole} key={card.id} handleParentChange={fetchingAgain}/>
             )
           )
         }
