@@ -14,7 +14,6 @@ function Header(props)
     let users = partOfHeader(PageName.USERS, props.page, isScreenSm, isScreenMd) 
     let requests = partOfHeader(PageName.REQUESTS, props.page, isScreenSm, isScreenMd);
     let profile = partOfHeader(PageName.PROFILE, props.page, isScreenSm, isScreenMd);
-    let registration = partOfHeader(PageName.REGISTRATION, props.page, isScreenSm, isScreenMd);
     let login = partOfHeader(PageName.LOGIN, props.page, isScreenSm, isScreenMd);
 
     let brand = (
@@ -23,6 +22,7 @@ function Header(props)
         </Navbar.Brand>
     );
 
+<<<<<<< Updated upstream
     return (
         <Navbar expand="md" className='darkblue'>
           <Container>
@@ -50,6 +50,46 @@ function Header(props)
           </Container>
         </Navbar>
     );
+=======
+    if (props.type === "authorized")
+    {
+        return (
+            <Navbar expand="md" className='darkblue' >
+                <Container>
+                    {brand}
+                    <Navbar.Toggle className='darkblue inner'/>
+                    <Navbar.Collapse className='endAndStart'>
+                        <Nav>
+                            {keys}
+                            {users}
+                            {requests}
+                        </Nav>
+                        <Nav>
+                            {profile}
+                            {exit}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        );
+    }
+    else if (props.type === "unauthorized")
+    {
+        return (
+            <Navbar expand="md" className='darkblue' >
+                <Container>
+                    {brand}
+                    <Navbar.Toggle className='darkblue inner'/>
+                    <Navbar.Collapse className='end'>
+                        <Nav>
+                            {login}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        );
+    }
+>>>>>>> Stashed changes
 }
 
 export default Header;

@@ -13,9 +13,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+<<<<<<< Updated upstream
         <Route path="/" element={<div>/</div>} />
         <Route path="registration" element={<div>Registration</div>} />
         <Route path="login" element={<div>Login</div>} />
+=======
+        <Route path="login" element={<Login/>} />
+>>>>>>> Stashed changes
         <Route path="requests" element={<Requests/>} />
         <Route path="profile" element={<Profile/>} />
         <Route path="users" element={<Users/>} />
