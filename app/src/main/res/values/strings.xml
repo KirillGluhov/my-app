@@ -3,14 +3,17 @@
     <string name="app_name_up">KEYBOOKING</string>
 
     <string name="registration">Регистрация</string>
+    <string name="big_registration">РЕГИСТРАЦИЯ</string>
     <string name="login">Вход</string>
     <string name="big_login">ВХОД</string>
 
     <string name="input_login">Логин</string>
     <string name="input_password">Пароль</string>
+    <string name="input_repeat_password">Повторите пароль</string>
     <string name="input_email">Почта</string>
 
     <string name="login_button">Войти</string>
+    <string name="reg_button">Зарегистрироваться</string>
 
     <string name="login_error">Неверный логин или пароль.</string>
 </resources>

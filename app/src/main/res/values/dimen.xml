@@ -8,6 +8,8 @@
     <dimen name="margin_huge">65dp</dimen>
     <dimen name="margin_some_more_big">30dp</dimen>
     <dimen name="margin_big">25dp</dimen>
+    <dimen name="margin_small">15dp</dimen>
+    <dimen name="margin_tiny">10dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="margin_button">20dp</dimen>
 
