@@ -3,7 +3,6 @@ export const PageName = {
     USERS: {Eng: "users", Rus: "Пользователи"},
     REQUESTS: {Eng: "requests", Rus: "Заявки"},
     PROFILE: {Eng: "profile", Rus: "Профиль"},
-    REGISTRATION: {Eng: "registration", Rus: "Регистрация"},
     LOGIN: {Eng: "login", Rus: "Вход"},
     EXIT: {Eng: "exit", Rus: "Выход"}
 };

@@ -36,7 +36,6 @@ function useValidation(initialValues) {
                 else
                 {
                     let flag = false;
-                    
                     for (let i = 0; i < value.length; i++)
                     {
                         if (!isNaN(+value[i]))

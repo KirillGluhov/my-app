@@ -14,7 +14,6 @@ function Header(props)
     let users = partOfHeader(PageName.USERS, props.page, isScreenSm, isScreenMd) 
     let requests = partOfHeader(PageName.REQUESTS, props.page, isScreenSm, isScreenMd);
     let profile = partOfHeader(PageName.PROFILE, props.page, isScreenSm, isScreenMd);
-    let registration = partOfHeader(PageName.REGISTRATION, props.page, isScreenSm, isScreenMd);
     let login = partOfHeader(PageName.LOGIN, props.page, isScreenSm, isScreenMd);
     let exit = partOfHeader(PageName.EXIT, props.page, isScreenSm, isScreenMd);
 
@@ -27,7 +26,7 @@ function Header(props)
     if (props.type === "authorized")
     {
         return (
-            <Navbar expand="sm" className='darkblue' >
+            <Navbar expand="md" className='darkblue' >
                 <Container>
                     {brand}
                     <Navbar.Toggle className='darkblue inner'/>
@@ -49,13 +48,12 @@ function Header(props)
     else if (props.type === "unauthorized")
     {
         return (
-            <Navbar expand="sm" className='darkblue' >
+            <Navbar expand="md" className='darkblue' >
                 <Container>
                     {brand}
                     <Navbar.Toggle className='darkblue inner'/>
                     <Navbar.Collapse className='end'>
                         <Nav>
-                            {registration}
                             {login}
                         </Nav>
                     </Navbar.Collapse>

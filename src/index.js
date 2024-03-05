@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/root.css'
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
 import Requests from './components/Requests';
 import Profile from './components/Profile';
 import Keys from './components/KeysPage/Keys';
@@ -15,7 +15,6 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="registration" element={<div>Registration</div>} />
         <Route path="login" element={<Login/>} />
         <Route path="requests" element={<Requests/>} />
         <Route path="profile" element={<Profile/>} />

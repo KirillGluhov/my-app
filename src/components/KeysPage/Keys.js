@@ -5,10 +5,10 @@ import KeyCard from './KeyCard';
 import { useEffect, useState } from 'react';
 import { get } from '../../methods/apiUtils';
 import useInput from '../../hooks/use-input';
-import { token } from '../../const/const-token-temporarily';
 import KeysFilter from './KeysFilter';
 
 function Keys(props) {
+    let token = localStorage.getItem("token");
     const [keys, setKeys] = useState(null);
 
     useEffect(() => {

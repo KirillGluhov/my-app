@@ -1,49 +1,49 @@
 import { Form, Row, Col, Stack, Button } from 'react-bootstrap';
 import "../../styles/requestcard.css";
 import { useState } from 'react';
-import { post } from '../../methods/apiUtils';
-import { token } from '../../const/const-token-temporarily';
+import { jwtDecode } from "jwt-decode";
+import { No } from '../No';
+import { Yes } from '../Yes';
+import { Box } from '@mui/joy';
+import "../../styles/users.css";
 
-//Добавить:
-// - Чтобы авторизованный пользователь не видел себя в списке (хотя не уверен, может и не надо)
-// - Чтобы только Admin мог менять роль на Principal (и Admin) у другого пользователя
-
-//В итоге с этим кодом получается что когда я меняю роль, она меняется, это посылается на сервер, 
-//но потом моментально визуально она меняется обратно, хотя на сервер она изменилась
-function UserCard({ id, role, email, name }) {
-    const [selectedRole, setSelectedRole] = useState(role);
-
-    async function handleChangeRole(e) {
-        const newRole = e.target.value;
+function UserCard(user) {
+    let token = localStorage.getItem("token");
     
-        try {
-            //ТАК РАБОТАЕТ
-            setSelectedRole(newRole);
-            await post(`/users/${id}/assign-role/${newRole}`, token);
-
-            //А ЕСЛИ КОМАНДА ТУТ - ТО НЕТ
-            //setSelectedRole(newRole);
-        } catch (error) {
-            console.error('Error updating user role:', error);
-            console.error('Response from server:', error.message);
-        }
-    };
     return (
-        <Stack className='border-darkblue min-270' style={{ width: '60%', padding: '0px' }}>
+        <Stack className='border-darkblue min-270' style={{ padding: '0px' }} id={user.id}>
             <Row className='mt-3 mx-1'>
-                <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={4} className='mb-3 p-6 border-radius-small-all center'>
-                    <Form.Control as='select' value={selectedRole}  onChange={handleChangeRole}>
-                        <option value='Student'>Student</option>
-                        <option value='Teacher'>Teacher</option>
-                        <option value='Principal'>Principal</option>
-                        <option value='Admin'>Admin</option>
-                    </Form.Control>
+                <Col xxl={3} xl={3} lg={3} md={3} sm={3} xs={3} className='mb-3 p-6 border-radius-small-all center'>
+                    {
+                        jwtDecode(localStorage.getItem("token")).UserRole == "Admin" ? 
+                        (
+                            <Form.Control as='select' value={user.role}>
+                            <option value='Student'>Student</option>
+                            <option value='Teacher'>Teacher</option>
+                            <option value='Principal'>Principal</option>
+                            <option value='Admin'>Admin</option>
+                            </Form.Control>
+                        ) 
+                        : 
+                        (
+                            <Form.Control as='select' value={user.role}>
+                            <option value='Student'>Student</option>
+                            <option value='Teacher'>Teacher</option>
+                            </Form.Control>
+                        )
+                    }
                 </Col>
-                <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={4} className='mb-3 p-6'>
-                    <Form.Control className='radiusnone center' plaintext readOnly defaultValue={email} />
+                <Col xxl={4} xl={3} lg={3} md={9} sm={9} xs={9} className='mb-3 p-6'>
+                    <Form.Control className='radiusnone center' plaintext readOnly defaultValue={user.email} />
                 </Col>
-                <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={4} className='mb-3 p-6'>
-                    <Form.Control className='radiusnone center' plaintext readOnly defaultValue={name} />
+                <Col xxl={4} xl={4} lg={4} md={10} sm={10} xs={10} className='mb-3 p-6'>
+                    <Form.Control className='radiusnone center' plaintext readOnly defaultValue={user.name} />
+                </Col>
+                <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
+                    <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        <Button className='border-green border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#A4F87D", borderColor: "#488233"}} ><Yes/></Button>
+                        <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#F97D7D", borderColor: "#823333"}}><No/></Button>
+                    </Box>
                 </Col>
             </Row>
         </Stack>

@@ -3,9 +3,9 @@ import "../../styles/requestcard.css";
 import { No } from '../No';
 import { Box } from '@mui/joy';
 import { del } from '../../methods/apiUtils';
-import { token } from '../../const/const-token-temporarily';
 
 function KeyCard({keyData}) {
+    let token = localStorage.getItem("token");
     const handleNoButtonClick = async () => {
         try {
             await del(`/keys/delete/${keyData.id}`, token); // Отправляем DELETE запрос с id ключа в качестве параметра

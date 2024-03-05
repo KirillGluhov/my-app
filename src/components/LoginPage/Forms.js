@@ -3,21 +3,33 @@ import useInput from "../../hooks/use-input";
 import confirmAndSend from "../../functions/confirmAndSend";
 import useValidation from "../../hooks/use-validation";
 import "../../styles/forms.css";
+import axios, * as others from 'axios';
+import { useState } from "react";
 
 function Forms(props) 
 {
     const [values, handleChange] = useInput({
         email: "",
-        password: ""
+        password: "",
     });
 
     const [errors, handleValidation] = useValidation({
         email: false,
-        password: false
+        password: false,
     });
 
+    const [confirmError, setErrors] = useState(false)
+
     const handleSubmit = () => {
-        confirmAndSend(values);
+        axios.post('https://win.jij.li/api/auth/login', values)
+        .then(response => {
+            localStorage.setItem("token", response.data.accessToken);
+            window.location.assign("http://localhost:3000/requests");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            setErrors(true);
+    });
       };
 
     const tooltipEmail = (
@@ -31,6 +43,12 @@ function Forms(props)
           В пароле должна быть хотя бы одна цифра
         </Tooltip>
       );
+
+    const tooltipConfirm = (
+        <Tooltip id="tooltipConfirm">
+          Неправильные данные пароля и (или) email
+        </Tooltip>
+    )
 
     return (
         <Container className='mt-5'>
@@ -55,7 +73,13 @@ function Forms(props)
                         }
                     </Col>
                     <Col className='p-6 m-8' xxl={2} xl={2} lg={2} md={2} sm={12}>
-                        <Button className="stretch" onClick={handleSubmit}>Войти</Button>
+                        {
+                            !confirmError ? 
+                            <Button className="stretch" onClick={handleSubmit}>Войти</Button> :
+                            <OverlayTrigger placement="bottom" overlay={tooltipConfirm}>
+                                <Button className="stretch" onClick={handleSubmit}>Войти</Button>
+                            </OverlayTrigger>
+                        }
                     </Col>
                 </Row>
             </Stack>
