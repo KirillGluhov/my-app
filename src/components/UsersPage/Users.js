@@ -113,12 +113,12 @@ const Users = () => {
       <Header type='authorized' page={PageName.USERS} />
       <Container className='mt-5 minwidth-540 mb-5'>
         <Row className='justify-content-center'>
-          <Col xs={12} sm={12} md={12} lg={10} xl={10} xxl={8}> {/* Это задаст ширину Users компоненту xs={12} md={8} lg={8}>*/}
+          <Col xs={12} sm={12} md={12} lg={10} xl={10} xxl={8}>
             <Stack className='darkblue border-radius-small'>
               <Row className='mt-2 mx-1 mb-2'>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                  <Form.Select className='radiusnone darkAndLight' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role'>
-                    <option value="" className='radiusnone'>Роль</option>
+                  <Form.Select className='radiusnone darkAndLight' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role' multiple>
+                    <option value="" className='radiusnone'>Все роли</option>
                     <option value="Student" className='radiusnone'>Студент</option>
                     <option value="Teacher" className='radiusnone'>Преподаватель</option>
                     <option value="Principal" className='radiusnone'>Деканат</option>
