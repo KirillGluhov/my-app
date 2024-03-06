@@ -3,12 +3,20 @@ import { PageName } from "../const/const-pagesnames";
 import { Nav } from "react-bootstrap";
 import logoutUser from "../functions/logoutUser";
 
-function partOfHeader(page, currentPage, isScreenSm, isScreenMd)
+function partOfHeader(page, currentPage, isScreenSm, isScreenMd, isAdmin)
 {
     const handleClick = () => {
         logoutUser();
       };
 
+    if (isAdmin && page === PageName.EXIT)
+    {
+        return (
+            isScreenMd ?
+            <Nav.Link className={Styles.WITHOUTSTICK} onClick={handleClick}>{page.Rus.toUpperCase()}</Nav.Link> : 
+            <Nav.Link className={Styles.WITHOUTSTICK} onClick={handleClick}>{page.Rus.toUpperCase()}</Nav.Link>
+        );
+    }
     if (page === PageName.PROFILE || page === PageName.LOGIN)
     {
         return smallCase(page, (currentPage === page), !(page === PageName.PROFILE || page === PageName.LOGIN));

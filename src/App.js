@@ -10,19 +10,42 @@ import Profile from "./components/ProfilePage/Profile";
 
 function App()
 {
-    const [isLoggedIn, setIsLoggedIn] = useState(checkToken());
+    const [isDean, setIsLoggedInDean] = useState(checkTokenDean());
+    const [isAdmin, setLoggedInAdmin] = useState(checkTokenAdmin());
 
     useEffect(() => {
-        setIsLoggedIn(checkToken());
+        setIsLoggedInDean(checkTokenDean());
+        setLoggedInAdmin(checkTokenAdmin());
     }, []);
 
-    function checkToken()
+    function checkTokenDean()
     {
         const token = localStorage.getItem('token');
 
         if (token != null)
         {
-            if (jwtDecode(token).UserRole == "Principal" || jwtDecode(token).UserRole == "Admin")
+            if (jwtDecode(token).UserRole == "Principal")
+            {
+            return true;
+            }
+            else
+            {
+            return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    };
+
+    function checkTokenAdmin()
+    {
+        const token = localStorage.getItem('token');
+
+        if (token != null)
+        {
+            if (jwtDecode(token).UserRole == "Admin")
             {
             return true;
             }
@@ -43,7 +66,7 @@ function App()
           <Routes>
             <Route path="login" element={<Login />} />
             {
-                isLoggedIn ? (
+                isDean ? (
                     <>
                         <Route path="requests" element={<Requests />} />
                         <Route path="profile" element={<Profile />} />
@@ -52,8 +75,13 @@ function App()
                         <Route path="*" element={<Navigate to="/requests" />} />
                     </>
                 ) 
-                : 
-                (
+                : isAdmin ? (
+                    <>
+                        <Route path="users" element={<Users />} />
+                        <Route path="*" element={<Navigate to="/users" />} />
+                    </>
+                ) 
+                : (
                     <Route path="*" element={<Navigate to="/login" />} />
                 )
             }
