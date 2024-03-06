@@ -104,7 +104,7 @@ input.from
 .border-darkblue
 {
     border-style: solid;
-    border-color: #001529;
+    border-color: rgb(0, 21, 41, 0.3);
     border-width: 0px 1px 1px 1px;
     margin: 0px;
 }
