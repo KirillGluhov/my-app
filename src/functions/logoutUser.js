@@ -6,11 +6,12 @@ function logoutUser()
     axios.post('https://win.jij.li/api/auth/logout')
     .then(response => {
         
-        localStorage.removeItem("token");
         window.location.assign("http://localhost:3000/login");
+        localStorage.clear();
     })
     .catch(error => {
         window.location.assign("http://localhost:3000/login");
+        localStorage.clear();
     });
 }
 
