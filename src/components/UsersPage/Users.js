@@ -19,75 +19,74 @@ const Users = () => {
 
   const handleRoleBlur = () => {
     console.log(filterValues.role);
-    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
-    let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
-    let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
-    console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
-
-    axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
-      .then(response => {
-        handleCard(response.data.value);
-        console.log(cardsData);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    handleMain();
   };
 
   const handleRequestsBlur = () => {
     console.log(filterValues.requests);
-    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
-    let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
-    let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
-    console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
-
-    axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
-      .then(response => {
-        handleCard(response.data.value);
-        console.log(cardsData);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    handleMain();
   };
 
   const handleSearchNameBlur = () => {
     console.log(filterValues.searchName);
-    let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
-    let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
-    let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
-    console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
-
-    axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
-      .then(response => {
-        handleCard(response.data.value);
-        console.log(cardsData);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    handleMain();
   };
 
   const fetchData = () => {
     let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal" : `https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
-    axios.get(url, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
-      .then(response => {
+    axios.get(url, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
+    .then(response => {
         handleCard(response.data.value);
         console.log(cardsData);
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.error('Error:', error);
-      });
+    });
   }
 
-  function fetchingAgain() {
+  function isEmptyValues(values)
+  {
+    for (let i = 0; i < values.length; i++)
+    {
+      if (values[i] === '')
+      {
+        return true;
+      }
+
+    }
+
+    return false;
+  }
+
+  function getRole(values, url)
+  {
+    if (values === "")
+    {
+      console.log("Values пусты, поэтому ", url);
+      return url;
+    }
+    else
+    {
+      if (isEmptyValues(values))
+      {
+        console.log("Среди массива values есть пустота, поэтому ", url);
+        return url;
+      }
+      else
+      {
+        let value = values.map(role => `Roles=${role}`).join('&');
+        console.log("Всё join-им ", value);
+        return value;
+      }
+    }
+  }
+
+  function handleMain()
+  {
     let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
     let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
     let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
+    let rol = getRole(filterValues.role, url);
     console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
 
     axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
@@ -97,7 +96,12 @@ const Users = () => {
       })
       .catch(error => {
         console.error('Error:', error);
-      });
+    });
+  }
+
+  function fetchingAgain()
+  {
+    handleMain();
   }
 
   useEffect(() => {
@@ -144,8 +148,8 @@ const Users = () => {
         {/*<Stack className='darkblue border-radius-small'>
             <Row className='mt-2 mx-1 mb-2'>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                    <Form.Select className='radiusnone darkAndLight'  defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role'>
-                        <option value="" className='radiusnone'>Роль</option>
+                    <Form.Select className='radiusnone darkAndLight'  defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role' multiple>
+                        <option value="" className='radiusnone'>Все роли</option>
                         <option value="Student" className='radiusnone'>Студент</option>
                         <option value="Teacher" className='radiusnone'>Преподаватель</option>
                         <option value="Principal" className='radiusnone'>Деканат</option>
