@@ -144,35 +144,6 @@ const Users = () => {
             }
           </Col>
         </Row>
-
-        {/*<Stack className='darkblue border-radius-small'>
-            <Row className='mt-2 mx-1 mb-2'>
-                <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                    <Form.Select className='radiusnone darkAndLight'  defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role' multiple>
-                        <option value="" className='radiusnone'>Все роли</option>
-                        <option value="Student" className='radiusnone'>Студент</option>
-                        <option value="Teacher" className='radiusnone'>Преподаватель</option>
-                        <option value="Principal" className='radiusnone'>Деканат</option>
-                        {jwtDecode(localStorage.getItem("token")).UserRole == "Principal" ? null : <option value="Admin" className='radiusnone'>Администратор</option>}
-                    </Form.Select>
-                </Col>
-                <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                    <Form.Select className='radiusnone darkAndLight'  defaultValue={filterValues.isRequests} onChange={handleChange} onBlur={handleRequestsBlur} id='requests'>
-                        <option value="" className='radiusnone'>Есть заявки?</option>
-                        <option value="true" className='radiusnone'>Есть</option>
-                        <option value="false" className='radiusnone'>Нет</option>
-                    </Form.Select>
-                </Col>
-                <Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                    <Form.Control placeholder="Поиск по имени" className='search verySmallRadius' defaultValue={filterValues.searchName} onChange={handleChange} onBlur={handleSearchNameBlur} id='searchName' />
-                </Col>
-            </Row>
-        </Stack>
-        {cardsData.map(card => (
-              <UserCard name={card.fullName} email={card.email} id={card.id} role={card.userRole} key={card.id} handleParentChange={fetchingAgain}/>
-            )
-          )
-        }*/}
       </Container>
     </>
   );

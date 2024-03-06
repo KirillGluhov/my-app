@@ -36,7 +36,7 @@ function UserCard(user) {
     return (
         <Stack className='border-darkblue min-270' style={{ padding: '0px' }} id={user.id}>
             <Row className='mt-3 mx-1'>
-                <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='mb-3 p-6 border-radius-small-all center'>
+                <Col xs={6} sm={6} md={6} lg={4} xl={4} xxl={4} className='mb-3 p-6 border-radius-small-all center'>
                     {
                         jwtDecode(localStorage.getItem("token")).UserRole == "Admin" ?
                             (
@@ -57,10 +57,10 @@ function UserCard(user) {
                             )
                     }
                 </Col>
-                <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='mb-3 p-6'>
+                <Col xs={6} sm={6} md={6} lg={4} xl={4} xxl={4} className='mb-3 p-6'>
                     <Form.Control className='radiusnone center' plaintext readOnly defaultValue={user.email} />
                 </Col>
-                <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='mb-3 p-6'>
+                <Col xs={6} sm={6} md={6} lg={4} xl={4} xxl={4} className='mb-3 p-6'>
                     <Form.Control className='radiusnone center' plaintext readOnly defaultValue={user.name} />
                 </Col>
                 {/*<Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
