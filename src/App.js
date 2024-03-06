@@ -3,10 +3,10 @@ import React from 'react';
 import { jwtDecode } from "jwt-decode";
 import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
 import Requests from './components/Requests';
-import Profile from './components/Profile';
 import Keys from './components/KeysPage/Keys';
 import Users from './components/UsersPage/Users';
 import Login from './components/LoginPage/Login';
+import Profile from "./components/ProfilePage/Profile";
 
 function App()
 {
