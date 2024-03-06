@@ -46,7 +46,7 @@ function Forms(props)
 
     const tooltipConfirm = (
         <Tooltip id="tooltipConfirm">
-          Неправильные данные пароля и (или) email
+          Войти в свой аккаунт могут лишь деканат и администраторы, корректно ввёдшие свой пароль и email
         </Tooltip>
     )
 
