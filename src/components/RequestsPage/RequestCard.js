@@ -8,8 +8,8 @@ import { Box } from '@mui/joy';
 function RequestCard(props) {
     return (
         <Stack className='border-darkblue min-weight-520'>
-            <Row className='mt-3 mx-1'>
-                <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2} className='mb-3 p-6 border-radius-small-all'>
+            <Row className='mt-3 mx-1 center-align'>
+                <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2} className='mb-3 p-6'>
                     <Form.Control className='radiusnone center' plaintext readOnly defaultValue="302" />
                 </Col>
                 <Col xxl={2} xl={3} lg={3} md={3} sm={5} xs={5} className='mb-3 p-6'>
@@ -25,7 +25,10 @@ function RequestCard(props) {
                     <Form.Control className={`white rounded-1 border-2 center ${props.status.Eng}`} plaintext readOnly defaultValue={props.status.Rus} />
                 </Col>
                 <Col xxl={3} xl={5} lg={5} md={5} sm={8} xs={8} className='mb-3 p-6'>
-                    <Form.Control className='radiusnone center' plaintext readOnly defaultValue="Иван Иванов Иванович" />
+                    <Col>
+                        <Form.Control className='radiusnone center' plaintext readOnly defaultValue="Иван Иванов Иванович" />
+                        <Form.Control className='radiusnone center' plaintext readOnly defaultValue="Просто так" />
+                    </Col>
                 </Col>
                 <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2} className='mb-3 p-0'>
                     <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>

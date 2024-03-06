@@ -10,8 +10,8 @@ function Requests(props) {
         <>
             <Header type="authorized" page={PageName.REQUESTS} />
             <Container className='mt-5 min-270'>
-                <Row className='justify-content-center'>
-                    <Col xs={12} md={8} lg={10}>
+                <Row>
+                    <Col>
                         <UpPart />
                         <RequestCard status={Status.APPROVED} />
                         <RequestCard status={Status.CANCELLED} />

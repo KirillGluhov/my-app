@@ -43,3 +43,8 @@
 {
     border-style: dashed;
 }
+
+.center-align
+{
+    align-items: center;
+}

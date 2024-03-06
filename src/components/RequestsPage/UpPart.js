@@ -4,25 +4,25 @@ import calendarIcon from '../../images/calendar-icon.svg';
 import audienceIcon from '../../images/audience-icon.svg';
 import useTime from "../../hooks/use-time";
 import useInput from '../../hooks/use-input';
+import "../../styles/scrollbar.css";
 
 function UpPart(props)
 {
     const [values, handleChange] = useInput(
-        { 
-            search: "", 
-            status: "",
+        {  
             role: "",
-            filter: "Desc",
-            from: "",
-            to: "",
             time: "",
-            audience: ""
+            status: "",
+            received: "",
+            returned: "",
+            repetitive: "",
+            sorting: ""
         }
     );
 
     const [selectedTime, setSelectedTime] = useTime()
 
-    function handleDropdownChange(eventKey) 
+    /*function handleDropdownChange(eventKey) 
     {
         handleChange(
             { 
@@ -32,20 +32,32 @@ function UpPart(props)
                 } 
             }
         );
-    }
+    }*/
 
     return (
         <Stack className='darkblue border-radius-small min-weight-520'>
             <Row className='mt-2 mx-1 mb-2'>
-                <Col xxl={1} xl={3} lg={3} md={4} sm={4} xs={4} className='p-6'>
-                    <Form.Select className='radiusnone darkAndLight' id='audience' value={values.audience} onChange={handleChange}>
-                        <option value="audience" className='radiusnone'>Ауд.</option>
-                        <option value="Asc" className='radiusnone'>По возрастанию</option>
-                        <option value="Desc" className='radiusnone'>По убыванию</option>
+                <Col className='p-6' xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
+                    <Form.Select className='radiusnone darkAndLight' value={values.role} onChange={handleChange} id='role'>
+                        <option value="" className='radiusnone'>Роль</option>
+                        <option value="Student" className='radiusnone'>Студент</option>
+                        <option value="Teacher" className='radiusnone'>Преподаватель</option>
+                        <option value="Principal" className='radiusnone'>Деканат</option>
+                        <option value="Admin" className='radiusnone'>Администратор</option>
                     </Form.Select>
                 </Col>
-                <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='p-6'>
-                    <Dropdown>
+                <Col className='p-6' xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
+                    <Form.Select className='radiusnone darkAndLight custom-scrollbar' value={values.time} onChange={handleChange} id='time' multiple>
+                        <option value="" className='radiusnone'>Время</option>
+                        <option value="S8E10" className='radiusnone'>8:45 - 10:20</option>
+                        <option value="S10E12" className='radiusnone'>10:35 - 12:10</option>
+                        <option value="S12E14" className='radiusnone'>12:25 - 14:00</option>
+                        <option value="S14E16" className='radiusnone'>14:45 - 16:20</option>
+                        <option value="S16E18" className='radiusnone'>16:35 - 18:10</option>
+                        <option value="S18E20" className='radiusnone'>18:25 - 20:00</option>
+                        <option value="S20E21" className='radiusnone'>20:15 - 21:50</option>
+                    </Form.Select>
+                    {/*<Dropdown>
                         <Dropdown.Toggle className='time-and-date'>
                             Время
                             <img src={timeImage}/>
@@ -58,47 +70,45 @@ function UpPart(props)
                             <Dropdown.Item eventKey='5' onClick={() => handleDropdownChange('5')}><Button>16:35 - 18:10</Button></Dropdown.Item>
                             <Dropdown.Item eventKey='6' onClick={() => handleDropdownChange('6')}><Button>18:25 - 20:00</Button></Dropdown.Item>
                             <Dropdown.Item eventKey='7' onClick={() => handleDropdownChange('7')}><Button>20:15 - 21:50</Button></Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                        </Dropdown.Menu></Dropdown>*/}
                 </Col>
-                <Col xxl={1} xl={3} lg={3} md={4} sm={4} xs={4} className='p-6'>
-                    <Dropdown>
-                        <Dropdown.Toggle className='time-and-date'>
-                            Дата
-                            <img src={calendarIcon}/>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Form>
-                                <Form.Control type="date" className='radiusnone from' id='from' value={values.from} onChange={handleChange}/>
-                                <Form.Control type="date" className='radiusnone to' id='to' value={values.to} onChange={handleChange}/>
-                                <Form.Select className='radiusnone' value={values.filter} onChange={handleChange} id='filter'>
-                                    <option value="Desc" className='radiusnone'>По убыванию</option>
-                                    <option value="Asc" className='radiusnone'>По возрастанию</option>
-                                </Form.Select>
-                            </Form>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Col>
-                <Col xxl={2} xl={3} lg={3} md={4} sm={6} xs={6} className='p-6'>
-                    <Form.Select className='radiusnone darkAndLight' value={values.role} onChange={handleChange} id='role'>
-                        <option value="role" className='radiusnone'>Роль</option>
-                        <option value="Student" className='radiusnone'>Студент</option>
-                        <option value="Teacher" className='radiusnone'>Преподаватель</option>
-                        <option value="Principal" className='radiusnone'>Деканат</option>
-                        <option value="Admin" className='radiusnone'>Администратор</option>
-                    </Form.Select>
-                </Col>
-                <Col xxl={2} xl={6} lg={6} md={4} sm={6} xs={6} className='p-6'>
+                <Col className='p-6' xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
                     <Form.Select className='radiusnone darkAndLight' id='status' value={values.status} onChange={handleChange}>
-                        <option value="status" className='radiusnone'>Статус</option>
-                        <option value="awaits" className='radiusnone'>Ожидает</option>
-                        <option value="approved" className='radiusnone'>Одобрено</option>
-                        <option value="cancelled" className='radiusnone'>Отклонено</option>
-                        <option value="inProcess" className='radiusnone'>В процессе</option>
+                        <option value="" className='radiusnone'>Статус</option>
+                        <option value="Approved" className='radiusnone'>Одобрено</option>
+                        <option value="InProcess" className='radiusnone'>В процессе</option>
+                        <option value="Declined" className='radiusnone'>Отклонено</option>
                     </Form.Select>
                 </Col>
-                <Col xxl={3} xl={6} lg={6} md={4} sm={12} xs={12} className='p-6'>
-                    <Form.Control placeholder="Найти" className='search verySmallRadius' value={values.search} onChange={handleChange} id='search'/>
+                <Col className='p-6' xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
+                    <Form.Select className='radiusnone darkAndLight' value={values.received} onChange={handleChange} id='received'>
+                        <option value="" className='radiusnone'>Ключ получен?</option>
+                        <option value="true" className='radiusnone'>Да</option>
+                        <option value="false" className='radiusnone'>Нет</option>
+                    </Form.Select>
+                </Col>
+                <Col className='p-6' xxl={4} xl={4} lg={4} md={4} sm={6} xs={6}>
+                    <Form.Select className='radiusnone darkAndLight' value={values.returned} onChange={handleChange} id='returned'>
+                        <option value="" className='radiusnone'>Ключ вернут?</option>
+                        <option value="true" className='radiusnone'>Да</option>
+                        <option value="false" className='radiusnone'>Нет</option>
+                    </Form.Select>
+                </Col>
+                <Col className='p-6' xxl={4} xl={4} lg={4} md={4} sm={6} xs={6}>
+                    <Form.Select className='radiusnone darkAndLight' value={values.repetitive} onChange={handleChange} id='repetitive'>
+                        <option value="" className='radiusnone'>Повторная заявка?</option>
+                        <option value="true" className='radiusnone'>Да</option>
+                        <option value="false" className='radiusnone'>Нет</option>
+                    </Form.Select>
+                </Col>
+                <Col className='p-6' xxl={4} xl={4} lg={4} md={12} sm={12} xs={12}>
+                    <Form.Select className='radiusnone darkAndLight' value={values.sorting} onChange={handleChange} id='sorting'>
+                        <option value="" className='radiusnone'>Сортировка</option>
+                        <option value="DateAsc" className='radiusnone'>По ↑ даты</option>
+                        <option value="DateDesc" className='radiusnone'>По ↓ даты</option>
+                        <option value="AuditoryAsc" className='radiusnone'>По ↑ аудитории</option>
+                        <option value="AuditoryDesc" className='radiusnone'>По ↓ аудитории</option>
+                    </Form.Select>
                 </Col>
             </Row>
         </Stack>
