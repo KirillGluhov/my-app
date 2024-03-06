@@ -95,6 +95,15 @@ builder.Services.AddAuthorization(options =>
             );
         });
     });
+    options.AddPolicy("PrincipalOrAdmin", p =>
+    {
+        p.RequireAssertion(context =>
+        {
+            return context.User.HasClaim(claim => (claim.Type == "UserRole" && claim.Value == Role.Principal.ToString())
+            || (claim.Type == "UserRole" && claim.Value == Role.Admin.ToString())
+            );
+        });
+    });
 });
 
 

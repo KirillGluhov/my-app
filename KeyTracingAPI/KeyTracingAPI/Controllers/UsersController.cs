@@ -99,7 +99,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpGet("/api/users/")]
-        [Authorize(Policy = "Principal")]
+        [Authorize(Policy = "PrincipalOrAdmin")]
         public async Task<ActionResult<List<UserDTOForPrincipal>>> GetListOfUsers([FromQuery] GetListOfUsersQuery query)
         {
             var allUsers = await _userService.GetUsers(query);
@@ -108,8 +108,8 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpPost("/api/users/{userId}/assign-role/{role}")]
-        [Authorize(Policy = "Admin")]
-        public async Task<ActionResult<Response>> GetUsers(Guid userId, Role role)
+        [Authorize(Policy = "PrincipalOrAdmin")]
+        public async Task<ActionResult<Response>> ChangeRole(Guid userId, Role role)
         {
             var userEmailClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
 

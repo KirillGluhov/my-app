@@ -59,7 +59,7 @@ namespace KeyTracingAPI.Services
         public async Task<Response> CreateKey(KeyCreateForm key)
         {
             var keyFromDB = await checkKeyExistance(key.Auditory, true);
-
+            
             Key newKey = new Key
             {
                 Id = Guid.NewGuid(),
