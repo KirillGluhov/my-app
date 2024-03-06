@@ -41,18 +41,18 @@ function UserCard(user) {
                         jwtDecode(localStorage.getItem("token")).UserRole == "Admin" ?
                             (
                                 <Form.Control className="text-center" as='select' defaultValue={user.role} id='changeRole' onChange={handleChange} onBlur={handleRole}>
-                                    <option value='Student'>Student</option>
-                                    <option value='Teacher'>Teacher</option>
-                                    <option value='Principal'>Principal</option>
-                                    <option value='Admin'>Admin</option>
+                                    <option value='Student'>Студент</option>
+                                    <option value='Teacher'>Преподаватель</option>
+                                    <option value='Principal'>Деканат</option>
+                                    <option value='Admin'>Администратор</option>
                                 </Form.Control>
                             )
                             :
                             (
                                 <Form.Control className="text-center" as='select' defaultValue={user.role} id='changeRole' onChange={handleChange} onBlur={handleRole}>
-                                    <option value='Student'>Student</option>
-                                    <option value='Teacher'>Teacher</option>
-                                    {user.role === 'Principal' ? <option value='Principal'>Principal</option> : null}
+                                    <option value='Student'>Студент</option>
+                                    <option value='Teacher'>Преподаватель</option>
+                                    {user.role === 'Principal' ? <option value='Principal'>Деканат</option> : null}
                                 </Form.Control>
                             )
                     }

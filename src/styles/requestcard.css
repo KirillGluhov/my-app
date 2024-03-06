@@ -3,21 +3,21 @@
     background-color: #5facff;
 }
 
-.approved
+.Approved
 {
     background-color: #88FF5F;
     color: #4A8E21;
     border-color: #4A8E21;
 }
 
-.cancelled
+.Declined
 {
     background-color: #FF855F;
     color: #7E2B1F;
     border-color: #7E2B1F;
 }
 
-.inProcess
+.InProcess
 {
     background-color: #FFE55F;
     color: #7E6F1F;

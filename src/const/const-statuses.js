@@ -1,6 +1,5 @@
 export const Status = {
-    AWAITS: {Eng: "awaits", Rus: "Ожидает"},
-    APPROVED: {Eng: "approved", Rus: "Одобрено"},
-    CANCELLED: {Eng: "cancelled", Rus: "Отклонено"},
-    INPROCESS: {Eng: "inProcess", Rus: "В процессе"}
+    APPROVED: {Eng: "Approved", Rus: "Одобрено"},
+    CANCELLED: {Eng: "Declined", Rus: "Отклонено"},
+    INPROCESS: {Eng: "InProcess", Rus: "В процессе"}
 };
