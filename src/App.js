@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import React from 'react';
 import { jwtDecode } from "jwt-decode";
 import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
-import Requests from './components/Requests';
+import Requests from './components/RequestsPage/Requests';
 import Keys from './components/KeysPage/Keys';
 import Users from './components/UsersPage/Users';
 import Login from './components/LoginPage/Login';

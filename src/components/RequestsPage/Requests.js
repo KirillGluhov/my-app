@@ -1,9 +1,9 @@
-import Header from './Header';
-import { PageName } from "../const/const-pagesnames"
+import Header from '../Header';
+import { PageName } from "../../const/const-pagesnames"
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 import UpPart from './UpPart';
 import RequestCard from './RequestCard';
-import { Status } from "../const/const-statuses";
+import { Status } from "../../const/const-statuses";
 
 function Requests(props) {
     return (

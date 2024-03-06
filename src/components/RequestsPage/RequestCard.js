@@ -1,8 +1,8 @@
 import { Form, Row, Col, Stack, Button } from 'react-bootstrap';
-import { Yes } from './Yes';
-import { No } from './No';
-import "../styles/requestcard.css";
-import { Status } from '../const/const-statuses';
+import { Yes } from '../Yes';
+import { No } from '../No';
+import "../../styles/requestcard.css";
+import { Status } from '../../const/const-statuses';
 import { Box } from '@mui/joy';
 
 function RequestCard(props) {

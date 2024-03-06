@@ -1,9 +1,9 @@
 import { Container, Form, Row, Col, Stack, Button, Dropdown, DropdownButton } from 'react-bootstrap';
-import timeImage from '../images/time-image.svg';
-import calendarIcon from '../images/calendar-icon.svg';
-import audienceIcon from '../images/audience-icon.svg';
-import useTime from "../hooks/use-time";
-import useInput from '../hooks/use-input';
+import timeImage from '../../images/time-image.svg';
+import calendarIcon from '../../images/calendar-icon.svg';
+import audienceIcon from '../../images/audience-icon.svg';
+import useTime from "../../hooks/use-time";
+import useInput from '../../hooks/use-input';
 
 function UpPart(props)
 {

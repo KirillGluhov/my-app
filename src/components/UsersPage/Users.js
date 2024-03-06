@@ -87,7 +87,7 @@ const Users = () => {
     let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "Roles=Student&Roles=Teacher&Roles=Principal" : `Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
     let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
     let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
-    let rol = getRole(filterValues.role, url);
+    let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
     console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
 
     axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
@@ -118,7 +118,7 @@ const Users = () => {
             <Stack className='darkblue border-radius-small'>
               <Row className='mt-2 mx-1 mb-2'>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                  <Form.Select className='radiusnone darkAndLight custom-scrollbar' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role' multiple>
+                  <Form.Select className='radiusnone darkAndLight custom-scrollbar' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role'>
                     <option value="" className='radiusnone'>Все роли</option>
                     <option value="Student" className='radiusnone'>Студент</option>
                     <option value="Teacher" className='radiusnone'>Преподаватель</option>
