@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import useInput from '../../hooks/use-input';
 import "../../styles/users.css";
 import { jwtDecode } from "jwt-decode";
+import "../../styles/scrollbar.css";
 
 const Users = () => {
 
@@ -117,7 +118,7 @@ const Users = () => {
             <Stack className='darkblue border-radius-small'>
               <Row className='mt-2 mx-1 mb-2'>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                  <Form.Select className='radiusnone darkAndLight' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role' multiple>
+                  <Form.Select className='radiusnone darkAndLight custom-scrollbar' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role' multiple>
                     <option value="" className='radiusnone'>Все роли</option>
                     <option value="Student" className='radiusnone'>Студент</option>
                     <option value="Teacher" className='radiusnone'>Преподаватель</option>
