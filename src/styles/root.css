@@ -217,3 +217,55 @@ a.disabled
     background-color: #2D4B67;
     border: none;
 }
+
+
+
+.multiSelectContainer ul{
+    max-height: none;
+}
+
+.chips{
+    background: red;
+    background-color: red;
+    color: red;
+}
+
+.option{
+	color: #67A8F3;
+    margin: 5px 0px;
+    text-align: center;
+}
+
+.selected{
+    background-color: #67A8F3;
+    color: white;
+}
+
+.searchWrapper{
+    display: flex;
+    justify-content: center;
+    border: none;
+    background-color: #2D4B67;
+    cursor: pointer;
+}
+
+.searchBox {
+    text-align: center;
+	border: none;
+    color: white;
+    cursor: pointer;
+    caret-color: transparent;
+    pointer-events: none;
+}
+
+.searchBox::placeholder {
+    color: white;
+}
+
+.checkbox{
+    visibility: hidden;
+}
+
+.notFound{
+    text-align: center;
+}

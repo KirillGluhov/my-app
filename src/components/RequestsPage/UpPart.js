@@ -1,17 +1,17 @@
-import { Container, Form, Row, Col, Stack, Button, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Container, Form, Row, Col, Stack, Button, Dropdown, DropdownButton, Fade } from 'react-bootstrap';
 import timeImage from '../../images/time-image.svg';
 import calendarIcon from '../../images/calendar-icon.svg';
 import audienceIcon from '../../images/audience-icon.svg';
 import useTime from "../../hooks/use-time";
 import useInput from '../../hooks/use-input';
 import "../../styles/scrollbar.css";
+import Multiselect from 'multiselect-react-dropdown';
 
-function UpPart(props)
-{
+function UpPart(props) {
     const [values, handleChange] = useInput(
-        {  
+        {
             role: "",
-            time: "",
+            time: [],
             status: "",
             received: "",
             returned: "",
@@ -21,6 +21,24 @@ function UpPart(props)
     );
 
     const [selectedTime, setSelectedTime] = useTime()
+
+    function handleMultiselectChange(selectedList) {
+        console.log(selectedList);
+        const selectedValues = selectedList.map(item => item.value); // Преобразуем массив объектов в массив строк
+        handleChange({
+            target: {
+                id: 'time',
+                value: selectedValues
+            }
+        });
+        console.log(selectedValues);
+        console.log(values.time);
+    }
+
+    const handleTimeChange = (event) => {
+        handleChange(event); // Выводим значения в консоль после изменения
+        console.log(values);
+    };
 
     /*function handleDropdownChange(eventKey) 
     {
@@ -47,7 +65,29 @@ function UpPart(props)
                     </Form.Select>
                 </Col>
                 <Col className='p-6' xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
-                    <Form.Select className='radiusnone darkAndLight custom-scrollbar' value={values.time} onChange={handleChange} id='time' multiple>
+                    <Multiselect
+                        options={[
+                            { value: "S8E10", label: "8:45 - 10:20" },
+                            { value: "S10E12", label: "10:35 - 12:10" },
+                            { value: "S12E14", label: "12:25 - 14:00" },
+                            { value: "S14E16", label: "14:45 - 16:20" },
+                            { value: "S16E18", label: "16:35 - 18:10" },
+                            { value: "S18E20", label: "18:25 - 20:00" },
+                            { value: "S20E21", label: "20:15 - 21:50" }
+                        ]}
+                        displayValue="label"
+                        selectedValues={values.time.value} 
+                        onSelect={handleMultiselectChange}
+                        onRemove={handleMultiselectChange}
+                        id='time'
+                        hidePlaceholder={true}
+                        showCheckbox={true}
+                        placeholder="Время"
+                        closeIcon="cancel"
+                        avoidHighlightFirstOption={true}
+                        hideSelectedList={true}
+                    />
+                    {/*<Form.Select className='radiusnone darkAndLight custom-scrollbar' value={values.time} onChange={handleTimeChange} id='time' multiple>
                         <option value="" className='radiusnone'>Время</option>
                         <option value="S8E10" className='radiusnone'>8:45 - 10:20</option>
                         <option value="S10E12" className='radiusnone'>10:35 - 12:10</option>
@@ -56,7 +96,7 @@ function UpPart(props)
                         <option value="S16E18" className='radiusnone'>16:35 - 18:10</option>
                         <option value="S18E20" className='radiusnone'>18:25 - 20:00</option>
                         <option value="S20E21" className='radiusnone'>20:15 - 21:50</option>
-                    </Form.Select>
+                    </Form.Select>*/}
                     {/*<Dropdown>
                         <Dropdown.Toggle className='time-and-date'>
                             Время
