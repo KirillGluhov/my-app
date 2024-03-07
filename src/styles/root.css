@@ -212,3 +212,8 @@ a.disabled
     width: 40px;
     height: 40px;
 }
+
+.custom-button{
+    background-color: #2D4B67;
+    border: none;
+}
