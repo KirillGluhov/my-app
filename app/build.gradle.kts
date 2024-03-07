@@ -61,6 +61,7 @@ dependencies {
     implementation ("androidx.viewpager2:viewpager2:1.1.0-beta02")
     implementation ("com.google.android.material:material:1.11.0")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("androidx.recyclerview:recyclerview:1.3.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
     testImplementation("junit:junit:4.13.2")

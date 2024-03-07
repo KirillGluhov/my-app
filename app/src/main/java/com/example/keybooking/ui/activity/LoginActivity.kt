@@ -36,8 +36,10 @@ class LoginActivity: AbstractActivity() {
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
                 //binding.error.visibility = View.VISIBLE
-                binding.error.text = "NOT ERROR " + viewModelProfile.getToken()
+                //binding.error.text = "NOT ERROR " + viewModelProfile.getToken()
                 //viewModelProfile.profileData()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         })
 
