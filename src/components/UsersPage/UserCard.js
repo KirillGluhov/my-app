@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import { No } from '../No';
 import { Yes } from '../Yes';
-import { Box } from '@mui/joy';
 import "../../styles/users.css";
 import useInput from '../../hooks/use-input';
 import axios, * as others from 'axios';
@@ -63,12 +62,6 @@ function UserCard(user) {
                 <Col xs={6} sm={6} md={6} lg={4} xl={4} xxl={4} className='mb-3 p-6'>
                     <Form.Control className='radiusnone center' plaintext readOnly defaultValue={user.name} />
                 </Col>
-                {/*<Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
-                    <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                        <Button className='border-green border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#A4F87D", borderColor: "#488233"}} ><Yes/></Button>
-                        <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#F97D7D", borderColor: "#823333"}}><No/></Button>
-                    </Box>
-                </Col>*/}
             </Row>
         </Stack>
     );

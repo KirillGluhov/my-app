@@ -4,10 +4,76 @@ import { No } from '../No';
 import "../../styles/requestcard.css";
 import { Status } from '../../const/const-statuses';
 import { Box } from '@mui/joy';
+import axios, * as others from 'axios';
 
 function RequestCard(request) {
+
+    //console.log("Название: ", request.requestStatus.Eng," Id: ", request.id," По другому: ", Status.APPROVED," По иначему: ", Status.CANCELLED);
+
+    function handleApproved()
+    {
+        axios.post
+        (
+            `https://win.jij.li/api/requests/ApproveRequest/api/requests/approve/${request.id}`
+            , 
+            {
+                data: ''
+            }
+            , 
+            {
+                headers: 
+                {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}` 
+                } 
+            }
+        )
+        .then(
+            response => {
+                console.log(response);
+                request.handleMain();
+            }
+        )
+        .catch
+        (
+            error => {
+                console.log("Error: ", error)
+            }
+        );
+    }
+
+    function handleCancelled()
+    {
+        axios.post
+        (
+            `https://win.jij.li/api/requests/DeclineRequest/api/requests/decline/${request.id}`
+            , 
+            {
+                data: ''
+            }
+            , 
+            {
+                headers: 
+                {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}` 
+                } 
+            }
+        )
+        .then(
+            response => {
+                console.log(response);
+                request.handleMain();
+            }
+        )
+        .catch
+        (
+            error => {
+                console.log("Error: ", error)
+            }
+        );
+    }
+
     return (
-        <Stack className='border-darkblue min-weight-520' id={request.requestId}>
+        <Stack className='border-darkblue min-weight-520' id={request.id}>
             <Row className='mt-3 mx-1 center-align'>
                 <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2} className='mb-3 p-6'>
                     <Form.Control className='radiusnone center' plaintext readOnly value={request.auditory} />
@@ -32,8 +98,8 @@ function RequestCard(request) {
                 </Col>
                 <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2} className='mb-3 p-0'>
                     <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                        <Button className='border-green border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#A4F87D", borderColor: "#488233" }} disabled={request.requestStatus.Eng === Status.APPROVED}><Yes /></Button>
-                        <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#F97D7D", borderColor: "#823333" }} disabled={request.requestStatus.Eng === Status.CANCELLED}><No /></Button>
+                        <Button className='border-green border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#A4F87D", borderColor: "#488233" }} disabled={request.requestStatus.Eng === Status.APPROVED.Eng} onClick={handleApproved}><Yes /></Button>
+                        <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#F97D7D", borderColor: "#823333" }} disabled={request.requestStatus.Eng === Status.CANCELLED.Eng} onClick={handleCancelled}><No /></Button>
                     </Box>
                 </Col>
             </Row>

@@ -68,24 +68,6 @@ function Forms(props) {
             });
     };
 
-    const tooltipEmail = (
-        <Tooltip id="tooltipEmail">
-            Электронная почта должна являться электронной почтой
-        </Tooltip>
-    );
-
-    const tooltipPassword = (
-        <Tooltip id="tooltipPassword">
-            В пароле должна быть хотя бы одна цифра
-        </Tooltip>
-    );
-
-    const tooltipConfirm = (
-        <Tooltip id="tooltipConfirm">
-            Войти в свой аккаунт могут лишь деканат и администраторы, корректно ввёдшие свой пароль и email
-        </Tooltip>
-    );
-
     return (
         <Container className="mt-5 minwidth-540 mx-auto">
             <Row className="justify-content-center">
@@ -96,20 +78,7 @@ function Forms(props) {
                         </Row>
                     </Stack>
                     <Stack className="border-darkblue minwidth-300">
-                        <Col className="px-3 mt-3 mb-2" xxl={12} xl={5} lg={5} md={5} sm={12}>
-                            {errors.email ? (
-                                <OverlayTrigger placement="bottom" overlay={tooltipEmail}>
-                                    <Form.Control
-                                        placeholder="Email"
-                                        className="verySmallRadius"
-                                        id="email"
-                                        name="email"
-                                        value={values.email}
-                                        onChange={handleChange}
-                                        onBlur={handleEmailValidation}
-                                    />
-                                </OverlayTrigger>
-                            ) : (
+                        <Col className="px-3 mt-3 mb-2" xxl={12} xl={12} lg={12} md={12} sm={12}>
                                 <Form.Control
                                     placeholder="Email"
                                     className="verySmallRadius"
@@ -119,23 +88,9 @@ function Forms(props) {
                                     onChange={handleChange}
                                     onBlur={handleEmailValidation}
                                 />
-                            )}
-                            {errors.email && <div className="text-danger">Неверный формат Email</div>}
+                            {errors.email && <Form.Text className="text-danger">Неверный формат Email</Form.Text>}
                         </Col>
-                        <Col className="px-3 mt-3 mb-2" xxl={12} xl={5} lg={5} md={5} sm={12}>
-                            {errors.password ? (
-                                <OverlayTrigger placement="bottom" overlay={tooltipPassword}>
-                                    <Form.Control
-                                        placeholder="Пароль"
-                                        className="verySmallRadius"
-                                        id="password"
-                                        name="password"
-                                        value={values.password}
-                                        onChange={handleChange}
-                                        onBlur={handleValidation}
-                                    />
-                                </OverlayTrigger>
-                            ) : (
+                        <Col className="px-3 mt-3 mb-2" xxl={12} xl={12} lg={12} md={12} sm={12}>
                                 <Form.Control
                                     placeholder="Пароль"
                                     className="verySmallRadius"
@@ -145,22 +100,13 @@ function Forms(props) {
                                     onChange={handleChange}
                                     onBlur={handleValidation}
                                 />
-                            )}
-                            {errors.password && <div className="text-danger">В пароле должна быть хотя бы одна цифра</div>}
+                            {errors.password && <Form.Text className="text-danger">В пароле должна быть хотя бы одна цифра</Form.Text>}
                         </Col>
-                        <Col className="px-3 mt-3 mb-3" xxl={12} xl={2} lg={2} md={2} sm={12}>
-                            {!confirmError ? (
-                                <Button className="stretch custom-button" onClick={handleSubmit}>
-                                    Войти
-                                </Button>
-                            ) : (
-                                <OverlayTrigger placement="bottom" overlay={tooltipConfirm}>
-                                    <Button className="stretch custom-button" onClick={handleSubmit}>
-                                        Войти
-                                    </Button>
-                                </OverlayTrigger>
-                            )}
-                            {confirmError && <div className="text-danger">Пользователь не найден</div>}
+                        <Col className="px-3 mt-3 mb-3" xxl={12} xl={12} lg={12} md={12} sm={12}>
+                            <Button className="stretch custom-button" onClick={handleSubmit}>
+                                Войти
+                            </Button>
+                            {confirmError && <Form.Text className="text-danger">Пользователь не найден</Form.Text>}
                         </Col>
                     </Stack>
                 </Col>
