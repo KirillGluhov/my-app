@@ -36,21 +36,9 @@ function UpPart(props) {
     }
 
     const handleTimeChange = (event) => {
-        handleChange(event); // Выводим значения в консоль после изменения
+        handleChange(event);
         console.log(values);
     };
-
-    /*function handleDropdownChange(eventKey) 
-    {
-        handleChange(
-            { 
-                target: {
-                    id: "time", 
-                    value: eventKey 
-                } 
-            }
-        );
-    }*/
 
     return (
         <Stack className='darkblue border-radius-small min-weight-520'>
