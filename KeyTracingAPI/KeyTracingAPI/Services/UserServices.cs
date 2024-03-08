@@ -209,6 +209,8 @@ namespace KeyTracingAPI.Services
 
             if (admin.UserRole == Role.Principal && (role == Role.Principal || role == Role.Admin))
                 throw new BadRequestException("you cant change users role to that one");
+            if (admin.UserRole == Role.Principal && (user.UserRole == Role.Admin || user.UserRole == Role.Principal))
+                throw new BadRequestException("you cant change that user role");
 
             user.UserRole = role;
             await _context.SaveChangesAsync();

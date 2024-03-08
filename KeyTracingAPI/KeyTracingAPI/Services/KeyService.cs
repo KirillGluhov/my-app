@@ -139,6 +139,7 @@ namespace KeyTracingAPI.Services
         public async Task<List<object>> GetAllKeys(KeySorting sorting, bool? isInPrincipalOffice)
         {
             var filteredKeys = await returnFilteredKeys(sorting);
+            var a = DateTime.Now;
 
             List<object> allKeys = new List<object>();
 

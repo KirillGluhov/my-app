@@ -151,14 +151,31 @@ namespace KeyTracingAPI.Services
             var request = await _context.BookingKeyRequest.SingleOrDefaultAsync(req => req.Id == requestId);
             if (request == null)
                 throw new NotFoundException("cant find request with that id");
-
             var user = await _context.Users.SingleOrDefaultAsync(h => h.Email == email);
             if (user == null)
                 throw new NotFoundException("user with that email doesnt exist");
             if (user.Id != request.UserId)
                 throw new BadRequestException("you cant cancel others requests");
+            if (request.RequestStatus == RequestStatus.Approved)
+            {
+                var key = await _context.BookedKeys.SingleOrDefaultAsync(k => k.RequestId == request.Id);
+                if (key == null)
+                    throw new NotFoundException("key used in this request doesnt exist");
+
+                _context.BookedKeys.Remove(key);
+            }
+
+            if (request.IsRepetitive && request.RequestStatus == RequestStatus.Approved)
+            {
+                var rbkr = await _context.keySlotsRepetitiveRequests.SingleOrDefaultAsync(h => h.KeyId == request.KeyId && request.UserId == h.UserId && request.TimeSlot == h.TimeSlot);
+                if (rbkr == null)
+                    throw new NotFoundException("cant find repetitive request with that guids");
+
+                _context.keySlotsRepetitiveRequests.Remove(rbkr);
+            }
 
             _context.BookingKeyRequest.Remove(request);
+
             if (request.RequestStatus == RequestStatus.Approved)
             {
                 var bkrList = await _context.BookingKeyRequest.Where(b => b.TimeSlot == request.TimeSlot && b.DateToBeBooked == request.DateToBeBooked && b.KeyId == request.KeyId).ToListAsync();
@@ -203,6 +220,12 @@ namespace KeyTracingAPI.Services
 
             if (query.Status != null)
                 bkrQuery = bkrQuery.Where(d => query.Status.Contains((RequestStatus)d.RequestStatus));
+
+            if (query.PeriodStart != null)
+                bkrQuery = bkrQuery.Where(d => d.DateToBeBooked > query.PeriodStart);
+
+            if (query.PeriodEnd != null)
+                bkrQuery = bkrQuery.Where(d => d.DateToBeBooked < query.PeriodEnd);
 
             bkrQuery = query.Sorting switch
             {
@@ -273,9 +296,23 @@ namespace KeyTracingAPI.Services
         public async Task<ActionResult<Response>> DeclineRequest(Guid requestId)
         {
             var bkr = await _context.BookingKeyRequest.SingleOrDefaultAsync(h => h.Id == requestId);
+            
+            var key = await _context.BookedKeys.SingleOrDefaultAsync(k => k.RequestId == bkr.Id);
+            if (key == null)
+                throw new NotFoundException("key used in this request doesnt exist");
 
             if (bkr == null)
                 throw new NotFoundException("Cant find booking key request with that guid");
+
+            _context.BookedKeys.Remove(key);
+            if (bkr.IsRepetitive)
+            {
+                var rbkr = await _context.keySlotsRepetitiveRequests.SingleOrDefaultAsync(h => h.KeyId == bkr.KeyId && bkr.UserId == h.UserId && bkr.TimeSlot == h.TimeSlot);
+                if (rbkr == null)
+                    throw new NotFoundException("cant find repetitive request with that guids");
+
+                _context.keySlotsRepetitiveRequests.Remove(rbkr);
+            }
 
             if (bkr.RequestStatus == RequestStatus.Approved)
             {

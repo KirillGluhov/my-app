@@ -49,7 +49,7 @@ namespace KeyTracingAPI.Controllers
             return requestId;
         }
 
-        [HttpDelete("api/requests/cancel/{requestId}")]
+        [HttpDelete("/api/requests/cancel/{requestId}")]
         [Authorize]
         public async Task<ActionResult> CancelRequest(Guid requestId)
         {
@@ -71,7 +71,7 @@ namespace KeyTracingAPI.Controllers
 
             return Ok(allRequests);
         }
-        [HttpGet("api/requests/{requestId}")]
+        [HttpGet("/api/requests/{requestId}")]
         [Authorize(Policy = "Principal")]
         public async Task<ActionResult<BookingKeyRequestDTOForPrincipal>> GetRequest(Guid requestId)
         {
@@ -80,7 +80,7 @@ namespace KeyTracingAPI.Controllers
             return Ok(request);
         }
 
-        [HttpPost("api/requests/approve/{requestId}")]
+        [HttpPost("/api/requests/approve/{requestId}")]
         [Authorize(Policy = "Principal")]
         public async Task<ActionResult<Response>> ApproveRequest(Guid requestId)
         {
@@ -89,7 +89,7 @@ namespace KeyTracingAPI.Controllers
             return Ok("Request succesfully approved");
         }
 
-        [HttpPost("api/requests/decline/{requestId}")]
+        [HttpPost("/api/requests/decline/{requestId}")]
         [Authorize(Policy = "Principal")]
         public async Task<ActionResult<Response>> DeclineRequest(Guid requestId)
         {
