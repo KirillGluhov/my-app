@@ -29,7 +29,7 @@ function Forms(props) {
     };
 
     const handleEmailValidation = () => {
-        const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+        const emailRegex = /^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[A-Za-z]+$/;
 
         const isCorrectEmail = emailRegex.test(values.email);
 
