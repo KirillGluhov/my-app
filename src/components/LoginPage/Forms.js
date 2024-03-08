@@ -32,57 +32,49 @@ function Forms(props)
     });
       };
 
-    const tooltipEmail = (
-        <Tooltip id="tooltipEmail">
-          Электронная почта должна являться электронной почтой
-        </Tooltip>
-      );
-
-    const tooltipPassword = (
-        <Tooltip id="tooltipPassword">
-          В пароле должна быть хотя бы одна цифра
-        </Tooltip>
-      );
-
-    const tooltipConfirm = (
-        <Tooltip id="tooltipConfirm">
-          Войти в свой аккаунт могут лишь деканат и администраторы, корректно ввёдшие свой пароль и email
-        </Tooltip>
-    )
-
     return (
-        <Container className='mt-5'>
-            <Stack className='darkblue border-radius-small minwidth-300'>
-                <Row className='mt-2 mx-1'>
-                    <Col className='p-6 m-8' xxl={5} xl={5} lg={5} md={5} sm={12}>
-                        {
-                            !errors.email ?
-                            <Form.Control placeholder="Email" className='verySmallRadius' id='email' value={values.email} onChange={handleChange} onBlur={handleValidation}/> :
-                            <OverlayTrigger placement="bottom" overlay={tooltipEmail}>
-                                <Form.Control placeholder="Email" className='verySmallRadius' id='email' value={values.email} onChange={handleChange} onBlur={handleValidation}/>
-                            </OverlayTrigger>
-                        }
-                    </Col>
-                    <Col className='p-6 m-8' xxl={5} xl={5} lg={5} md={5} sm={12}>
-                        {
-                            !errors.password ?
-                            <Form.Control placeholder="Пароль" className='verySmallRadius' id='password' value={values.password} onChange={handleChange} onBlur={handleValidation}/> :
-                            <OverlayTrigger placement="bottom" overlay={tooltipPassword}>
-                                <Form.Control placeholder="Пароль" className='verySmallRadius' id='password' value={values.password} onChange={handleChange} onBlur={handleValidation}/>
-                            </OverlayTrigger>
-                        }
-                    </Col>
-                    <Col className='p-6 m-8' xxl={2} xl={2} lg={2} md={2} sm={12}>
-                        {
-                            !confirmError ? 
-                            <Button className="stretch" onClick={handleSubmit}>Войти</Button> :
-                            <OverlayTrigger placement="bottom" overlay={tooltipConfirm}>
-                                <Button className="stretch" onClick={handleSubmit}>Войти</Button>
-                            </OverlayTrigger>
-                        }
-                    </Col>
-                </Row>
-            </Stack>
+        <Container className="mt-5 minwidth-540 mx-auto">
+            <Row className="justify-content-center">
+                <Col xs={12} md={8} lg={5}>
+                    <Stack className="border-radius-small darkAndLight">
+                        <Row className="mt-3 mx-1 mb-2">
+                            <h4>Авторизация</h4>
+                        </Row>
+                    </Stack>
+                    <Stack className="border-darkblue minwidth-300">
+                        <Col className="px-3 mt-3 mb-2" xxl={12} xl={12} lg={12} md={12} sm={12}>
+                                <Form.Control
+                                    placeholder="Email"
+                                    className="verySmallRadius"
+                                    id="email"
+                                    name="email"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    onBlur={handleEmailValidation}
+                                />
+                            {errors.email && <Form.Text className="text-danger">Неверный формат Email</Form.Text>}
+                        </Col>
+                        <Col className="px-3 mt-3 mb-2" xxl={12} xl={12} lg={12} md={12} sm={12}>
+                                <Form.Control
+                                    placeholder="Пароль"
+                                    className="verySmallRadius"
+                                    id="password"
+                                    name="password"
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    onBlur={handleValidation}
+                                />
+                            {errors.password && <Form.Text className="text-danger">В пароле должна быть хотя бы одна цифра</Form.Text>}
+                        </Col>
+                        <Col className="px-3 mt-3 mb-3" xxl={12} xl={12} lg={12} md={12} sm={12}>
+                            <Button className="stretch custom-button" onClick={handleSubmit}>
+                                Войти
+                            </Button>
+                            {confirmError && <Form.Text className="text-danger">Пользователь не найден</Form.Text>}
+                        </Col>
+                    </Stack>
+                </Col>
+            </Row>
         </Container>
     );
 }

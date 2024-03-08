@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import { No } from '../No';
 import { Yes } from '../Yes';
-import { Box } from '@mui/joy';
 import "../../styles/users.css";
 
 function UserCard(user) {
@@ -38,12 +37,6 @@ function UserCard(user) {
                 </Col>
                 <Col xxl={4} xl={4} lg={4} md={10} sm={10} xs={10} className='mb-3 p-6'>
                     <Form.Control className='radiusnone center' plaintext readOnly defaultValue={user.name} />
-                </Col>
-                <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
-                    <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                        <Button className='border-green border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#A4F87D", borderColor: "#488233"}} ><Yes/></Button>
-                        <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background:"#F97D7D", borderColor: "#823333"}}><No/></Button>
-                    </Box>
                 </Col>
             </Row>
         </Stack>
