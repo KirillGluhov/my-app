@@ -269,3 +269,18 @@ a.disabled
 .notFound{
     text-align: center;
 }
+
+
+
+.back-to-principal-button, .back-to-principal-button:hover{
+    background-color: #FFE55F;
+    color: #7E6F1F;
+    border-color: #7E6F1F;
+    border-radius: 25px;
+}
+
+.back-to-principal-button:active{
+    background-color: #FFE55F;
+    color: #7E6F1F;
+    border-color: #7E6F1F;
+}

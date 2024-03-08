@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Stack, Row, Col, Form, Dropdown, Button, ButtonGroup, ToggleButton, Modal } from 'react-bootstrap';
 import useInput from '../../hooks/use-input.js';
 import { post } from '../../methods/apiUtils.js';
+import { Box } from '@mui/joy';
 
 function KeysFilter(props) {
-    let token = localStorage.getItem("token");
+    /*let token = localStorage.getItem("token");
     const [values, handleChange] = useInput({
         audience: "",
         inPrincipal: ""
@@ -83,9 +84,15 @@ function KeysFilter(props) {
                         <Modal.Body>
                             <Form>
                                 <Form.Group>
-                                    <Form.Label>Выберите тип ключа:</Form.Label>
-                                    <Button onClick={() => setMultipleAudience(false)} active={!multipleAudience}>Один</Button>{' '}
-                                    <Button onClick={() => setMultipleAudience(true)} active={multipleAudience}>Несколько</Button>
+                                    <Row>
+                                        <Col>
+                                            <Form.Label>Выберите тип ключа:</Form.Label>
+                                        </Col>
+                                        <Col className="d-flex justify-content-end">
+                                            <Button className='mx-3' onClick={() => setMultipleAudience(false)} active={!multipleAudience}>Один</Button>{' '}
+                                            <Button onClick={() => setMultipleAudience(true)} active={multipleAudience}>Несколько</Button>
+                                        </Col>
+                                    </Row>
                                 </Form.Group>
                                 {multipleAudience ? (
                                     <Form.Group>
@@ -113,12 +120,9 @@ function KeysFilter(props) {
                         </Modal.Footer>
                     </Modal>
                 </Col>
-                {/*<Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={2} className='p-6'>
-                    <Form.Control placeholder="Поиск по имени" className='search verySmallRadius' value={values.searchName} onChange={handleChange} id='searchName' />
-    </Col>*/}
             </Row>
         </Stack>
-    );
+    );*/
 }
 
 export default KeysFilter;
