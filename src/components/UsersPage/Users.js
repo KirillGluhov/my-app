@@ -88,6 +88,7 @@ const Users = () => {
     let name = (filterValues.searchName === "") ? "" : `&Name=${filterValues.searchName}`;
     let req = (filterValues.requests === "") ? "" : `&hasRequests=${filterValues.requests}`;
     let rol = (filterValues.role === "") ? url : `Roles=${filterValues.role}`;
+    console.log("ABOBA ", filterValues.role)
     console.log(`https://win.jij.li/api/users?${rol}${name}${req}`);
 
     axios.get(`https://win.jij.li/api/users?${rol}${name}${req}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } })
@@ -109,6 +110,11 @@ const Users = () => {
     fetchData();
   }, []);
 
+  
+  useEffect(() => {
+    handleMain();
+  }, [filterValues]);
+
   return (
     <>
       <Header type='authorized' page={PageName.USERS} />
@@ -118,7 +124,7 @@ const Users = () => {
             <Stack className='darkblue border-radius-small'>
               <Row className='mt-2 mx-1 mb-2'>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                  <Form.Select className='radiusnone darkAndLight custom-scrollbar' defaultValue={filterValues.role} onChange={handleChange} onBlur={handleRoleBlur} id='role'>
+                  <Form.Select className='radiusnone darkAndLight custom-scrollbar' defaultValue={filterValues.role} onChange={handleChange} id='role'>
                     <option value="" className='radiusnone'>Все роли</option>
                     <option value="Student" className='radiusnone'>Студент</option>
                     <option value="Teacher" className='radiusnone'>Преподаватель</option>
@@ -127,14 +133,14 @@ const Users = () => {
                   </Form.Select>
                 </Col>
                 <Col xs={6} sm={6} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                  <Form.Select className='radiusnone darkAndLight' defaultValue={filterValues.isRequests} onChange={handleChange} onBlur={handleRequestsBlur} id='requests'>
+                  <Form.Select className='radiusnone darkAndLight' defaultValue={filterValues.isRequests} onChange={handleChange} id='requests'>
                     <option value="" className='radiusnone'>Есть заявки?</option>
                     <option value="true" className='radiusnone'>Есть</option>
                     <option value="false" className='radiusnone'>Нет</option>
                   </Form.Select>
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} className='p-6'>
-                  <Form.Control placeholder="Поиск по имени" className='search verySmallRadius' defaultValue={filterValues.searchName} onChange={handleChange} onBlur={handleSearchNameBlur} id='searchName' />
+                  <Form.Control placeholder="Поиск по имени" className='search verySmallRadius' defaultValue={filterValues.searchName} onChange={handleChange} id='searchName' />
                 </Col>
               </Row>
             </Stack>
