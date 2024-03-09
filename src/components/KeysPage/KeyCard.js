@@ -61,15 +61,15 @@ function KeyCard(keyData) {
     };
 
     return (
-        <Stack className='border-darkblue mx-auto second-stack' style={{ padding: '0px' }}>
+        <Stack className='border-darkblue second-stack'>
             <Row className='mt-3 mx-1'>
-                <Col xs={5} sm={5} md={4} lg={4} xl={5} xxl={4} className='mb-3 p-6 border-radius-small-all center'>
+                <Col xs={5} sm={4} md={4} lg={4} xl={4} xxl={5} className='mb-3 p-6 border-radius-small-all center'>
                     <Form.Control placeholder="-" className='radiusnone center' plaintext readOnly defaultValue={keyData.auditory} />
                 </Col>
-                <Col xs={4} sm={4} md={3} lg={3} xl={3} xxl={3} className='mb-3 p-6'>
+                <Col xs={4} sm={5} md={3} lg={3} xl={4} xxl={3} className='mb-3 p-6'>
                     <Form.Control placeholder="-" className='radiusnone center' plaintext readOnly defaultValue={keyData.isInPrincipalOffice ? "В деканате" : "На руках"} />
                 </Col>
-                <Col xs={3} sm={3} md={3} lg={3} xl={2} xxl={3} className='mb-3 p-6 d-flex justify-content-center'>
+                <Col xs={3} sm={3} md={3} lg={3} xl={2} xxl={2} className='mb-3 p-6 d-flex justify-content-center'>
                     <Button variant="primary" className='center back-to-principal-button'>Вернуть</Button>
                 </Col>
                 <Col xs={12} sm={12} md={2} lg={2} xl={2} xxl={2} className='mb-3 p-0 d-flex justify-content-center'>

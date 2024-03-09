@@ -1,4 +1,4 @@
-.main-stack
+/*.main-stack
 {
     @media (min-width: 1400px)
     {
@@ -20,7 +20,7 @@
 {
     @media (min-width: 1400px)
     {
-        width: 70%;
+        width: 100%;
     }
 
     @media (min-width: 1200px)
@@ -32,7 +32,7 @@
     {
         width: 70%;
     }
-}
+}*/
 
 .min-width540
 {

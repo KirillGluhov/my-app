@@ -179,11 +179,11 @@ function Keys(props) {
         <>
             <Header type="authorized" page={PageName.KEYS} />
             <Container className='mt-5'>
-                <Row className='justify-content-center'>
+                <Row className='justify-content-center minwidth-540'>
                     <Col xs={12} sm={12} md={12} lg={10} xl={10} xxl={8}>
                         <Stack className='darkblue border-radius-small mx-auto'>
                             <Row className='mt-2 mx-1 mb-2'>
-                                <Col xs={12} md={5} xxl={5} className='p-6'>
+                                <Col xs={5} sm={4} md={4} xxl={5} className='p-6'>
                                     {/*<Form.Control
                                 placeholder="Аудитория"
                                 className='search verySmallRadius mx-auto'
@@ -202,7 +202,7 @@ function Keys(props) {
                                         <option value="AuditoryDesc" className='radiusnone'>По убыванию</option>
                                     </Form.Select>
                                 </Col>
-                                <Col xs={12} md={5} xxl={5} className='p-6'>
+                                <Col xs={5} sm={5} md={6} xxl={5} className='p-6'>
                                     <Form.Select
                                         className='radiusnone darkAndLight mx-auto'
                                         value={filterValues.inPrincipal}
@@ -214,7 +214,7 @@ function Keys(props) {
                                         <option value="false" className='radiusnone'>На руках</option>
                                     </Form.Select>
                                 </Col>
-                                <Col xs={12} md={2} xxl={2} className='p-6' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                <Col xs={2} sm={3} md={2} xxl={2} className='p-6' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                                     <Button className="custom-button" onClick={() => setShowModal(true)}>+</Button>
                                     <Modal show={showModal} onHide={() => setShowModal(false)}>
                                         <Modal.Header closeButton>
@@ -261,7 +261,6 @@ function Keys(props) {
                                 </Col>
                             </Row>
                         </Stack>
-
 
                         {keysData ? (
                             keysData.map((key) => (
