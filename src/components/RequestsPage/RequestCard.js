@@ -14,7 +14,7 @@ function RequestCard(request) {
     {
         axios.post
         (
-            `https://win.jij.li/api/requests/ApproveRequest/api/requests/approve/${request.id}`
+            `https://win.jij.li/api/requests/approve/${request.id}`
             , 
             {
                 data: ''
@@ -45,7 +45,7 @@ function RequestCard(request) {
     {
         axios.post
         (
-            `https://win.jij.li/api/requests/DeclineRequest/api/requests/decline/${request.id}`
+            `https://win.jij.li/api/requests/decline/${request.id}`
             , 
             {
                 data: ''
