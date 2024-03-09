@@ -33,4 +33,19 @@ abstract class AbstractActivity : AppCompatActivity() {
             return false
         }
     }
+
+    fun getTimeSlot(timeSlot: String) : List<String> {
+        return when (timeSlot) {
+            "S8E10" -> listOf("8:45", "10:20")
+            "S10E12" -> listOf("10:35", "12:10")
+            "S12E14" -> listOf("12:25", "14:00")
+            "S14E16" -> listOf("14:45", "16:20")
+            "S16E18" -> listOf("16:35", "18:10")
+            "S18E20" -> listOf("18:25", "20:00")
+            "S20E21" -> listOf("20:15", "21:50")
+            else -> listOf("","")
+        }
+    }
+
+    //S8E10, S10E12, S12E14, S14E16, S16E18, S18E20, S20E21
 }

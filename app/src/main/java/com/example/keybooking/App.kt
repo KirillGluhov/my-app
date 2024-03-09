@@ -5,11 +5,13 @@ import androidx.room.Room
 import com.example.keybooking.data.repository.AuthRepository
 import com.example.keybooking.data.repository.UserRepository
 import com.example.keybooking.data.TokenInterceptor
+import com.example.keybooking.data.repository.RequestRepository
 import com.example.keybooking.data.repository.TokenRepository
 import com.example.keybooking.data.room.AppDatabase
 import com.example.keybooking.viewModel.Login
 import com.example.keybooking.viewModel.ProfileVM
 import com.example.keybooking.viewModel.Register
+import com.example.keybooking.viewModel.RequestViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -40,6 +42,7 @@ class App : Application() {
 
             factory { provideForecastApi(get()) }
 
+            single { RequestRepository(get()) }
             single { TokenRepository(get()) }
             single { AuthRepository(get()) }
             single { UserRepository(get(), get()) }
@@ -47,20 +50,19 @@ class App : Application() {
             viewModel { Login(get(), get()) }
             viewModel { Register(get(), get()) }
             viewModel { ProfileVM(get(), get()) }
+            viewModel { RequestViewModel(get()) }
 
             factory { TokenInterceptor(get()) }
             factory { provideOkHttpClient(get()) }
             single { provideRetrofit(get()) }
         }
 
-        println("module created")
 
         startKoin() {
             androidContext(this@App)
             modules(mainModule)
         }
 
-        println("koin start")
     }
 
     private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {

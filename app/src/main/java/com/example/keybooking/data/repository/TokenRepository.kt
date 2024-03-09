@@ -10,6 +10,8 @@ class TokenRepository(private val dao: UserTokenDao) : Repository {
     }
 
     fun saveUserToken(accessToken: String) {
+        println("before insert")
         dao.insertUserToken(UserToken(accessToken = accessToken))
+        println("after insert")
     }
 }
