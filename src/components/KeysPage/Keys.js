@@ -178,7 +178,7 @@ function Keys(props) {
     return (
         <>
             <Header type="authorized" page={PageName.KEYS} />
-            <Container className='mt-5 mb-5'>
+            <Container className='mt-5 mb-5 min-width540'>
                 <Row className='justify-content-center'>
                     <Col xs={12} sm={10} md={8} lg={6} xl={6} xxl={6}>
                         <Stack className='darkblue border-radius-small mx-auto'>
