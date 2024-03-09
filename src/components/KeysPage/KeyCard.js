@@ -61,19 +61,20 @@ function KeyCard(keyData) {
     };
 
     return (
-        <Stack className='border-darkblue mx-auto' style={{ width: '50%', padding: '0px' }}>
+        <Stack className='border-darkblue mx-auto'>
             <Row className='mt-3 mx-1'>
-                <Col xs={12} md={5} xxl={5} className='mb-3 p-6 border-radius-small-all center'>
+                <Col xs={5} className='mb-3 p-6 border-radius-small-all center'>
                     <Form.Control placeholder="-" className='radiusnone center' plaintext readOnly defaultValue={keyData.auditory} />
                 </Col>
-                <Col xs={12} md={5} xxl={5} className='mb-3 p-6 d-flex justify-content-center'>
+                <Col xs={5} className='mb-3 p-6 d-flex justify-content-center'>
                     <StatusText isInPrincipalOffice={isInPrincipalOffice} />
                 </Col>
-                <Col  xs={12} md={2} xxl={2}  className='mb-3 p-0 d-flex justify-content-center'>
-                    <Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#F97D7D", borderColor: "#823333" }} onClick={handleDeleteKey}><No /></Button>
+                <Col xs={2} className='mb-3 p-0 d-flex justify-content-center'>
+                    {/*<Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#F97D7D", borderColor: "#823333" }} onClick={handleDeleteKey}><No /></Button>*/}
+                    <Button className='border-red border-1 rounded-0 d-flex justify-content-center align-items-center' variant='secondary' style={{ width: '38px', background: "white", borderColor: "white" }} onClick={handleDeleteKey}><No /></Button>
                 </Col>
             </Row>
-        </Stack>
+        </Stack >
     );
 }
 
