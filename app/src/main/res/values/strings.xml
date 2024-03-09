@@ -19,4 +19,18 @@
     <string name="password_eq_error">Пароли не совпадают.</string>
 
     <string name="your_requests">Ваши заявки</string>
+    <string name="aud">Аудитория</string>
+    <string name="week">неделя</string>
+    <string name="note">Выберите аудиторию, чтобы посмотреть доступное время</string>
+
+
+    <string name="S8E10">8:45–10:20</string>
+    <string name="S10E12">10:35–12:10</string>
+    <string name="S12E14">12:25–14:00</string>
+    <string name="S14E16">14:45–16:20</string>
+    <string name="S16E18">16:35–18:10</string>
+    <string name="S18E20">18:25–20:00</string>
+    <string name="S20E21">20:15–21:50</string>
+
+
 </resources>

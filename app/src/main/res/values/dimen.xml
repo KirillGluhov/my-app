@@ -10,9 +10,11 @@
     <dimen name="margin_big">25dp</dimen>
     <dimen name="margin_small">15dp</dimen>
     <dimen name="margin_tiny">10dp</dimen>
+    <dimen name="margin_field">8dp</dimen>
     <dimen name="margin_more_tiny">5dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="margin_button">20dp</dimen>
+    <dimen name="padding_request">3dp</dimen>
 
     <dimen name="title">30sp</dimen>
     <dimen name="huge_button_text">48sp</dimen>
@@ -27,6 +29,7 @@
     <dimen name="base_button_radius">15dp</dimen>
     <dimen name="round_button_radius">50dp</dimen>
     <dimen name="base_field_radius">15dp</dimen>
+    <dimen name="request_button_radius">10dp</dimen>
     <dimen name="square_radius">5dp</dimen>
 
     <dimen name="shadow_distance">15dp</dimen>

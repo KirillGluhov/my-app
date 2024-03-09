@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/padding_request">
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text.create.date"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:text="12.02"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S8E10"
+        android:text="@string/S8E10"
+        style="@style/Button.Request"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S10E12"
+        android:text="@string/S10E12"
+        style="@style/Button.Request"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S12E14"
+        android:text="@string/S12E14"
+        style="@style/Button.Request"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S14E16"
+        android:text="@string/S14E16"
+        style="@style/Button.Request"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S16E18"
+        android:text="@string/S16E18"
+        style="@style/Button.Request"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S18E20"
+        android:text="@string/S18E20"
+        style="@style/Button.Request"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_S20E21"
+        android:text="@string/S20E21"
+        style="@style/Button.Request"/>
+
+</LinearLayout>

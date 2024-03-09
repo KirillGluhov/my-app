@@ -27,6 +27,32 @@
         <item name="android:textSize">@dimen/aud_text</item>
         <item name="android:fontFamily">@font/inter_bold</item>
     </style>
+    <style name="Text.create.aud" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textDarkBlue</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+    </style>
+    <style name="Text.create.week.title" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/input_text</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="Text.create.week.date" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="Text.create.date" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textDarkBlue</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+    </style>
+    <style name="Text.create.note" parent="TextAppearance.AppCompat">
+        <item name="android:text">@string/note</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+    </style>
     <style name="Button.Primary" parent="Widget.AppCompat.Button.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -72,5 +98,25 @@
         <item name="android:background">@color/white</item>
         <item name="android:drawableStart">@drawable/login</item>
         <item name="android:minWidth">@dimen/text_padding</item>
+    </style>
+    <style name="Button.Week" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:minWidth">@dimen/text_padding</item>
+        <item name="android:textColor">@color/mainDarkBlue</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_black</item>
+    </style>
+    <style name="Button.Request" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:padding">@dimen/indent_standard</item>
+        <item name="android:gravity">start</item>
+        <item name="android:background">@drawable/btn_timeslot_enable</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:layout_marginBottom">@dimen/margin_small</item>
     </style>
 </resources>
