@@ -121,6 +121,15 @@ builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseNpgsql("Host = 127.0.0.1; Port = 5432; Database = KeyTracing; Username = postgres; Password = 1"));
 
+var corsOrigins = "origins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsOrigins, policy =>
+    {
+        policy.WithOrigins("https://win.jij.li").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 /*using var serviceScope = app.Services.CreateScope();
 var DbContext = serviceScope.ServiceProvider.GetService<AppDbContext>();

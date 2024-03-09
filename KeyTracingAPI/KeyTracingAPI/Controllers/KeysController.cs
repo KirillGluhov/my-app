@@ -22,7 +22,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<object>> GetAllFreeKeys([FromQuery] GetListOfKeysQuery query)
+        public async Task<List<KeyDTO2>> GetAllFreeKeys([FromQuery] GetListOfKeysQuery query)
         {
             var allFreeKeys = await _keyService.GetAllFreeKeys(query);
 
@@ -30,7 +30,7 @@ namespace KeyTracingAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<object>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice)
+        public async Task<List<KeyDTO2>> GetAllKeys(KeySorting keySorting, bool? isInPrincipalOffice)
         {
             var allKeys = await _keyService.GetAllKeys(keySorting, isInPrincipalOffice);
 
@@ -38,7 +38,7 @@ namespace KeyTracingAPI.Controllers
         } 
 
         [HttpGet]
-        public async Task<object> GetConcreteKeyBookingInfo([FromQuery] GetConcreteKeyQuery query)
+        public async Task<BookedKeyInfoDTO> GetConcreteKeyBookingInfo([FromQuery] GetConcreteKeyQuery query)
         {
             var result = await _keyService.GetConcreteKeyBookingInfo(query);
 

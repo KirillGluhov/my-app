@@ -103,11 +103,11 @@ namespace KeyTracingAPI.Services
             };
         }
 
-        public async Task<List<object>> GetAllFreeKeys(GetListOfKeysQuery query)
+        public async Task<List<KeyDTO2>> GetAllFreeKeys(GetListOfKeysQuery query)
         {
             var filteredKeys = await returnFilteredKeys(query.Sorting);
 
-            List<object> validKeys = new List<object>();
+            List<KeyDTO2> validKeys = new List<KeyDTO2>();
 
             foreach(var key in filteredKeys)
             {
@@ -125,41 +125,40 @@ namespace KeyTracingAPI.Services
                 //Console.WriteLine($"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB --- {keyBookings.Count - (query.TimeSlots.Count * ((query.Period.Value.DayNumber - query.Period.Key.DayNumber) + 1))}");
 
                 if (keyBookings.Count < (query.TimeSlots.Count * ((query.Period.Value.DayNumber - query.Period.Key.DayNumber) + 1)))
-                    validKeys.Add(new 
+                    validKeys.Add(new KeyDTO2 
                     {
-                        key.Id,
-                        key.Auditory,
-                        key.IsInPrincipalOffice
+                        Id = key.Id,
+                        Auditory = key.Auditory,
+                        IsInPrincipalOffice = key.IsInPrincipalOffice
                     });
             }
 
             return validKeys;
         }
 
-        public async Task<List<object>> GetAllKeys(KeySorting sorting, bool? isInPrincipalOffice)
+        public async Task<List<KeyDTO2>> GetAllKeys(KeySorting sorting, bool? isInPrincipalOffice)
         {
             var filteredKeys = await returnFilteredKeys(sorting);
-            var a = DateTime.Now;
 
-            List<object> allKeys = new List<object>();
+            List<KeyDTO2> allKeys = new List<KeyDTO2>();
 
             foreach(var filteredKey in filteredKeys)
             {
                 if (isInPrincipalOffice != null && (filteredKey.IsInPrincipalOffice != isInPrincipalOffice))
                     continue;
 
-                allKeys.Add(new
+                allKeys.Add(new KeyDTO2
                 {
-                    filteredKey.Id,
-                    filteredKey.Auditory,
-                    filteredKey.IsInPrincipalOffice
+                    Id = filteredKey.Id,
+                    Auditory = filteredKey.Auditory,
+                    IsInPrincipalOffice = filteredKey.IsInPrincipalOffice
                 });
             }
 
             return allKeys;
         }
 
-        public async Task<object> GetConcreteKeyBookingInfo(GetConcreteKeyQuery query)
+        public async Task<BookedKeyInfoDTO> GetConcreteKeyBookingInfo(GetConcreteKeyQuery query)
         {
             var keyFromDB = await checkKeyExistance(query.Auditory, false);
 
@@ -171,21 +170,21 @@ namespace KeyTracingAPI.Services
                     bookedKey.TimeSlot})
                 .ToListAsync();
 
-            List<object> bookedKeyDTOs = new List<object>();
+            List<BookingDTO> bookedKeyDTOs = new List<BookingDTO>();
 
             foreach(var bookingInfo in bookingInfoFromDB)
             {
-                bookedKeyDTOs.Add(new
+                bookedKeyDTOs.Add(new BookingDTO
                 {
-                    bookingInfo.UserId,
-                    bookingInfo.DateToBeBooked,
-                    bookingInfo.TimeSlot
+                    UserId = bookingInfo.UserId,
+                    DateToBeBooked = bookingInfo.DateToBeBooked,
+                    TimeSlot = bookingInfo.TimeSlot
                 });
             }
 
-            return new { 
-                keyId = keyFromDB.Id,
-                DatesWhenKeyBooked = bookedKeyDTOs
+            return new BookedKeyInfoDTO{ 
+                KeyId = keyFromDB.Id,
+                KeyBookings = bookedKeyDTOs
             };
         }
 

@@ -3329,11 +3329,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\TEMPREPOS\\my-app-4\\my-app\\KeyTracingAPI\\KeyTracingAPI\\KeyTracingAPI.csproj",
+      "projectUniqueName": "C:\\TEMPREPOS\\my-app-5\\my-app\\KeyTracingAPI\\KeyTracingAPI\\KeyTracingAPI.csproj",
       "projectName": "KeyTracingAPI",
-      "projectPath": "C:\\TEMPREPOS\\my-app-4\\my-app\\KeyTracingAPI\\KeyTracingAPI\\KeyTracingAPI.csproj",
+      "projectPath": "C:\\TEMPREPOS\\my-app-5\\my-app\\KeyTracingAPI\\KeyTracingAPI\\KeyTracingAPI.csproj",
       "packagesPath": "C:\\Users\\Влад\\.nuget\\packages\\",
-      "outputPath": "C:\\TEMPREPOS\\my-app-4\\my-app\\KeyTracingAPI\\KeyTracingAPI\\obj\\",
+      "outputPath": "C:\\TEMPREPOS\\my-app-5\\my-app\\KeyTracingAPI\\KeyTracingAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
