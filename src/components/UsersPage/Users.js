@@ -18,21 +18,6 @@ const Users = () => {
     searchName: ""
   });
 
-  const handleRoleBlur = () => {
-    console.log(filterValues.role);
-    handleMain();
-  };
-
-  const handleRequestsBlur = () => {
-    console.log(filterValues.requests);
-    handleMain();
-  };
-
-  const handleSearchNameBlur = () => {
-    console.log(filterValues.searchName);
-    handleMain();
-  };
-
   const fetchData = () => {
     let url = (jwtDecode(localStorage.getItem("token")).UserRole == "Principal") ? "https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal" : `https://win.jij.li/api/users?Roles=Student&Roles=Teacher&Roles=Principal&Roles=Admin`;
     axios.get(url, {headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}})
