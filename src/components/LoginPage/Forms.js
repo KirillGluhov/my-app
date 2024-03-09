@@ -86,7 +86,7 @@ function Forms(props) {
                                     name="email"
                                     value={values.email}
                                     onChange={handleChange}
-                                    onBlur={handleEmailValidation}
+                                    onBlur={handleValidation}
                                 />
                             {errors.email && <Form.Text className="text-danger">Неверный формат Email</Form.Text>}
                         </Col>

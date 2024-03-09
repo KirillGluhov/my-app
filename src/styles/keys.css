@@ -16,6 +16,24 @@
     }
 }
 
+.second-stack
+{
+    @media (min-width: 1400px)
+    {
+        width: 70%;
+    }
+
+    @media (min-width: 1200px)
+    {
+        width: 70%;
+    }
+
+    @media (min-width: 992px)
+    {
+        width: 70%;
+    }
+}
+
 .min-width540
 {
     min-width: 540px;
