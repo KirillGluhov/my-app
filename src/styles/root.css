@@ -284,3 +284,13 @@ a.disabled
     color: #7E6F1F;
     border-color: #7E6F1F;
 }
+
+
+
+.keyCard-button{
+    background-color: white;
+    color: rgb(0, 21, 41, 0.7);
+    border-style: solid;
+    border-color: rgb(0, 21, 41, 0.3);
+    margin: 0px;
+}
