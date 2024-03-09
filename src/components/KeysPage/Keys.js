@@ -178,103 +178,104 @@ function Keys(props) {
         <>
             <Header type="authorized" page={PageName.KEYS} />
             <Container className='mt-5'>
-
-                <Stack className='darkblue border-radius-small mx-auto' style={{ width: "50%" }}>
-                    <Row className='mt-2 mx-1 mb-2'>
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={4} className='p-6'>
-                            {/*<Form.Control
+                <Row className='justify-content-center'>
+                    <Col xs={12} sm={12} md={12} lg={10} xl={10} xxl={8}>
+                        <Stack className='darkblue border-radius-small mx-auto'>
+                            <Row className='mt-2 mx-1 mb-2'>
+                                <Col xs={12} md={5} xxl={5} className='p-6'>
+                                    {/*<Form.Control
                                 placeholder="Аудитория"
                                 className='search verySmallRadius mx-auto'
                                 value={filterValues.auditorySorting}
                                 onChange={handleChange}
                                 id='audience'
                                 style={{ width: "70%" }} />*/}
-                            <Form.Select
-                                className='radiusnone darkAndLight mx-auto'
-                                defaultValue={filterValues.auditorySorting}
-                                onChange={handleChange}
-                                id='auditorySorting'
-                            >
-                                <option value="" className='radiusnone'>Аудитория</option>
-                                <option value="AuditoryAsc" className='radiusnone'>По возрастанию</option>
-                                <option value="AuditoryDesc" className='radiusnone'>По убыванию</option>
-                            </Form.Select>
-                        </Col>
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={3} className='p-6'>
-                            <Form.Select
-                                className='radiusnone darkAndLight mx-auto'
-                                value={filterValues.inPrincipal}
-                                onChange={handleChange}
-                                id='inPrincipal'
-                            >
-                                <option value="" className='radiusnone'>Статус</option>
-                                <option value="true" className='radiusnone'>В деканате</option>
-                                <option value="false" className='radiusnone'>На руках</option>
-                            </Form.Select>
-                        </Col>
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={3} className='p-6'>
+                                    <Form.Select
+                                        className='radiusnone darkAndLight mx-auto'
+                                        defaultValue={filterValues.auditorySorting}
+                                        onChange={handleChange}
+                                        id='auditorySorting'
+                                    >
+                                        <option value="" className='radiusnone'>Аудитория</option>
+                                        <option value="AuditoryAsc" className='radiusnone'>По возрастанию</option>
+                                        <option value="AuditoryDesc" className='radiusnone'>По убыванию</option>
+                                    </Form.Select>
+                                </Col>
+                                <Col xs={12} md={5} xxl={5} className='p-6'>
+                                    <Form.Select
+                                        className='radiusnone darkAndLight mx-auto'
+                                        value={filterValues.inPrincipal}
+                                        onChange={handleChange}
+                                        id='inPrincipal'
+                                    >
+                                        <option value="" className='radiusnone'>Статус</option>
+                                        <option value="true" className='radiusnone'>В деканате</option>
+                                        <option value="false" className='radiusnone'>На руках</option>
+                                    </Form.Select>
+                                </Col>
+                                <Col xs={12} md={2} xxl={2} className='p-6' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                    <Button className="custom-button" onClick={() => setShowModal(true)}>+</Button>
+                                    <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Добавить ключ</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <Form>
+                                                <Form.Group>
+                                                    <Row>
+                                                        <Col>
+                                                            <Form.Label>Выберите тип ключа:</Form.Label>
+                                                        </Col>
+                                                        <Col className="d-flex justify-content-end">
+                                                            <Button className='mx-3' onClick={() => setMultipleAudience(false)} active={!multipleAudience}>Один</Button>{' '}
+                                                            <Button onClick={() => setMultipleAudience(true)} active={multipleAudience}>Несколько</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </Form.Group>
+                                                {multipleAudience ? (
+                                                    <Form.Group>
+                                                        <Form.Label>Диапазон аудиторий:</Form.Label>
+                                                        <Row>
+                                                            <Col>
+                                                                <Form.Control type="text" placeholder="Начало" value={createKey.startAudience} onChange={handleCreateKey} id='startAudience' />
+                                                            </Col>
+                                                            <Col>
+                                                                <Form.Control type="text" placeholder="Конец" value={createKey.endAudience} onChange={handleCreateKey} id='endAudience' />
+                                                            </Col>
+                                                        </Row>
+                                                    </Form.Group>
+                                                ) : (
+                                                    <Form.Group>
+                                                        <Form.Label>Номер аудитории:</Form.Label>
+                                                        <Form.Control type="text" placeholder="Номер аудитории" value={createKey.audience} onChange={handleCreateKey} id='audience' />
+                                                    </Form.Group>
+                                                )}
+                                            </Form>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={() => setShowModal(false)}>Отмена</Button>
+                                            <Button variant="primary" onClick={handleAddKey}>Добавить</Button>
+                                        </Modal.Footer>
+                                    </Modal>
+                                </Col>
+                            </Row>
+                        </Stack>
 
-                        </Col>
-                        <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='p-6' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                            <Button className="custom-button" onClick={() => setShowModal(true)}>+</Button>
-                            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Добавить ключ</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Form>
-                                        <Form.Group>
-                                            <Row>
-                                                <Col>
-                                                    <Form.Label>Выберите тип ключа:</Form.Label>
-                                                </Col>
-                                                <Col className="d-flex justify-content-end">
-                                                    <Button className='mx-3' onClick={() => setMultipleAudience(false)} active={!multipleAudience}>Один</Button>{' '}
-                                                    <Button onClick={() => setMultipleAudience(true)} active={multipleAudience}>Несколько</Button>
-                                                </Col>
-                                            </Row>
-                                        </Form.Group>
-                                        {multipleAudience ? (
-                                            <Form.Group>
-                                                <Form.Label>Диапазон аудиторий:</Form.Label>
-                                                <Row>
-                                                    <Col>
-                                                        <Form.Control type="text" placeholder="Начало" value={createKey.startAudience} onChange={handleCreateKey} id='startAudience' />
-                                                    </Col>
-                                                    <Col>
-                                                        <Form.Control type="text" placeholder="Конец" value={createKey.endAudience} onChange={handleCreateKey} id='endAudience' />
-                                                    </Col>
-                                                </Row>
-                                            </Form.Group>
-                                        ) : (
-                                            <Form.Group>
-                                                <Form.Label>Номер аудитории:</Form.Label>
-                                                <Form.Control type="text" placeholder="Номер аудитории" value={createKey.audience} onChange={handleCreateKey} id='audience' />
-                                            </Form.Group>
-                                        )}
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={() => setShowModal(false)}>Отмена</Button>
-                                    <Button variant="primary" onClick={handleAddKey}>Добавить</Button>
-                                </Modal.Footer>
-                            </Modal>
-                        </Col>
-                    </Row>
-                </Stack>
 
-                {keysData ? (
-                    keysData.map((key) => (
-                        <KeyCard
-                            auditory={key.auditory}
-                            isInPrincipalOffice={key.isInPrincipalOffice}
-                            id={key.id}
-                            handleParentChange={fetchingAgain}
-                        />
-                    ))
-                ) : (
-                    <p>Loading</p>
-                )}
+                        {keysData ? (
+                            keysData.map((key) => (
+                                <KeyCard
+                                    auditory={key.auditory}
+                                    isInPrincipalOffice={key.isInPrincipalOffice}
+                                    id={key.id}
+                                    handleParentChange={fetchingAgain}
+                                />
+                            ))
+                        ) : (
+                            <p>Loading</p>
+                        )}
+                    </Col>
+                </Row>
             </Container>
         </>
     );
