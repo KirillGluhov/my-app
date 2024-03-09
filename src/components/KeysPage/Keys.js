@@ -10,6 +10,7 @@ import KeysFilter from './KeysFilter';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { No } from '../No';
+import "../../styles/keys.css";
 
 function Keys(props) {
     const [keysData, handleKey] = useState([]);
@@ -177,11 +178,10 @@ function Keys(props) {
     return (
         <>
             <Header type="authorized" page={PageName.KEYS} />
-            <Container className='mt-5'>
-
-                <Stack className='darkblue border-radius-small mx-auto' style={{ width: "50%" }}>
+            <Container className='mt-5 min-width540'>
+                <Stack className='darkblue border-radius-small mx-auto main-stack'>
                     <Row className='mt-2 mx-1 mb-2'>
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={4} className='p-6'>
+                        <Col xs={5} sm={5} md={4} lg={4} xl={5} xxl={4} className='p-6'>
                             {/*<Form.Control
                                 placeholder="Аудитория"
                                 className='search verySmallRadius mx-auto'
@@ -200,7 +200,7 @@ function Keys(props) {
                                 <option value="AuditoryDesc" className='radiusnone'>По убыванию</option>
                             </Form.Select>
                         </Col>
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={3} className='p-6'>
+                        <Col xs={4} sm={4} md={3} lg={3} xl={3} xxl={3} className='p-6'>
                             <Form.Select
                                 className='radiusnone darkAndLight mx-auto'
                                 value={filterValues.inPrincipal}
@@ -212,10 +212,10 @@ function Keys(props) {
                                 <option value="false" className='radiusnone'>На руках</option>
                             </Form.Select>
                         </Col>
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} xxl={3} className='p-6'>
+                        <Col xs={1} sm={1} md={3} lg={3} xl={2} xxl={3} className='p-6'>
 
                         </Col>
-                        <Col xxl={2} xl={3} lg={3} md={4} sm={4} xs={4} className='p-6' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2} className='p-6' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                             <Button className="custom-button" onClick={() => setShowModal(true)}>+</Button>
                             <Modal show={showModal} onHide={() => setShowModal(false)}>
                                 <Modal.Header closeButton>
@@ -262,7 +262,6 @@ function Keys(props) {
                         </Col>
                     </Row>
                 </Stack>
-
                 {keysData ? (
                     keysData.map((key) => (
                         <KeyCard

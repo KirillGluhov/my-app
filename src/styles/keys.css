@@ -1,0 +1,23 @@
+.main-stack
+{
+    @media (min-width: 1400px)
+    {
+        width: 50%;
+    }
+
+    @media (min-width: 1200px)
+    {
+        width: 50%;
+    }
+
+    @media (min-width: 992px)
+    {
+        width: 70%;
+    }
+}
+
+.min-width540
+{
+    min-width: 540px;
+}
+
