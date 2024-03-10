@@ -1,7 +1,9 @@
 package com.example.keybooking
 
+import com.example.keybooking.data.dto.ConcreteKeyBookingInfo
 import com.example.keybooking.data.dto.LoginCredentials
 import com.example.keybooking.data.dto.UserRegister
+import com.example.keybooking.data.model.BookingInfo
 import com.example.keybooking.data.model.BookingKeyForUser
 import com.example.keybooking.data.model.KeysForUser
 import com.example.keybooking.data.model.Token
@@ -10,6 +12,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("api/auth/login")
@@ -19,5 +22,12 @@ interface ApiService {
 
     @GET("api/requests/GetUserRequests")
     fun getUserKeys(): Call<MutableList<BookingKeyForUser>>
+
+    @GET("api/keys/GetConcreteKeyBookingInfo")
+    fun getBookingInfo(
+        @Query("Period.Key") period : String,
+        @Query("Period.Value") value : String,
+        @Query("Auditory") aud : Int
+    ): Call<BookingInfo>
 
 }

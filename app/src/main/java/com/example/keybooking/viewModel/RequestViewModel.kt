@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keybooking.data.repository.RequestRepository
 import com.example.keybooking.data.Result
+import com.example.keybooking.data.dto.ConcreteKeyBookingInfo
+import com.example.keybooking.data.model.BookingInfo
 import com.example.keybooking.data.model.BookingKeyForUser
 import com.example.keybooking.data.model.KeysForUser
 import kotlinx.coroutines.launch
@@ -15,6 +17,11 @@ class RequestViewModel(val repository: RequestRepository) : ViewModel() {
     val _responseDataLiveData = MutableLiveData<MutableList<BookingKeyForUser>?>()
     val responseDataLiveData: LiveData<MutableList<BookingKeyForUser>?>
         get() = _responseDataLiveData
+
+
+    val _responseBookingInfoLiveData = MutableLiveData<BookingInfo?>()
+    val responseBookingInfoLifeData: LiveData<BookingInfo?>
+        get() = _responseBookingInfoLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -35,6 +42,22 @@ class RequestViewModel(val repository: RequestRepository) : ViewModel() {
                 }
                 is Result.Error -> {
                     println("ERROR " + result.message)
+                    _errorLiveData.postValue(result.message)
+                }
+                is Result.Unauthorized -> {
+                    _unauthorizedErrorLiveData.postValue(true)
+                }
+            }
+        }
+    }
+
+    fun getKeyBookingInfo(requestDto : ConcreteKeyBookingInfo) {
+        viewModelScope.launch {
+            when (val result = repository.getKeyBookingInfo(requestDto)) {
+                is Result.Success -> {
+                    _responseBookingInfoLiveData.postValue(result.data)
+                }
+                is Result.Error -> {
                     _errorLiveData.postValue(result.message)
                 }
                 is Result.Unauthorized -> {
