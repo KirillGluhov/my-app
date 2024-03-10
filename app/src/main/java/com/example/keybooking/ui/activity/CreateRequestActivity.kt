@@ -1,6 +1,7 @@
 package com.example.keybooking.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
@@ -25,6 +26,7 @@ class CreateRequestActivity : AbstractActivity() {
     lateinit var sunday : Date
     private val viewModel: RequestViewModel by viewModel()
     private val viewModelProfile: ProfileVM by viewModel()
+    var selectedBtn : AppCompatButton? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateRequestBinding.inflate(layoutInflater)
@@ -48,6 +50,9 @@ class CreateRequestActivity : AbstractActivity() {
                 selectedWeek -= 1
                 binding.dates.text = setWeekAndDates(selectedWeek, listOfDates)
                 sendRequest()
+                binding.createButton.alpha = 1f
+                binding.createButton.setEnable(true)
+                selectedBtn = null
             }
 
 
@@ -57,6 +62,9 @@ class CreateRequestActivity : AbstractActivity() {
             selectedWeek += 1
             binding.dates.text = setWeekAndDates(selectedWeek, listOfDates)
             sendRequest()
+            binding.createButton.alpha = 1f
+            binding.createButton.setEnable(true)
+            selectedBtn = null
         }
 
         binding.editTextAud.addTextChangedListener {
@@ -71,9 +79,20 @@ class CreateRequestActivity : AbstractActivity() {
             }
         }
 
-        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiI4NjRlNzY0NS00ZDAxLTRhMjQtYmQ2MC1iM2RlYzllZDMwMTYiLCJuYmYiOjE3MTAwNjMwNjQsImV4cCI6MTcxMDA2NjY2NCwiaWF0IjoxNzEwMDYzMDY0LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.Et_B9qhTwHOj4X1dXwFDnR8f2IsHa0giJk6XA5M1I64uCOI-yvf6IzrGdODBUwhQx5EmA0CSWUJlOarlmlu7QA"
-        )
-        //viewModel.getKeyBookingInfo(ConcreteKeyBookingInfo("10.07.2024", "10.13.2024", 1))
+        listOfDates.forEach {
+            it.buttonS8E10.setListener(it.buttonS8E10)
+            it.buttonS10E12.setListener(it.buttonS10E12)
+            it.buttonS12E14.setListener(it.buttonS12E14)
+            it.buttonS14E16.setListener(it.buttonS14E16)
+            it.buttonS16E18.setListener(it.buttonS16E18)
+            it.buttonS18E20.setListener(it.buttonS18E20)
+            it.buttonS20E21.setListener(it.buttonS20E21)
+        }
+
+        binding.createButton.alpha = 0.45f
+        binding.createButton.setEnable(false)
+
+        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiJjMjJlY2NiOC1hNTc5LTQwOGUtOWI4My02NmY3OWY1OGZmNzYiLCJuYmYiOjE3MTAwNjg0NzUsImV4cCI6MTcxMDA3MjA3NSwiaWF0IjoxNzEwMDY4NDc1LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.b-xnEo871E_j9ZjeG5DTnQkt3K_yPSOUdduWAQiooX8SlCD7vjLhl6wNCK6vZleJQqo_BcdF6bHLPEDlaHaXCg")
 
 
 
@@ -156,6 +175,19 @@ class CreateRequestActivity : AbstractActivity() {
         }
     }
 
+    private fun AppCompatButton.setListener(button : AppCompatButton) {
+        setOnClickListener {
+            setTimeSlotSelected()
+            if (selectedBtn != null) {
+                selectedBtn!!.setTimeSlotEnable()
+            }
+            selectedBtn = button
+            binding.createButton.alpha = 1f
+            binding.createButton.setEnable(true)
+
+        }
+    }
+
 
     private fun sendRequest() {
         val dateFormat = SimpleDateFormat("MM.dd.yyyy", Locale.getDefault())
@@ -214,5 +246,6 @@ class CreateRequestActivity : AbstractActivity() {
 
     private fun AppCompatButton.setTimeSlotSelected() {
         isEnabled = false
+        background = getDrawable(R.drawable.btn_timeslot_selected)
     }
 }
