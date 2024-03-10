@@ -20,11 +20,11 @@
                 android:text="@string/aud"
                 android:layout_marginBottom="@dimen/margin_field"/>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutLogin"
+                android:id="@+id/textInputLayoutAud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextLogin"
+                    android:id="@+id/editTextAud"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/aud_form_field"
@@ -35,7 +35,9 @@
         </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_small">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -103,19 +105,15 @@
                             layout="@layout/request_day"/>
                     </LinearLayout>
                 </HorizontalScrollView>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/regButton"
-                    android:layout_width="match_parent"
-                    android:text="@string/create_btn"
-                    android:fontFamily="@font/inter_bold"
-                    style="@style/Button.Secondary"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/note"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/note_back"
-                android:alpha="0">
+                android:alpha="1">
                 <TextView
+                    android:id="@+id/message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Text.create.note"
@@ -124,6 +122,12 @@
                     android:padding="@dimen/margin_huge"/>
             </LinearLayout>
         </FrameLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createButton"
+            android:layout_width="match_parent"
+            android:text="@string/create_btn"
+            android:fontFamily="@font/inter_bold"
+            style="@style/Button.Secondary"/>
 
     </LinearLayout>
 

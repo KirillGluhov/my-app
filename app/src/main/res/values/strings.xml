@@ -22,6 +22,7 @@
     <string name="aud">Аудитория</string>
     <string name="week">неделя</string>
     <string name="note">Выберите аудиторию, чтобы посмотреть доступное время</string>
+    <string name="aud_error">Такой аудитории не существует</string>
 
 
     <string name="S8E10">8:45–10:20</string>

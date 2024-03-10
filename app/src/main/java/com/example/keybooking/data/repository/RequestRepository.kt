@@ -49,6 +49,7 @@ class RequestRepository(private val apiService: ApiService) : Repository {
                     } else {
                         when (response.code()) {
                             401 -> continuation.resume(Result.Unauthorized)
+                            404 -> continuation.resume(Result.Error("404"))
                             else -> continuation.resume(Result.Error(response.errorBody()!!.string()))
                         }
                     }
