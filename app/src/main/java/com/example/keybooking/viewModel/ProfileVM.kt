@@ -9,6 +9,10 @@ import com.example.keybooking.data.room.entity.User
 import com.example.keybooking.data.model.Profile
 import com.example.keybooking.data.repository.TokenRepository
 import kotlinx.coroutines.launch
+import com.example.keybooking.data.Result
+import com.example.keybooking.data.dto.EditProfile
+import com.example.keybooking.data.model.toEntity
+
 
 class ProfileVM(private val repository: UserRepository, private val tokenRepository: TokenRepository) : ViewModel() {
     val _responseDataLiveData = MutableLiveData<Profile?>()
@@ -27,7 +31,7 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
     val unauthorizedErrorLiveData: LiveData<Boolean>
         get() = _unauthorizedErrorLiveData
 
-    /*
+
     fun profileData() {
         viewModelScope.launch {
             when (val result = repository.getUser()) {
@@ -64,12 +68,6 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
         }
     }
 
-     */
-
-    fun test() : String {
-        return "OK!"
-    }
-
     fun saveToken(accessToken: String) {
         viewModelScope.launch {
             tokenRepository.saveUserToken(accessToken)
@@ -78,7 +76,6 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
     }
 
     fun getToken(): String? {
-        //return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InFxcXFxcSIsImVtYWlsIjoic3RyaW5nIiwibmJmIjoxNzA0Nzk3OTYwLCJleHAiOjE3MDQ4MDE1NjAsImlhdCI6MTcwNDc5Nzk2MCwiaXNzIjoiaHR0cHM6Ly9yZWFjdC1taWR0ZXJtLmtyZW9zb2Z0LnNwYWNlLyIsImF1ZCI6Imh0dHBzOi8vcmVhY3QtbWlkdGVybS5rcmVvc29mdC5zcGFjZS8ifQ.vkLBXMEcGbgzWYAcx2bkjQvlBmNd9J_x0WsfiDM_Bm0"
         return tokenRepository.getUserToken()
     }
 
@@ -90,9 +87,5 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
 
     fun getCurrentUser() : User? {
         return repository.getUserById(1)
-    }
-
-    fun getCurrentUserId() : String? {
-        return repository.getUserIdById(1)
     }
 }

@@ -2,10 +2,15 @@ package com.example.keybooking.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.keybooking.R
 import com.example.keybooking.data.model.BookingKeyForUser
 import com.example.keybooking.databinding.ActivityMainBinding
+import com.example.keybooking.ui.fragment.ProfileFragment
 import com.example.keybooking.ui.holders.RequestData
 import com.example.keybooking.ui.holders.RequestsAdapter
 import com.example.keybooking.ui.holders.RequestsHolder
@@ -25,10 +30,19 @@ class MainActivity: AbstractActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.newButton.setOnClickListener {
+            val intent = Intent(this, CreateRequestActivity::class.java)
+            startActivity(intent)
+        }
 
-        //println("before")
+        binding.profileButton.setOnClickListener {
+            val dialogFragment = ProfileFragment()
+            dialogFragment.show(supportFragmentManager, "ProfileFragment")
+            binding.black.visibility = View.VISIBLE
+        }
 
-        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiI1YmMzM2QyMi03YTdhLTRhMzctOGY1My1hNzEzZjc4YWUyMjciLCJuYmYiOjE3MTAwNzM1MzgsImV4cCI6MTcxMDA3NzEzOCwiaWF0IjoxNzEwMDczNTM4LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.Cw_0HH0rAI7EyFQqcVjmYmuHWOgZi7DChNN8X5A6MNKMiQkqrxn5NIq31PaU2zMw9O-w7fTnNpuk7kNng8YtnQ")
+
+        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiIwMTdiZTVkYy1hZmYzLTQ2ZmUtYWZiYi1lOGZkYjMwYjYyYWEiLCJuYmYiOjE3MTAwNzg5NjksImV4cCI6MTcxMDA4MjU2OSwiaWF0IjoxNzEwMDc4OTY5LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.3u4bNokcBZtd4ZrGlzpLrX9jyChhg14dASadYWOUOXKQDnPHTXLU6G_Deg88vcuGoPSjGql6Rh7PAhpGX5xouA")
         viewModel.getUserKeys()
 
 

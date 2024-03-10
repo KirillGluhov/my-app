@@ -13,7 +13,4 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE id = :userId")
     fun getUserById(userId: Int): User?
-
-    @Query("SELECT user_id FROM user WHERE id = :userId")
-    fun getUserId(userId: Int): String?
 }

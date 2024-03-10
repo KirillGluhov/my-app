@@ -28,6 +28,7 @@
 
     <dimen name="base_button_radius">15dp</dimen>
     <dimen name="round_button_radius">50dp</dimen>
+    <dimen name="dialog_radius">20dp</dimen>
     <dimen name="base_field_radius">15dp</dimen>
     <dimen name="request_button_radius">10dp</dimen>
     <dimen name="square_radius">5dp</dimen>

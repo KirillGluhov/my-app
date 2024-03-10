@@ -11,7 +11,7 @@ import com.example.keybooking.data.room.entity.UserToken
     UserToken::class,
     User::class
     ],
-    version = 3,
+    version = 12,
     exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userTokenDao(): UserTokenDao

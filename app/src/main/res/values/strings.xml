@@ -38,5 +38,13 @@
 
     <string name="create_btn">Создать</string>
 
+    <string name="student">Студент</string>
+    <string name="teacher">Преподаватель</string>
+    <string name="principal">Деканат</string>
+    <string name="admin">Админ</string>
+
+    <string name="edit">Редактирование профиля</string>
+    <string name="save">Сохранить</string>
+
 
 </resources>

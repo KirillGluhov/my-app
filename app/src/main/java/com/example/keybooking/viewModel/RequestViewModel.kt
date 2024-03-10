@@ -39,14 +39,14 @@ class RequestViewModel(val repository: RequestRepository) : ViewModel() {
 
     fun getUserKeys() {
         viewModelScope.launch {
-            println("start view model")
+            //println("start view model")
             when (val result = repository.getUserKeyList()) {
                 is Result.Success -> {
-                    println("SUCCESS " + result.data)
+                    //println("SUCCESS " + result.data)
                     _responseDataLiveData.postValue(result.data)
                 }
                 is Result.Error -> {
-                    println("ERROR " + result.message)
+                    //println("ERROR " + result.message)
                     _errorLiveData.postValue(result.message)
                 }
                 is Result.Unauthorized -> {

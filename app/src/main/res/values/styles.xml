@@ -53,6 +53,14 @@
         <item name="android:textSize">@dimen/base_text</item>
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
+    <style name="Text.role" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textDarkBlue</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:background">@drawable/primary</item>
+        <item name="android:paddingHorizontal">@dimen/indent_standard</item>
+        <item name="android:paddingVertical">@dimen/margin_tiny</item>
+    </style>
     <style name="Button.Primary" parent="Widget.AppCompat.Button.Colored">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>

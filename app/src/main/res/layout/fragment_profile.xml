@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/indent_standard"
+    android:background="@drawable/dialog_back"
+    android:orientation="vertical"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/back_button"
+            android:drawableStart="@drawable/back"
+            android:background="@drawable/dialog_back"
+            style="@style/Button.Week"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/logout_button"
+            android:drawableStart="@drawable/logout"
+            android:background="@drawable/dialog_back"
+            style="@style/Button.Week"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/student"
+        style="@style/Text.role"
+        android:layout_marginBottom="@dimen/margin_tiny"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:fontFamily="@font/inter_bold"
+        style="@style/Text.casual"
+        android:layout_marginBottom="@dimen/margin_tiny"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_tiny">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/input_login"
+            android:layout_marginBottom="@dimen/input_margin"
+            style="@style/Text.casual"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="@dimen/mini_square_size"
+                android:layout_height="@dimen/mini_square_size"
+                android:background="@drawable/square"
+                android:gravity="center"
+                android:elevation="@dimen/shadow_distance"
+                android:outlineSpotShadowColor="@color/base_shadow">
+
+                <ImageView
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:src="@drawable/login" />
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/form_field"
+                    android:inputType="text"
+                    android:textColor="@color/textDarkBlue"
+                    android:textSize="@dimen/input_text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_tiny">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/input_password"
+            android:layout_marginBottom="@dimen/input_margin"
+            style="@style/Text.casual"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="@dimen/mini_square_size"
+                android:layout_height="@dimen/mini_square_size"
+                android:background="@drawable/square"
+                android:gravity="center"
+                android:elevation="@dimen/shadow_distance"
+                android:outlineSpotShadowColor="@color/base_shadow">
+
+                <ImageView
+                    android:layout_width="31dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/password" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/eye">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/input_text"
+                    app:passwordToggleEnabled="false"
+                    android:background="@drawable/form_field"
+                    android:textColor="@color/textDarkBlue" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_some_more_big">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/input_repeat_password"
+            android:layout_marginBottom="@dimen/input_margin"
+            style="@style/Text.casual"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="@dimen/mini_square_size"
+                android:layout_height="@dimen/mini_square_size"
+                android:background="@drawable/square"
+                android:gravity="center"
+                android:elevation="@dimen/shadow_distance"
+                android:outlineSpotShadowColor="@color/base_shadow">
+
+                <ImageView
+                    android:layout_width="31dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/password" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutRepeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/eye">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextRepeatPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/input_text"
+                    app:passwordToggleEnabled="false"
+                    android:background="@drawable/form_field"
+                    android:textColor="@color/textDarkBlue" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:text="@string/save"
+        android:fontFamily="@font/inter_semibold"
+        style="@style/Button.Secondary"/>
+
+</LinearLayout>

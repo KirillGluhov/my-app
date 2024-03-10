@@ -4,35 +4,16 @@ import com.example.keybooking.data.room.entity.User
 import com.example.keybooking.data.dto.EditProfile
 
 data class Profile(
-    val id: String,
-    val nickName: String,
-    val email: String,
-    val avatarLink: String?,
-    val name: String,
-    val birthDate: String,
-    val gender: Int
+    val fullName : String,
+    val email : String,
+    val userRole : String
 ) : Model
 
 fun Profile.toEntity(): User {
     return User(
-        user_id = id,
-        nickName = nickName,
+        fullName = fullName,
         email = email,
-        avatarLink = avatarLink,
-        name = name,
-        birthDate = birthDate,
-        gender = gender
+        userRole = userRole
     )
 }
 
-fun Profile.toDto(): EditProfile {
-    return EditProfile(
-        id = id,
-        nickName = nickName,
-        email = email,
-        avatarLink = avatarLink,
-        name = name,
-        birthDate = birthDate,
-        gender = gender
-    )
-}

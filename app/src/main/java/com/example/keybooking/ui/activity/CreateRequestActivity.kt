@@ -124,8 +124,7 @@ class CreateRequestActivity : AbstractActivity() {
         binding.createButton.alpha = 0.45f
         binding.createButton.setEnable(false)
 
-        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiJjMmU4Zjg0MC0xZmIyLTQwMmMtOGY4My01OWQyMGMxNzU1ZDIiLCJuYmYiOjE3MTAwNzIxMjAsImV4cCI6MTcxMDA3NTcyMCwiaWF0IjoxNzEwMDcyMTIwLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.-2ff7d3-m7ofbm8mdVaTrKR-lPHbX_2b4iVuZscqtGBQJX3-St3Ojrl23YaqhMcYxewndl5lC-SCffnpVHWYMQ"
-        )
+        //viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiJjMmU4Zjg0MC0xZmIyLTQwMmMtOGY4My01OWQyMGMxNzU1ZDIiLCJuYmYiOjE3MTAwNzIxMjAsImV4cCI6MTcxMDA3NTcyMCwiaWF0IjoxNzEwMDcyMTIwLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.-2ff7d3-m7ofbm8mdVaTrKR-lPHbX_2b4iVuZscqtGBQJX3-St3Ojrl23YaqhMcYxewndl5lC-SCffnpVHWYMQ")
 
         viewModel.responseBookingInfoLifeData.observe(this, Observer { responseData ->
             if (responseData != null) {

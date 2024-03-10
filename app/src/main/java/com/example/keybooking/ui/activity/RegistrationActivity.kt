@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.keybooking.R
 import com.example.keybooking.data.dto.UserRegister
 import com.example.keybooking.databinding.ActivityRegistrationBinding
+import com.example.keybooking.viewModel.ProfileVM
 import com.example.keybooking.viewModel.Register
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,6 +18,7 @@ class RegistrationActivity : AbstractActivity(){
 
     private lateinit var binding: ActivityRegistrationBinding
     private val viewModel: Register by viewModel()
+    private val viewModelProfile: ProfileVM by viewModel()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +73,12 @@ class RegistrationActivity : AbstractActivity(){
         }
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
-                //binding.error.text = "NOT ERROR $responseData"
+                viewModelProfile.profileData()
+            }
+        })
+
+        viewModelProfile.responseDataLiveData.observe(this, Observer { responseData ->
+            if (responseData != null) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
