@@ -1,10 +1,12 @@
-import { Col, Row, Stack, Form, Container, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Col, Row, Stack, Form, Container, Button, OverlayTrigger, Tooltip, InputGroup } from "react-bootstrap";
 import useInput from "../../hooks/use-input";
 import useValidation from "../../hooks/use-validation";
 import "../../styles/forms.css";
 import axios, * as others from 'axios';
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Forms(props) {
     const [values, setValues] = useState({
@@ -18,6 +20,11 @@ function Forms(props) {
     });
 
     const [confirmError, setConfirmError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -79,27 +86,33 @@ function Forms(props) {
                     </Stack>
                     <Stack className="border-darkblue minwidth-300">
                         <Col className="px-3 mt-3 mb-2" xxl={12} xl={12} lg={12} md={12} sm={12}>
-                                <Form.Control
-                                    placeholder="Email"
-                                    className="verySmallRadius"
-                                    id="email"
-                                    name="email"
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    onBlur={handleValidation}
-                                />
+                            <Form.Control
+                                placeholder="Email"
+                                className="verySmallRadius"
+                                id="email"
+                                name="email"
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleValidation}
+                            />
                             {errors.email && <Form.Text className="text-danger">Неверный формат Email</Form.Text>}
                         </Col>
                         <Col className="px-3 mt-3 mb-2" xxl={12} xl={12} lg={12} md={12} sm={12}>
+                            <InputGroup>
                                 <Form.Control
                                     placeholder="Пароль"
                                     className="verySmallRadius"
                                     id="password"
                                     name="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     value={values.password}
                                     onChange={handleChange}
                                     onBlur={handleValidation}
                                 />
+                                <InputGroup.Text onClick={() => setShowPassword(!showPassword)}>
+                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                </InputGroup.Text>
+                            </InputGroup>
                             {errors.password && <Form.Text className="text-danger">В пароле должна быть хотя бы одна цифра</Form.Text>}
                         </Col>
                         <Col className="px-3 mt-3 mb-3" xxl={12} xl={12} lg={12} md={12} sm={12}>

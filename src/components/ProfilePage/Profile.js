@@ -73,7 +73,7 @@ function Profile(props) {
                                 <Form.Group controlId='formPassword' className="mb-3 mx-3">
                                     <Form.Label>Пароль</Form.Label>
                                     <Form.Control
-                                        type='password'
+                                        type='text'
                                         placeholder='Введите ваш пароль'
                                         value={userPassword}
                                         onChange={(e) => setUserPassword(e.target.value)}
