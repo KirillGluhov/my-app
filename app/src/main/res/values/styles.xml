@@ -45,7 +45,7 @@
     <style name="Text.create.date" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/textDarkBlue</item>
         <item name="android:textSize">@dimen/base_text</item>
-        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_black</item>
     </style>
     <style name="Text.create.note" parent="TextAppearance.AppCompat">
         <item name="android:text">@string/note</item>
