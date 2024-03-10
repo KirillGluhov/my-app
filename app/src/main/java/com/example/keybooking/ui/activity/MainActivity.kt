@@ -25,76 +25,10 @@ class MainActivity: AbstractActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dataList = mutableListOf<RequestData>(
-            RequestData(
-                "12.11.24",
-                "12:25",
-                "14:00",
-                "302",
-                Status.ACCEPT
-            ),
-            RequestData(
-                "11.01.2024",
-                "18:25",
-                "20:00",
-                "233",
-                Status.WAIT
-            ),
-            RequestData(
-                "12.11.24",
-                "10:35",
-                "12:10",
-                "042",
-                Status.ACCEPT
-            ),
-            RequestData(
-                "12.11.24",
-                "12:25",
-                "14:00",
-                "302",
-                Status.ACCEPT
-            ),
-            RequestData(
-                "11.01.2024",
-                "18:25",
-                "20:00",
-                "233",
-                Status.WAIT
-            ),
-            RequestData(
-                "12.11.24",
-                "10:35",
-                "12:10",
-                "042",
-                Status.ACCEPT
-            ),
-            RequestData(
-                "12.11.24",
-                "12:25",
-                "14:00",
-                "302",
-                Status.ACCEPT
-            ),
-            RequestData(
-                "11.01.2024",
-                "18:25",
-                "20:00",
-                "233",
-                Status.WAIT
-            ),
-            RequestData(
-                "12.11.24",
-                "10:35",
-                "12:10",
-                "042",
-                Status.ACCEPT
-            ),
-        )
-
 
         //println("before")
 
-        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiJiYmJiYzlmZC1mMTgxLTRmZmItYjM2OS0wOGQ2ZTJmMTVjNTYiLCJuYmYiOjE3MDk5OTI5ODgsImV4cCI6MTcwOTk5NjU4OCwiaWF0IjoxNzA5OTkyOTg4LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.BsA3V-k_DwM-VmiCVzUH1es_vboAmzlA3eLi5wGzRSgHuWZnrLCczYJTFSPcFwGH-8JZwKXRejtPrGBJd1qvBA")
+        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiI1YmMzM2QyMi03YTdhLTRhMzctOGY1My1hNzEzZjc4YWUyMjciLCJuYmYiOjE3MTAwNzM1MzgsImV4cCI6MTcxMDA3NzEzOCwiaWF0IjoxNzEwMDczNTM4LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.Cw_0HH0rAI7EyFQqcVjmYmuHWOgZi7DChNN8X5A6MNKMiQkqrxn5NIq31PaU2zMw9O-w7fTnNpuk7kNng8YtnQ")
         viewModel.getUserKeys()
 
 
@@ -131,7 +65,8 @@ class MainActivity: AbstractActivity() {
                 getFirstTime(it.timeSlot),
                 getSecondTime(it.timeSlot),
                 it.key.auditory,
-                getStatus(it.requestStatus)
+                getStatus(it.requestStatus),
+                it.isRepetitive
                 ))
         }
         return dataList;

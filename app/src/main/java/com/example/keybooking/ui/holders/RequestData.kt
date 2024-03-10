@@ -5,5 +5,6 @@ data class RequestData(
     val firstTime: String,
     val secondTime: String,
     val aud: String?,
-    val status: Status
+    val status: Status,
+    val isRepetitive : Boolean
 )

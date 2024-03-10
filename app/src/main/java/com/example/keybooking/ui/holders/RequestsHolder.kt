@@ -1,6 +1,7 @@
 package com.example.keybooking.ui.holders
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.keybooking.R
@@ -24,6 +25,7 @@ class RequestsHolder(private val binding: RequestBinding) : RecyclerView.ViewHol
                 binding.status.setImageResource(R.drawable.request_wait)
             }
         }
+        binding.repeat.visibility = if (data.isRepetitive) View.VISIBLE else View.GONE
     }
 
     companion object {
