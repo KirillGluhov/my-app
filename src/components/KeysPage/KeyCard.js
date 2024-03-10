@@ -1,4 +1,4 @@
-import { Form, Row, Col, Stack, Button } from 'react-bootstrap';
+import { Form, Row, Col, Stack, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import "../../styles/requestcard.css";
 import { No } from '../No';
 import axios from 'axios';
@@ -6,13 +6,17 @@ import { useEffect, useState } from 'react';
 
 function KeyCard(keyData) {
     const [isInPrincipalOffice, setIsInPrincipalOffice] = useState(keyData.isInPrincipalOffice);
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const StatusText = ({ isInPrincipalOffice, handleChangeStatus }) => {
         const buttonText = isInPrincipalOffice ? "Выдать на руки" : "Вернуть в деканат";
 
         return (
             <div className="status">
-                <Button variant="primary" className="keyCard-button custom-button-shadow" onClick={handleStatus}>
+                <Button
+                    className="keyCard-button custom-button-shadow"
+                    onClick={handleStatus}
+                    >
                     {buttonText}
                 </Button>
             </div>
@@ -53,12 +57,39 @@ function KeyCard(keyData) {
                 keyData.handleParentChange();
             })
             .catch(error => {
-                console.error('Error:', error);
+                if (error.response.status === 400) {
+                    //setShowTooltip(true);
+                    setShowTooltip(true);
+                    setTimeout(() => {
+                        setShowTooltip(false);
+                    }, 3000);
+                } else {
+                    console.error('Error:', error);
+                }
             });
 
         console.log(keyData)
-        keyData.handleParentChange();
     };
+
+    const tooltip = (
+        <Tooltip
+            id="tooltip"
+            placement="top"
+            arrowSize={0}
+            border="none"
+            boxShadow="0 0 5px rgba(0, 0, 0, 0.2)"
+            maxWidth={200}
+            backgroundColor="#fff"
+            color="#000"
+            padding="10px"
+            style={{
+                borderRadius: "5px",
+                fontSize: "14px",
+                fontWeight: "bold",
+            }}>
+            <strong>Нельзя удалить ключ!</strong> Так как он уже занят.
+        </Tooltip>
+    );
 
     return (
         <Stack className='border-darkblue mx-auto'>
@@ -71,7 +102,33 @@ function KeyCard(keyData) {
                 </Col>
                 <Col xs={2} className='mb-3 p-0 d-flex justify-content-center'>
                     {/*<Button className='border-red border-2 rounded-0 d-flex' variant='secondary' style={{ width: '38px', background: "#F97D7D", borderColor: "#823333" }} onClick={handleDeleteKey}><No /></Button>*/}
-                    <Button className='border-red border-1 rounded-0 d-flex justify-content-center align-items-center' variant='secondary' style={{ width: '38px', background: "white", borderColor: "white" }} onClick={handleDeleteKey}><No /></Button>
+                    {showTooltip && (
+                        <OverlayTrigger
+                            placement="top"
+                            overlay={tooltip}
+                            delayShow={300}
+                            delayHide={150}
+                        >
+                            <Button
+                                className='border-red border-1 rounded-0 d-flex justify-content-center align-items-center'
+                                variant='secondary'
+                                style={{ width: '38px', background: "white", borderColor: "white" }}
+                                onClick={handleDeleteKey}
+                            >
+                                <No />
+                            </Button>
+                        </OverlayTrigger>
+                    )}
+                    {!showTooltip && (
+                        <Button
+                            className='border-red border-1 rounded-0 d-flex justify-content-center align-items-center'
+                            variant='secondary'
+                            style={{ width: '38px', background: "white", borderColor: "white" }}
+                            onClick={handleDeleteKey}
+                        >
+                            <No />
+                        </Button>
+                    )}
                 </Col>
             </Row>
         </Stack >
