@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/back_button"
             android:drawableStart="@drawable/back"
-            android:background="@drawable/dialog_back"
+            android:background="@color/mainDarkBlue"
             style="@style/Button.Week"/>
         <LinearLayout
             android:layout_width="0dp"
@@ -23,7 +23,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/logout_button"
             android:drawableStart="@drawable/logout"
-            android:background="@drawable/dialog_back"
+            android:background="@color/mainDarkBlue"
             style="@style/Button.Week"/>
     </LinearLayout>
     <TextView
@@ -181,6 +181,13 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/Text.casual"
+        android:visibility="gone"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveButton"
         android:text="@string/save"

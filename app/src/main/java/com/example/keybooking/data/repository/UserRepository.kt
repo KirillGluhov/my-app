@@ -42,6 +42,7 @@ class UserRepository(private val apiService: ApiService, private val dao: UserDa
         return suspendCoroutine { continuation ->
             call.enqueue(object : Callback<BaseResult> {
                 override fun onResponse(call: Call<BaseResult>, response: Response<BaseResult>) {
+                    println(response)
                     if (response.isSuccessful) {
                         continuation.resume(Result.Success())
                     } else {

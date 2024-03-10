@@ -38,7 +38,7 @@ class MainActivity: AbstractActivity() {
         binding.profileButton.setOnClickListener {
             val dialogFragment = ProfileFragment()
             dialogFragment.show(supportFragmentManager, "ProfileFragment")
-            binding.black.visibility = View.VISIBLE
+            //binding.black.visibility = View.VISIBLE
         }
 
 

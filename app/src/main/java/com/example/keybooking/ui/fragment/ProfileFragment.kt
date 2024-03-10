@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.example.keybooking.R
+import com.example.keybooking.data.dto.EditProfile
 import com.example.keybooking.databinding.FragmentProfileBinding
 import com.example.keybooking.viewModel.ProfileVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +36,16 @@ class ProfileFragment : DialogFragment() {
             dismiss()
         }
 
+        binding.saveButton.setOnClickListener {
+            if (checkPasswords()) {
+                binding.error.visibility = View.GONE
+                viewModel.profileUpdate(EditProfile(
+                    binding.editTextPassword.text.toString(),
+                    binding.editTextLogin.text.toString()
+                ))
+            }
+        }
+
 
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
@@ -56,9 +67,25 @@ class ProfileFragment : DialogFragment() {
             }
         })
 
+        viewModel.messageLiveData.observe(this, Observer { responseData ->
+            if (responseData != null) {
+                binding.error.visibility = View.VISIBLE
+                binding.error.text = "успешно"
+            }
+        })
+
 
 
         return binding.root
+    }
+
+    private fun checkPasswords() : Boolean {
+        if (binding.editTextPassword.text.toString() != binding.editTextRepeatPassword.text.toString()) {
+            binding.error.visibility = View.VISIBLE
+            binding.error.text = resources.getString(R.string.password_eq_error)
+            return false
+        }
+        return true
     }
 }
 
