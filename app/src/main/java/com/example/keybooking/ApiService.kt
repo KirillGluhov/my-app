@@ -1,6 +1,7 @@
 package com.example.keybooking
 
 import com.example.keybooking.data.dto.ConcreteKeyBookingInfo
+import com.example.keybooking.data.dto.CreateRequest
 import com.example.keybooking.data.dto.LoginCredentials
 import com.example.keybooking.data.dto.UserRegister
 import com.example.keybooking.data.model.BookingInfo
@@ -27,7 +28,10 @@ interface ApiService {
     fun getBookingInfo(
         @Query("Period.Key") period : String,
         @Query("Period.Value") value : String,
-        @Query("Auditory") aud : Int
+        @Query("Auditory") aud : String
     ): Call<BookingInfo>
+
+    @POST("/api/requests/CreateRequest")
+    fun postNewRequest(@Body request: CreateRequest): Call<String>
 
 }

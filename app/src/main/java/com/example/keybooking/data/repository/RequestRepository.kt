@@ -4,6 +4,7 @@ import com.example.keybooking.ApiService
 import com.example.keybooking.data.model.KeysForUser
 import com.example.keybooking.data.Result
 import com.example.keybooking.data.dto.ConcreteKeyBookingInfo
+import com.example.keybooking.data.dto.CreateRequest
 import com.example.keybooking.data.model.BookingInfo
 import com.example.keybooking.data.model.BookingKeyForUser
 import retrofit2.Call
@@ -55,6 +56,28 @@ class RequestRepository(private val apiService: ApiService) : Repository {
                     }
                 }
                 override fun onFailure(call: Call<BookingInfo>, t: Throwable) {
+                    continuation.resume(Result.Error(t.message ?: "Unknown error"))
+                }
+            })
+        }
+    }
+
+    suspend fun postCreateRequest(requestDto : CreateRequest) : Result<String> {
+        val call = apiService.postNewRequest(requestDto)
+        return suspendCoroutine { continuation ->
+            call.enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    println(response)
+                    if (response.isSuccessful) {
+                        continuation.resume(Result.Success(response.body()!!))
+                    } else {
+                        when (response.code()) {
+                            401 -> continuation.resume(Result.Unauthorized)
+                            else -> continuation.resume(Result.Error(response.errorBody()!!.string()))
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
                     continuation.resume(Result.Error(t.message ?: "Unknown error"))
                 }
             })

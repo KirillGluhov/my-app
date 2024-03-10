@@ -10,6 +10,24 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/back_button"
+                android:drawableStart="@drawable/back_dark"
+                style="@style/Button.Week"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/repeat"
+                android:background="@drawable/round_disable"
+                android:drawableStart="@drawable/repeat"
+                android:padding="@dimen/margin_tiny"
+                style="@style/Button.Week"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="@dimen/margin_small">
