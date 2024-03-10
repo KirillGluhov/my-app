@@ -27,6 +27,10 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
     val messageLiveData: LiveData<String?>
         get() = _messageLiveData
 
+    val _messageLogoutLiveData = MutableLiveData<String?>()
+    val messageLogoutLiveData: LiveData<String?>
+        get() = _messageLogoutLiveData
+
     private val _unauthorizedErrorLiveData = MutableLiveData<Boolean>()
     val unauthorizedErrorLiveData: LiveData<Boolean>
         get() = _unauthorizedErrorLiveData
@@ -56,6 +60,24 @@ class ProfileVM(private val repository: UserRepository, private val tokenReposit
                     //println("success")
                     profileData()
                     _messageLiveData.postValue("OK!!!")
+                }
+                is Result.Error -> {
+                    //println("error")
+                    _errorLiveData.postValue(result.message)
+                }
+                is Result.Unauthorized -> {
+                    _unauthorizedErrorLiveData.postValue(true)
+                }
+            }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            when (val result = repository.logout()) {
+                is Result.Success -> {
+                    //println("success")
+                    _messageLogoutLiveData.postValue("OK!!!")
                 }
                 is Result.Error -> {
                     //println("error")

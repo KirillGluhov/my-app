@@ -21,6 +21,7 @@ class UserRepository(private val apiService: ApiService, private val dao: UserDa
         return suspendCoroutine { continuation ->
             call.enqueue(object : Callback<Profile> {
                 override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                    println(response)
                     if (response.isSuccessful) {
                         continuation.resume(Result.Success(response.body()!!))
                     } else {
@@ -55,6 +56,28 @@ class UserRepository(private val apiService: ApiService, private val dao: UserDa
                     }
                 }
 
+                override fun onFailure(call: Call<BaseResult>, t: Throwable) {
+                    continuation.resume(Result.Error(t.message ?: "Unknown error"))
+                }
+            })
+        }
+    }
+
+    suspend fun logout(): Result<BaseResult> {
+        val call = apiService.logout()
+        return suspendCoroutine { continuation ->
+            call.enqueue(object : Callback<BaseResult> {
+                override fun onResponse(call: Call<BaseResult>, response: Response<BaseResult>) {
+                    println(response)
+                    if (response.isSuccessful) {
+                        continuation.resume(Result.Success(response.body()!!))
+                    } else {
+                        when (response.code()) {
+                            401 -> continuation.resume(Result.Unauthorized)
+                            else -> continuation.resume(Result.Error(response.errorBody()!!.string()))
+                        }
+                    }
+                }
                 override fun onFailure(call: Call<BaseResult>, t: Throwable) {
                     continuation.resume(Result.Error(t.message ?: "Unknown error"))
                 }

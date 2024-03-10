@@ -1,6 +1,7 @@
 package com.example.keybooking.ui.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.lifecycle.Observer
 import com.example.keybooking.R
 import com.example.keybooking.data.dto.EditProfile
 import com.example.keybooking.databinding.FragmentProfileBinding
+import com.example.keybooking.ui.activity.MainActivity
+import com.example.keybooking.ui.activity.StartActivity
 import com.example.keybooking.viewModel.ProfileVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,6 +49,10 @@ class ProfileFragment : DialogFragment() {
             }
         }
 
+        binding.logoutButton.setOnClickListener {
+            viewModel.logout()
+        }
+
 
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
@@ -71,6 +78,22 @@ class ProfileFragment : DialogFragment() {
             if (responseData != null) {
                 binding.error.visibility = View.VISIBLE
                 binding.error.text = "успешно"
+            }
+        })
+
+        viewModel.messageLogoutLiveData.observe(this, Observer { responseData ->
+            if (responseData != null) {
+                binding.error.visibility = View.VISIBLE
+                binding.error.text = "успешно"
+                val intent = Intent(context, StartActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+        viewModel.unauthorizedErrorLiveData.observe(this, Observer { responseData ->
+            if (responseData != null) {
+                val intent = Intent(context, StartActivity::class.java)
+                startActivity(intent)
             }
         })
 

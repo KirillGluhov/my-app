@@ -63,8 +63,9 @@ class MainActivity: AbstractActivity() {
         })
 
         viewModel.unauthorizedErrorLiveData.observe(this, Observer { responseData ->
-            if (responseData) {
-
+            if (responseData != null) {
+                val intent = Intent(this, StartActivity::class.java)
+                startActivity(intent)
             }
         })
 

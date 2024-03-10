@@ -44,4 +44,7 @@ interface ApiService {
     @PUT("api/account/profile")
     fun putDataProfile(@Body request: EditProfile): Call<BaseResult>
 
+    @POST("/api/auth/logout")
+    fun logout(): Call<BaseResult>
+
 }
