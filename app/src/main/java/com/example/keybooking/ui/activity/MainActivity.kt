@@ -42,12 +42,16 @@ class MainActivity: AbstractActivity(), RequestListener  {
             //binding.black.visibility = View.VISIBLE
         }
 
+        binding.update.setOnClickListener {
+            updateList()
+        }
+
         //adapter = RequestsAdapter(this, listOf(RequestData("id!!!","11.11.1111", "12:25", "14:00", "101", Status.WAIT, false, false, false)), this)
         //binding.recyclerView.layoutManager = LinearLayoutManager(this)
         //binding.recyclerView.adapter = adapter
 
 
-        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiIwMGY0MDg2YS01NDk2LTRjNTAtYTE0Zi1hM2FlYzM4YWJkMmYiLCJuYmYiOjE3MTAxMzk0NzAsImV4cCI6MTcxMDE0MzA3MCwiaWF0IjoxNzEwMTM5NDcwLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.BGCq_kMqLJrawf1Gb3RgvvTgjvAmD9l-G3uV6V7L20SPieOB81gwy27jjikuPWI0L0Clg7L5f3GM4pLXnoQ40w")
+        //viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiIwMGY0MDg2YS01NDk2LTRjNTAtYTE0Zi1hM2FlYzM4YWJkMmYiLCJuYmYiOjE3MTAxMzk0NzAsImV4cCI6MTcxMDE0MzA3MCwiaWF0IjoxNzEwMTM5NDcwLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.BGCq_kMqLJrawf1Gb3RgvvTgjvAmD9l-G3uV6V7L20SPieOB81gwy27jjikuPWI0L0Clg7L5f3GM4pLXnoQ40w")
         viewModel.getUserKeys()
 
 
@@ -115,5 +119,9 @@ class MainActivity: AbstractActivity(), RequestListener  {
     override fun showDialogFragment(data: RequestData) {
         val dialogFragment = RequestFragment.newInstance(data)
         dialogFragment.show(supportFragmentManager, "RequestFragment")
+    }
+
+    override fun updateList () {
+        viewModel.getUserKeys()
     }
 }

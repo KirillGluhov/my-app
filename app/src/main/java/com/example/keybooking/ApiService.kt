@@ -13,6 +13,7 @@ import com.example.keybooking.data.model.Profile
 import com.example.keybooking.data.model.Token
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 
 import retrofit2.http.POST
@@ -51,7 +52,7 @@ interface ApiService {
     @POST("/api/keys/ReturnKeyToPrincipal")
     fun returnKey(@Query("requestId") id : String): Call<BaseResult>
 
-    @POST("/api/requests/cancel/{requestId}")
+    @DELETE("/api/requests/cancel/{requestId}")
     fun delete(@Path("requestId") id : String): Call<Void>
 
     @POST("/api/auth/logout")

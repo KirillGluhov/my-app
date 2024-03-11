@@ -4,4 +4,5 @@ import com.example.keybooking.ui.holders.RequestData
 
 interface RequestListener {
     fun showDialogFragment(data : RequestData)
+    fun updateList()
 }

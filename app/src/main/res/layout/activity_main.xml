@@ -21,7 +21,14 @@
                     android:layout_height="wrap_content"
                     style="@style/Text.casual"
                     android:textColor="@color/black"
-                    android:text="@string/your_requests"/>
+                    android:text="@string/your_requests"
+                    android:layout_marginEnd="@dimen/margin_tiny"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/update"
+                    android:background="@drawable/round_disable"
+                    android:drawableStart="@drawable/update"
+                    android:padding="@dimen/margin_tiny"
+                    style="@style/Button.Week"/>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"

@@ -22,7 +22,7 @@ class SplashScreenActivity: AbstractActivity() {
         val currentUser =  viewModel.getCurrentUser()
         if (currentUser != null) {
             //println(viewModel.getToken())
-            //viewModel.profileData()
+            viewModel.profileData()
         }
         else {
             val intent = Intent(this, StartActivity::class.java)
@@ -33,8 +33,8 @@ class SplashScreenActivity: AbstractActivity() {
         viewModel.responseDataLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
                 println(responseData)
-                //val intent = Intent(this, MainScreenActivity::class.java)
-                //startActivity(intent)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
                 finish()
             }
             else {

@@ -135,6 +135,8 @@ class RequestRepository(private val apiService: ApiService) : Repository {
             call.enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     println(response)
+                    println(response.body())
+                    println(response.errorBody())
                     if (response.isSuccessful) {
                         continuation.resume(Result.Success(response.body()))
                     } else {

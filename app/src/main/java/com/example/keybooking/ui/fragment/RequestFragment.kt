@@ -1,5 +1,6 @@
 package com.example.keybooking.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.keybooking.R
 import com.example.keybooking.databinding.FragmentProfileBinding
 import com.example.keybooking.databinding.FragmentRequestBinding
 import com.example.keybooking.databinding.RequestBinding
+import com.example.keybooking.ui.activity.RequestListener
 import com.example.keybooking.ui.holders.RequestData
 import com.example.keybooking.ui.holders.Status
 import com.example.keybooking.viewModel.ProfileVM
@@ -24,11 +26,24 @@ class RequestFragment : DialogFragment() {
 
     private lateinit var binding: FragmentRequestBinding
     private val viewModel: RequestViewModel by viewModel()
+    private var listener: RequestListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is RequestListener) {
+            listener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     companion object {
@@ -106,6 +121,9 @@ class RequestFragment : DialogFragment() {
                 binding.error.text = "Заявка успешно удалена"
                 binding.returnButton.setEnable(false)
                 binding.confirmButton.setEnable(false)
+                listener?.updateList()
+                dismiss()
+
             }
         })
 
