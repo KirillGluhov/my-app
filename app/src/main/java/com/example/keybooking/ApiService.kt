@@ -17,6 +17,7 @@ import retrofit2.http.GET
 
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -43,6 +44,15 @@ interface ApiService {
 
     @PUT("api/account/profile")
     fun putDataProfile(@Body request: EditProfile): Call<BaseResult>
+
+    @POST("/api/keys/{requestId}/confirm")
+    fun confirm(@Path("requestId") id : String): Call<BaseResult>
+
+    @POST("/api/keys/ReturnKeyToPrincipal")
+    fun returnKey(@Query("requestId") id : String): Call<BaseResult>
+
+    @POST("/api/requests/cancel/{requestId}")
+    fun delete(@Path("requestId") id : String): Call<Void>
 
     @POST("/api/auth/logout")
     fun logout(): Call<BaseResult>

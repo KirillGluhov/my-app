@@ -8,6 +8,7 @@ import com.example.keybooking.data.repository.RequestRepository
 import com.example.keybooking.data.Result
 import com.example.keybooking.data.dto.ConcreteKeyBookingInfo
 import com.example.keybooking.data.dto.CreateRequest
+import com.example.keybooking.data.model.BaseResult
 import com.example.keybooking.data.model.BookingInfo
 import com.example.keybooking.data.model.BookingKeyForUser
 import com.example.keybooking.data.model.KeysForUser
@@ -35,6 +36,10 @@ class RequestViewModel(val repository: RequestRepository) : ViewModel() {
     private val _unauthorizedErrorLiveData = MutableLiveData<Boolean>()
     val unauthorizedErrorLiveData: LiveData<Boolean>
         get() = _unauthorizedErrorLiveData
+
+    val _responseRequestLiveData = MutableLiveData<BaseResult?>()
+    val responseRequestLifeData: LiveData<BaseResult?>
+        get() = _responseRequestLiveData
 
 
     fun getUserKeys() {
@@ -77,6 +82,56 @@ class RequestViewModel(val repository: RequestRepository) : ViewModel() {
             when (val result = repository.postCreateRequest(requestDto)) {
                 is Result.Success -> {
                     _responseCreateLiveData.postValue(result.data)
+                }
+                is Result.Error -> {
+                    _errorLiveData.postValue(result.message)
+                }
+                is Result.Unauthorized -> {
+                    _unauthorizedErrorLiveData.postValue(true)
+                }
+            }
+        }
+    }
+
+    fun confirmKey(requestId : String) {
+        viewModelScope.launch {
+            when (val result = repository.confirmKey(requestId)) {
+                is Result.Success -> {
+                    _responseRequestLiveData.postValue(result.data)
+                }
+                is Result.Error -> {
+                    _errorLiveData.postValue(result.message)
+                }
+                is Result.Unauthorized -> {
+                    _unauthorizedErrorLiveData.postValue(true)
+                }
+            }
+        }
+
+    }
+
+    fun returnKey(requestId : String) {
+        viewModelScope.launch {
+            when (val result = repository.returnKey(requestId)) {
+                is Result.Success -> {
+                    _responseRequestLiveData.postValue(result.data)
+                }
+                is Result.Error -> {
+                    _errorLiveData.postValue(result.message)
+                }
+                is Result.Unauthorized -> {
+                    _unauthorizedErrorLiveData.postValue(true)
+                }
+            }
+        }
+
+    }
+
+    fun deleteRequest(requestId : String) {
+        viewModelScope.launch {
+            when (val result = repository.deleteRequest(requestId)) {
+                is Result.Success -> {
+                    _responseCreateLiveData.postValue("DELETE SUCCESSFUL")
                 }
                 is Result.Error -> {
                     _errorLiveData.postValue(result.message)

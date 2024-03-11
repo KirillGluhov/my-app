@@ -53,6 +53,16 @@
         <item name="android:textSize">@dimen/base_text</item>
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
+    <style name="Text.request" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/base_text</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+    </style>
+    <style name="Text.request.number" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/button_text</item>
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
     <style name="Text.role" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/textDarkBlue</item>
         <item name="android:textSize">@dimen/base_text</item>

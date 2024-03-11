@@ -46,5 +46,10 @@
     <string name="edit">Редактирование профиля</string>
     <string name="save">Сохранить</string>
 
+    <string name="request">ЗАЯВКА</string>
+
+    <string name="request_return">Вернуть ключ в деканат</string>
+    <string name="request_confirm">Подтвердить получение ключа</string>
+
 
 </resources>

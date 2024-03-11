@@ -179,6 +179,8 @@ class CreateRequestActivity : AbstractActivity() {
         viewModel.responseCreateLifeData.observe(this, Observer { responseData ->
             if (responseData != null) {
                 println(responseData)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         })
 
@@ -190,7 +192,7 @@ class CreateRequestActivity : AbstractActivity() {
                     binding.message.text = resources.getString(R.string.aud_error)
                 }
                 else {
-                    binding.message.text = responseData
+                    binding.message.text = "Что-то пошло не так"
                 }
 
             }

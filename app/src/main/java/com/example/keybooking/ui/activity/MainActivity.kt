@@ -11,6 +11,7 @@ import com.example.keybooking.R
 import com.example.keybooking.data.model.BookingKeyForUser
 import com.example.keybooking.databinding.ActivityMainBinding
 import com.example.keybooking.ui.fragment.ProfileFragment
+import com.example.keybooking.ui.fragment.RequestFragment
 import com.example.keybooking.ui.holders.RequestData
 import com.example.keybooking.ui.holders.RequestsAdapter
 import com.example.keybooking.ui.holders.RequestsHolder
@@ -20,7 +21,7 @@ import com.example.keybooking.viewModel.ProfileVM
 import com.example.keybooking.viewModel.RequestViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity: AbstractActivity() {
+class MainActivity: AbstractActivity(), RequestListener  {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: RequestsAdapter
     private val viewModel: RequestViewModel by viewModel()
@@ -41,8 +42,12 @@ class MainActivity: AbstractActivity() {
             //binding.black.visibility = View.VISIBLE
         }
 
+        //adapter = RequestsAdapter(this, listOf(RequestData("id!!!","11.11.1111", "12:25", "14:00", "101", Status.WAIT, false, false, false)), this)
+        //binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        //binding.recyclerView.adapter = adapter
 
-        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiIwMTdiZTVkYy1hZmYzLTQ2ZmUtYWZiYi1lOGZkYjMwYjYyYWEiLCJuYmYiOjE3MTAwNzg5NjksImV4cCI6MTcxMDA4MjU2OSwiaWF0IjoxNzEwMDc4OTY5LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.3u4bNokcBZtd4ZrGlzpLrX9jyChhg14dASadYWOUOXKQDnPHTXLU6G_Deg88vcuGoPSjGql6Rh7PAhpGX5xouA")
+
+        viewModelProfile.saveToken("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmtpbmEuc29ueWFAeWEucnUiLCJVc2VyUm9sZSI6IlN0dWRlbnQiLCJqdGkiOiIwMGY0MDg2YS01NDk2LTRjNTAtYTE0Zi1hM2FlYzM4YWJkMmYiLCJuYmYiOjE3MTAxMzk0NzAsImV4cCI6MTcxMDE0MzA3MCwiaWF0IjoxNzEwMTM5NDcwLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.BGCq_kMqLJrawf1Gb3RgvvTgjvAmD9l-G3uV6V7L20SPieOB81gwy27jjikuPWI0L0Clg7L5f3GM4pLXnoQ40w")
         viewModel.getUserKeys()
 
 
@@ -50,7 +55,7 @@ class MainActivity: AbstractActivity() {
             if (responseData != null) {
                 println("not error" + responseData)
 
-                adapter = RequestsAdapter(this, requestsToData(responseData))
+                adapter = RequestsAdapter(this, requestsToData(responseData), this)
                 binding.recyclerView.layoutManager = LinearLayoutManager(this)
                 binding.recyclerView.adapter = adapter
             }
@@ -64,8 +69,8 @@ class MainActivity: AbstractActivity() {
 
         viewModel.unauthorizedErrorLiveData.observe(this, Observer { responseData ->
             if (responseData != null) {
-                val intent = Intent(this, StartActivity::class.java)
-                startActivity(intent)
+                //val intent = Intent(this, StartActivity::class.java)
+                //startActivity(intent)
             }
         })
 
@@ -76,12 +81,15 @@ class MainActivity: AbstractActivity() {
         val dataList = mutableListOf<RequestData>()
         keys.forEach {
             dataList.add(RequestData(
+                it.requestId,
                 it.bookingDate,
                 getFirstTime(it.timeSlot),
                 getSecondTime(it.timeSlot),
                 it.key.auditory,
                 getStatus(it.requestStatus),
-                it.isRepetitive
+                it.isRepetitive,
+                it.isKeyRecieved,
+                it.isKeyReturned
                 ))
         }
         return dataList;
@@ -102,5 +110,10 @@ class MainActivity: AbstractActivity() {
             "Declined" -> Status.REJECT
             else -> Status.WAIT
         }
+    }
+
+    override fun showDialogFragment(data: RequestData) {
+        val dialogFragment = RequestFragment.newInstance(data)
+        dialogFragment.show(supportFragmentManager, "RequestFragment")
     }
 }
